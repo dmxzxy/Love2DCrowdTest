@@ -15,7 +15,6 @@ local function sqr(num)
   return num*num;
 end
 
-
 local function integrate(ag, dt)
   local maxAcceleration = ag.maxAcceleration;
   local maxDelta = maxAcceleration * dt;
@@ -144,7 +143,6 @@ function BattleCrowd.getActiveAgents(crowd, agents, maxAgents)
   return n;
 end
 
-
 function BattleCrowd.update(crowd, dt)
   local agents = crowd.activeAgents;
   local nagents = BattleCrowd.getActiveAgents(crowd, agents, crowd.maxAgents);
@@ -177,7 +175,6 @@ function BattleCrowd.update(crowd, dt)
       ag.dvel = dvel;
     end
   end
-
 
   for i = 1, nagents do
     local ag = agents[i];
