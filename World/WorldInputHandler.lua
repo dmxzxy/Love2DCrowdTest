@@ -30,10 +30,12 @@ function WorldInputHandler.mousepressed(x, y, button, istouch)
     param.radius = 4;--math.random(2, 3);
     param.maxSpeed = 50;
     param.mass = 1;
+    param.superMass = 0;
     else
     param.radius = 16;--math.random(2, 3);
     param.maxSpeed = 50;
     param.mass = 10;
+    param.superMass = 1;
     end
     
     BattleCrowd.addAgent(crowd, Vector2.new(x,y), param);

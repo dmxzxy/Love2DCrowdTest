@@ -14,6 +14,8 @@ function BattleAgent.new()
     maxSpeed = 1.0,
     maxAcceleration = 1000.0,
     
+    superMass = 0,
+    
     disp = Vector2.new(0,0),
     dvel = Vector2.new(0,0),
     nvel = Vector2.new(0,0),

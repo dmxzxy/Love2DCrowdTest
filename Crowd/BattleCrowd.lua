@@ -108,6 +108,7 @@ function BattleCrowd.updateAgentParam(crowd, idx, param)
   agent.mass = param.mass;
   agent.radius = param.radius;
   agent.maxSpeed = param.maxSpeed;
+  agent.superMass = param.superMass;
 end
 
 function BattleCrowd.getAgent(crowd, idx)
@@ -141,6 +142,20 @@ function BattleCrowd.getActiveAgents(crowd, agents, maxAgents)
     end
   end
   return n;
+end
+
+local function checkMass(ag, nag)
+  if ag.superMass == 1 and nag.superMass == 1 then
+    return nag.mass/(ag.mass + nag.mass);
+  end
+  if ag.superMass == 1 then
+    return 0;
+  end
+  if nag.superMass == 1 then
+    return 1;
+  end
+  
+  return nag.mass/(ag.mass + nag.mass);
 end
 
 function BattleCrowd.update(crowd, dt)
@@ -211,7 +226,7 @@ function BattleCrowd.update(crowd, dt)
             end
             pen = 0.01;
           else
-            local massWight = nag.mass/(ag.mass + nag.mass);
+            local massWight = checkMass(ag, nag);
             pen = (1.0/dist) * (pen*massWight) * 0.7;
           end
           Vector2.copy(ag.disp, Vector2.add(ag.disp, Vector2.mul(diff,pen)));
