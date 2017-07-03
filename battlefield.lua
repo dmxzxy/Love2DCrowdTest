@@ -8,6 +8,19 @@ function battlefield.new(width, height, gridsize)
   local rowCount = height/gridsize;
   local colCount = width/gridsize;
   local gridlist = {};
+  
+  local map = {};
+  for c = 1, colCount do
+    map[c] = {};
+    for r = 1, rowCount do
+      local value = 1;
+      if (rand01() < 0.75) then
+        value = 0;
+      end
+      map[c][r] = value;
+    end
+  end
+  
   local newfield = {
     rowCount = rowCount,
     colCount = colCount,
@@ -15,21 +28,18 @@ function battlefield.new(width, height, gridsize)
     height = height,
     gridsize = gridsize,
     gridlist = gridlist,
+    map = map,
     nborGrids = {},
   };
-
+  
   for r = 1, rowCount do
     for c = 1, colCount do
       local index = (r-1) * colCount + (c-1);
-      local value = 1;
-      if (rand01() < 0.75) then
-        value = 0;
-      end
       gridlist[index] = {
         index = index,
         rIndex = r,
         cIndex = c,
-        value = value,
+        value = map[c][r],
         center = Vector2.new((c-1)*gridsize + gridsize/2, (r-1)*gridsize + gridsize/2),
       };
     end
