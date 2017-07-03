@@ -49,7 +49,7 @@ function love.load()
 
   local grid = Grid(kBattleField.map)
   local walkable = function(v) return v~=1 end
-  kFinder = PF(grid, 'THETASTAR', walkable)
+  kFinder = PF(grid, 'ASTAR', walkable)
   kFinder:annotateGrid()
 end
 
@@ -131,6 +131,7 @@ local lastSY = nil;
 local lastEX = nil;
 local lastEY = nil;
 local finderIndex = 1;
+local PathSmooth = require("Common.PathSmooth");
 
 function love.mousepressed(x, y, button, istouch)
   WorldInputHandler.mousepressed(x,y,button,istouch);
@@ -153,6 +154,8 @@ function love.mousepressed(x, y, button, istouch)
       kFinder:setFinder(finderNames[finderIndex]);
 
       local path = kFinder:getPath(sx, sy, ex, ey, 1);
+      path = PathSmooth(kFinder, path);
+      path:filter();
       currentPath = path;
       beginPoint = nil;
       lastSX = sx;
@@ -168,18 +171,29 @@ function love.keypressed(key)
   Prof:keypressed(key)
 end
 
+local smooth = true;
+
 function love.keyreleased( key, scancode )
-  if key == 'f' then
-    local time = os.clock();
+  if key == 'n' then
     local finderNames = PF:getFinders();
     finderIndex = finderIndex + 1;
     if finderIndex > #finderNames then
       finderIndex = 1;
     end
     kFinder:setFinder(finderNames[finderIndex])
+  end
+  if key == 'f' then
+    local time = os.clock();
     local n = 1;
     for i = 1, n do
       local path = kFinder:getPath(lastSX, lastSY, lastEX, lastEY, 1);
+      if smooth then
+      path = PathSmooth(kFinder, path);
+      path:filter();
+      smooth = false;
+      else
+      smooth = true;
+      end
       currentPath = path;
     end
     lastFindPathTime = (os.clock()-time)/n;

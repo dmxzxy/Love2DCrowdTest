@@ -168,21 +168,20 @@ end
 
 local function smoothPath(finder, path)
   local function isCollision(c, r)
-    local index = (r-1) * kBattleField.colCount + (c-1)
-    if kBattleField.gridlist[index].value > 0 then return true end
-
-    return false
+    return finder._grid:isWalkableAt(c, r, finder._walkable);
   end
 
-  local num_pts = #path;
+  local num_pts = #path._nodes
   for i = 1, num_pts do
     while true do
       -- Check to see if we can go straight from pt i to pt i + 2.
       local j = i + 2
-      if j > #path then break end
-      local isOk = path_is_ok(path[i].cIndex, path[i].rIndex, path[j].cIndex, path[j].rIndex, isCollision);
+      if j > #path._nodes then break end
+      local posx1, posy1 = path._nodes[i]:getPos();
+      local posx2, posy2 = path._nodes[j]:getPos();
+      local isOk = path_is_ok(posx1, posy1, posx2, posy2, isCollision);
       if isOk then
-        table.remove(path, j-1);
+        table.remove(path._nodes, j-1);
       else
         break
       end
@@ -192,5 +191,5 @@ local function smoothPath(finder, path)
 end
 
 return function(finder, path)
-  smoothPath(finder, path);
+  return smoothPath(finder, path);
 end
