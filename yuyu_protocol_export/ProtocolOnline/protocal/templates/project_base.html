@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+						{% if cur_project %}
+						<a href="{% url 'project_help' cur_project.id %}">
+						    {{ cur_project.title }}
+						</a>
+						{% endif %}
+                    </a>
+                </li>
+                
+                <!-- 所有协议 -->
+                <li>
+                    <a href="{% url 'project_detail' cur_project.id %}">
+                    {% if not cur_module %}
+                    {% if not show_custom_types %}
+                    =>
+                    {% endif %}
+                    {% endif %}
+                    所有协议
+                    </a>
+                </li>
+
+				{% for module in modules %}
+				<li><a href="{% url 'module_detail' module.id %}">
+				{% if cur_module.id == module.id %}
+                =>
+                {% endif %}
+				
+				{{ module.name }}
+				
+				</a></li>
+				{% endfor %}
+                
+				<li><p/></li>
+				<li>
+                    <button id="create_module" class="btn btn-success btn-large btn-block">新增模块</button>
+					<button id="export_project" class="btn btn-primary btn-large btn-block">导出项目</button>
+					<button id="export_gameconfig" class="btn btn-primary btn-large btn-block">导出配置</button>
+					<!-- <button id="download_project" class="btn btn-primary btn-large btn-block">下载协议</button> -->
+					<button id="admin_system" class="btn btn-danger btn-large btn-block">系统管理</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+            	
+                <div class="row">
+                    <div class="col-lg-12">
+            	        {% block project_content %}{% endblock project_content %}
+                    </div>
+                </div>
+            </div>
+            
+            
+			{% if cur_module %}
+			{# include "protocal_new_dialog.html" #} 
+			{% endif %}
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+	
+	<script>
+		$(document).ready(function() {
+		});
+	
+	</script>
+
+
+
+{% endblock %}

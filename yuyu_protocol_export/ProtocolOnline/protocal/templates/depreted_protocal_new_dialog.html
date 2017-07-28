@@ -1,0 +1,140 @@
+<div id="protocal_new_dialog" title = "创建新协议">
+
+<form class="form-horizontal">
+
+	<div id="results" class="alert alert-danger" role="alert"></div>
+
+    <fieldset>
+    
+   <div class="control-group">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">协议ID</label>
+      <div class="controls">
+        <input id="field_protocal_id" type="text" placeholder="" class="form-control">
+        <p class="help-block">协议的ID，作为收发包处理的逻辑id，注意不要重复。</p>
+      </div>
+    </div>    
+    
+    <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">协议名称</label>
+          <div class="controls">
+            <input id="field_protocal_name" type="text" placeholder="eg.BattleResultRequest" class="form-control">
+            <p class="help-block">输入协议的名称，使用英文，注意，这是在代码中使用的。
+            所以建议统一使用Pascal格式：首字母大写。
+            另外，比如请求，一般是Request结尾，比如回复，一般是Response结尾，比如通知，一般是Notify结尾。
+            </p>
+          </div>
+        </div>
+    
+    
+    <div class="row">
+    
+	<div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">协议类型</label>
+      <div class="controls">
+        <select id="field_protocal_type" class="selectpicker">
+        	{% for protocal_type in protocal_types %}
+  			<option value="{{ protocal_type.id }}">{{ protocal_type.name }}</option>
+  			{% endif %}
+		</select>
+      </div>
+    </div>   
+    
+    <div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">协议绑定</label>
+      <div class="controls">
+        <select id="field_protocal_relate_protocal_id" class="selectpicker">
+  			<option>Mustard</option>
+  			<option>Ketchup</option>
+  			<option>Relish</option>
+		</select>
+        
+      </div>
+    </div>   
+    
+    </div>
+
+    <div class="control-group">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">协议描述</label>
+      <div class="controls">
+        <input id="field_protocal_desc" type="text" placeholder="" class="form-control">
+        <p class="help-block">协议的描述，主要是协议用来干嘛。比如说获取战斗结果，获取背包列表等。</p>
+      </div>
+    </div>
+
+	
+	{% csrf_token %} 
+    </fieldset>
+  </form>
+
+</div>
+
+<script>
+	$(document).ready(function() {
+		var dialog_name = "#protocal_new_dialog";
+		
+		$(dialog_name).dialog({
+		    modal: true,
+		    autoOpen: false,
+		    width: "568px",
+   			maxWidth: "90%"
+		});
+		
+		$("#create_protocal").click(function(e) {
+
+		    e.preventDefault();
+		    
+		    var result_box = $(dialog_name + ' #results');
+		    
+		    result_box.hide();
+		    
+		    //var id = $(this).attr('id');
+
+		    $(dialog_name).dialog('option', 'buttons', {
+		        "创建": function() {
+		        	// 打包数据
+		    		var pack_data = {};
+		    		pack_data.protocal_name = $('#field_protocal_name').val();
+		    		pack_data.protocal_desc = $('#field_protocal_desc').val();
+
+		        	$.ajaxSetup({
+					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+					});
+		        
+		            $.post({
+		                url: '{% url 'protocal_create' cur_module.id %}',
+		                data: pack_data,
+		                success: function() {
+		                   $(dialog_name).dialog("close");
+		                   
+		                   location.reload();
+		                },
+				        error : function(xhr,errmsg,err) {
+				            var resp = xhr.responseText.split("TRACEBACK");
+				            console.log(xhr.status + ": " + resp[1]); 
+				            BootstrapDialog.alert({
+    				            title:'ERROR',
+    				            message:resp[0],
+    				            type: BootstrapDialog.TYPE_DANGER,
+    				        });
+				            
+				        }
+		            });
+		            
+		        },
+		        "取消": function() {
+		            $(this).dialog("close");
+		        }
+		    });
+		    $(dialog_name).dialog("open");
+		    return false;
+		});
+		
+		
+	});
+	
+</script>	

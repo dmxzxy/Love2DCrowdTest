@@ -1,0 +1,114 @@
+	
+<div id="custom_type_new_dialog" >
+
+<form class="form-horizontal">
+
+	<div id="results" class="alert alert-danger" role="alert"></div>
+
+    <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">自定义类型名称</label>
+          <div class="controls">
+            <input id="field_custom_type_name" type="text" placeholder="eg.BattleRoundData" class="form-control"
+            value="{% if cur_custom_type %}{{ cur_custom_type.name }} {% endif %}" >
+            <p class="help-block">输入自定义类型的名称，使用英文，注意，这是在代码中使用的。
+            所以建议统一使用Pascal格式：首字母大写。
+            </p>
+          </div>
+        </div>
+    
+    <div class="control-group">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">自定义类型描述</label>
+      <div class="controls">
+        <input id="field_custom_type_desc" type="text" placeholder="" class="form-control"
+        value="{% if cur_custom_type %}{{ cur_custom_type.desc }} {% endif %}" >
+        <p class="help-block">自定义类型的描述，主要是该自定义类型用来干嘛。</p>
+      </div>
+    </div>
+    
+    <hr>
+
+    <div class="control-group text-center">
+    	<!-- <span class="col-sm-3"></span> -->
+		<button id="do_create_custom_type" class="btn btn-success btn-large btn_120px">
+		
+		{% if cur_custom_type %}
+		更新
+		{% else %}
+		添加
+		{% endif %}
+		</button>
+<!-- 		<span class="col-sm-2"></span>
+		<a href="{% url 'custom_types_detail' cur_project.id %}" class="btn btn-danger btn-large col-sm-2">取消</a>
+		<span class="col-sm-3"></span> -->
+    </div>
+
+	
+	{% csrf_token %} 
+    </fieldset>
+  </form>
+
+<div class="row">
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</div>
+</div>
+	
+	<script>
+		$(document).ready(function() {
+			$('.selectpicker').selectpicker('render');
+
+			
+			var dialog_name = "#custom_type_new_dialog";
+		
+			var result_box = $(dialog_name + ' #results');
+		    
+		    result_box.hide();
+		    
+			$("#do_create_custom_type").click(function(e) {
+
+		    	e.preventDefault();
+		    	
+		    	{% if cur_custom_type %}
+		    	var cur_url = '{% url 'custom_type_edit' cur_custom_type.id %}';
+		    	{% else %}
+		    	var cur_url = '{% url 'custom_type_create' cur_project.id %}';
+		    	{% endif %}
+		    	
+
+		    	// 打包数据
+		    		var pack_data = {};
+		    		pack_data.custom_type_name = $('#field_custom_type_name').val();
+		    		pack_data.custom_type_desc = $('#field_custom_type_desc').val();
+
+		        	$.ajaxSetup({
+					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+					});
+		        
+		            $.post({
+		                url: cur_url,
+		                data: pack_data,
+		                success: function() {
+
+		                   location.replace("{% url 'custom_types_detail' cur_project.id %}");
+		                },
+				        error : function(xhr,errmsg,err) {
+				            
+				        	var resp = xhr.responseText.split("TRACEBACK");
+				            console.log(xhr.status + ": " + resp[1]); 
+				            BootstrapDialog.alert({
+    				            title:'ERROR',
+    				            message:resp[0],
+    				            type: BootstrapDialog.TYPE_DANGER,
+    				        });
+				            
+				        }
+		            });
+		    return false;
+		});
+	});
+	
+	</script>

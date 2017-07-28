@@ -1,0 +1,192 @@
+{% extends "project_base.html" %}
+{% block project_content %}
+	<h1>
+	{% if cur_module %}
+		{{ cur_module.name }}
+	{% else %}
+		所有协议
+	{% endif %}    
+	</h1>
+	
+<div id="protocal_new_dialog" title = "创建新协议">
+
+<form class="form-horizontal">
+
+	<div id="results" class="alert alert-danger" role="alert"></div>
+
+    <fieldset>
+    
+   <div class="control-group">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">协议ID</label>
+      <div class="controls">
+        <input id="field_protocal_id" type="number" placeholder="1001" class="form-control" 
+        value={% if cur_protocal %}{{ cur_protocal.protocal_id }} {% endif %} >
+        <p class="help-block">协议的ID，作为收发包处理的逻辑id，注意不要重复。</p>
+      </div>
+    </div>    
+    
+    <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">协议名称</label>
+          <div class="controls">
+            <input id="field_protocal_name" type="text" placeholder="eg.BattleResultRequest" class="form-control"
+            value="{% if cur_protocal %}{{ cur_protocal.name }} {% endif %}" >
+            <p class="help-block">输入协议的名称，使用英文，注意，这是在代码中使用的。
+            所以建议统一使用Pascal格式：首字母大写。
+            另外，比如请求，一般是Request结尾，比如回复，一般是Response结尾，比如通知，一般是Notify结尾。
+            </p>
+          </div>
+        </div>
+    
+    
+    <div class="row">
+    
+	<div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">协议类型</label>
+      <div class="controls">
+        <select id="field_protocal_type_id" class="selectpicker">
+        	{% for protocal_type in protocal_types %}
+        	{% if cur_protocal.type.id == protocal_type.id %}
+        	<option value="{{ protocal_type.id }}" selected="selected">{{ protocal_type.name }}</option>
+        	{% else %}
+        	<option value="{{ protocal_type.id }}">{{ protocal_type.name }}</option>
+        	{% endif %}
+  			
+  			{% endfor %}
+		</select>
+      </div>
+    </div>   
+    
+    <div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">相关协议</label>
+      <div class="controls">
+     		 {% if cur_protocal.relate_protocal %}
+				<select id="field_protocal_relate_protocal_id" class="selectpicker"  >
+  					{% for relate_protocal in relate_protocals %}
+  					<option value="{{ relate_protocal.id }}">{{ relate_protocal.name }}</option>
+  					{% endfor %}
+  					<option value="0">无相关协议</option>
+  					<option value="{{ cur_protocal.relate_protocal.id }}" selected="selected">{{ cur_protocal.relate_protocal.name }}</option>
+				</select>
+        	{% else %}
+        		<select id="field_protocal_relate_protocal_id" class="selectpicker" title="选择相关协议.." >
+  					{% for relate_protocal in relate_protocals %}
+  					<option value="{{ relate_protocal.id }}" >{{ relate_protocal.name }}</option>
+  					{% endfor %}
+				</select>
+        	{% endif %}
+
+        
+      </div>
+    </div>   
+    
+    </div>
+
+    <div class="control-group">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">协议描述</label>
+      <div class="controls">
+        <input id="field_protocal_desc" type="text" placeholder="" class="form-control"
+        value="{% if cur_protocal %}{{ cur_protocal.desc }} {% endif %}" >
+        <p class="help-block">协议的描述，主要是协议用来干嘛。比如说获取战斗结果，获取背包列表等。</p>
+      </div>
+    </div>
+    
+    <hr>
+
+    <div class="control-group">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">协议路由</label>
+      <div class="controls">
+        <input id="field_protocal_route" type="text" placeholder="" class="form-control"
+        value="{% if cur_protocal %}{{ cur_protocal.route }} {% endif %}" >
+        <p class="help-block">协议的路由，服务器处理用</p>
+      </div>
+    </div>
+    
+    <hr>
+
+    <div class="control-group text-center">
+    	<span class="col-sm-3"></span>
+		<button id="create_protocal" class="btn btn-success btn-large col-sm-2">
+		
+		{% if cur_protocal %}
+		更新协议
+		{% else %}
+		添加协议
+		{% endif %}
+		</button>
+		<span class="col-sm-2"></span>
+		<a href="{% url 'module_detail' cur_module.id %}" id="export_project" class="btn btn-danger btn-large col-sm-2">取消</a>
+		<span class="col-sm-3"></span>
+    </div>
+
+	
+	{% csrf_token %} 
+    </fieldset>
+  </form>
+
+</div>
+	
+	<script>
+		$(document).ready(function() {
+			var dialog_name = "#protocal_new_dialog";
+		
+			var result_box = $(dialog_name + ' #results');
+		    
+		    result_box.hide();
+		    
+			$("#create_protocal").click(function(e) {
+
+		    	e.preventDefault();
+		    	
+		    	{% if cur_protocal %}
+		    	var cur_url = '{% url 'protocal_edit' cur_protocal.id %}';
+		    	{% else %}
+		    	var cur_url = '{% url 'protocal_create' cur_module.id %}';
+		    	{% endif %}
+		    	
+
+		    	// 打包数据
+		    		var pack_data = {};
+		    		pack_data.protocal_name = $('#field_protocal_name').val();
+		    		pack_data.protocal_desc = $('#field_protocal_desc').val();
+		    		pack_data.protocal_route = $('#field_protocal_route').val();
+		    		pack_data.protocal_id = $('#field_protocal_id').val();
+		    		pack_data.protocal_type_id = $('#field_protocal_type_id').val();
+		    		pack_data.protocal_relate_protocal_id = $('#field_protocal_relate_protocal_id').val();
+
+		        	$.ajaxSetup({
+					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+					});
+		        
+		            $.post({
+		                url: cur_url,
+		                data: pack_data,
+		                success: function() {
+
+		                   location.replace("{% url 'module_detail' cur_module.id %}");
+		                },
+				        error : function(xhr,errmsg,err) {
+				            
+				            var resp = xhr.responseText.split("TRACEBACK");
+				            console.log(xhr.status + ": " + resp[1]); 
+				            BootstrapDialog.alert({
+    				            title:'ERROR',
+    				            message:resp[0],
+    				            type: BootstrapDialog.TYPE_DANGER,
+    				        });
+				        }
+		            });
+		    return false;
+		});
+	});
+	
+	</script>
+
+
+
+{% endblock %}

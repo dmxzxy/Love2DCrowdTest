@@ -1,0 +1,62 @@
+{% load segtype %}
+
+<div>
+{{ cur_custom_type.name }}
+</div>
+
+<hr/>
+<div>
+{{ cur_custom_type.desc }}
+</div>
+<div>
+<table id="segment_lists" class="table table-hover">
+	<caption>字段</caption>
+<!--    <thead>
+      <tr>
+         <th>种类</th>
+         <th>类型</th>
+         <th>名字</th>
+         <th>描述</th>
+      </tr>
+   </thead> -->
+   <tbody>
+   	  {% for segment in segments %}
+      <tr data-toggle="{{ segment.desc }}" >
+      	<td class="show_segment_tooltips_class">{{ forloop.counter }}</td>
+         <td class="show_segment_tooltips_type">{{ segment.protocal_type }}</td>
+         <td class="show_segment_tooltips_class">
+         	{{ segment|segtype|safe }}
+         </td>
+         <td class="show_segment_tooltips_name">{{ segment.name }}</td>
+         <td class="show_segment_tooltips_name">{{ segment.desc }}</td>
+      </tr>
+	  {% endfor %}
+   </tbody>
+</table>
+
+</div>
+
+
+<script>
+$(document).ready(function() {
+	
+	$(".show_segment_class_detail").unbind('click').click(function(e) {
+		e.preventDefault();
+		
+		var custom_type_id = $(this).attr('id');
+		var parent_url = '{% url 'custom_type_detail_by_segment_parent' %}';
+		var url = parent_url + custom_type_id;
+		var dtitle = "自定义类型-" + $(this).attr('title');
+		console.log(url)
+ 		BootstrapDialog.show({
+ 			 title:dtitle,
+		     message: $('<div></div>').load(url)
+		 }); 
+		
+
+		return false;
+	});
+});
+
+        
+</script>      

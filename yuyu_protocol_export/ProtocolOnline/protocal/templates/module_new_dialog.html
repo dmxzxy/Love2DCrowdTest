@@ -1,0 +1,101 @@
+<div id="module_new_dialog" title = "创建新模块">
+
+<form class="form-horizontal">
+
+	<div id="results" class="alert alert-danger" role="alert"></div>
+
+    <fieldset>
+
+    
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">模块名称</label>
+          <div class="controls">
+            <input id="field_module_name" type="text" placeholder="eg.战斗" class="form-control">
+            <p class="help-block">输入模块的名称，使用中文</p>
+          </div>
+        </div>
+
+    <div class="control-group">
+
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">模块描述</label>
+      <div class="controls">
+        <input id="field_module_desc" type="text" placeholder="xx相关的协议" class="form-control">
+        <p class="help-block">模块的描述，不能为空。想偷懒就直接写比如：战斗相关的协议</p>
+      </div>
+    </div>
+
+	
+	{% csrf_token %} 
+    </fieldset>
+  </form>
+
+</div>
+
+<script>
+	$(document).ready(function() {
+		var dialog_name = "#module_new_dialog";
+		
+		$(dialog_name).dialog({
+		    modal: true,
+		    autoOpen: false,
+		    width: "568px",
+   			maxWidth: "90%"
+		});
+		
+		$("#create_module").click(function(e) {
+
+		    e.preventDefault();
+		    
+		    var result_box = $(dialog_name + ' #results');
+		    
+		    result_box.hide();
+		    
+		    //var id = $(this).attr('id');
+
+		    $(dialog_name).dialog('option', 'buttons', {
+		        "创建": function() {
+		        	// 打包数据
+		    		var pack_data = {};
+		    		pack_data.module_name = $('#field_module_name').val();
+		    		pack_data.module_desc = $('#field_module_desc').val();
+
+		        	$.ajaxSetup({
+					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+					});
+		        
+		            $.post({
+		                url: '{% url 'module_create' cur_project.id %}',
+		                data: pack_data,
+		                success: function() {
+		                   $(dialog_name).dialog("close");
+		                   
+		                   location.reload();
+		                },
+				        error : function(xhr,errmsg,err) {
+				            var resp = xhr.responseText.split("TRACEBACK");
+				            console.log(xhr.status + ": " + resp[1]); 
+				            BootstrapDialog.alert({
+    				            title:'ERROR',
+    				            message:resp[0],
+    				            type: BootstrapDialog.TYPE_DANGER,
+    				        });
+				            
+				        }
+		            });
+		            
+		        },
+		        "取消": function() {
+		            $(this).dialog("close");
+		        }
+		    });
+		    $(dialog_name).dialog("open");
+		    return false;
+		});
+		
+		
+	});
+	
+</script>	

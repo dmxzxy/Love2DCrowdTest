@@ -1,0 +1,101 @@
+<div id="project_new_dialog" title = "创建新项目">
+
+<form class="form-horizontal">
+
+	<div id="results" class="alert alert-danger" role="alert"></div>
+
+    <fieldset>
+
+    
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">项目名称</label>
+          <div class="controls">
+            <input id="field_project_name" type="text" placeholder="eg.Project X" class="form-control">
+            <p class="help-block">输入项目的名称，使用中文</p>
+          </div>
+        </div>
+
+    <div class="control-group">
+
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">命名空间</label>
+      <div class="controls">
+        <input id="field_project_namespace" type="text" placeholder="com.dena.fg" class="form-control">
+        <p class="help-block">项目的命名空间，所有的proto以此为基准</p>
+      </div>
+    </div>
+
+	
+	{% csrf_token %} 
+    </fieldset>
+  </form>
+
+</div>
+
+<script>
+	$(document).ready(function() {
+		var dialog_name = "#project_new_dialog";
+		
+		$(dialog_name).dialog({
+		    modal: true,
+		    autoOpen: false,
+		    width: "568px",
+   			maxWidth: "90%"
+		});
+		
+		$("#create_project").click(function(e) {
+
+		    e.preventDefault();
+		    
+		    var result_box = $(dialog_name + ' #results');
+		    
+		    result_box.hide();
+		    
+		    //var id = $(this).attr('id');
+
+		    $(dialog_name).dialog('option', 'buttons', {
+		        "创建": function() {
+		        	// 打包数据
+		    		var pack_data = {};
+		    		pack_data.project_name = $('#field_project_name').val();
+		    		pack_data.project_namespace = $('#field_project_namespace').val();
+
+		        	$.ajaxSetup({
+					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+					});
+		        
+		            $.post({
+		                url: '{% url 'project_create' %}',
+		                data: pack_data,
+		                success: function() {
+		                   $(dialog_name).dialog("close");
+		                   
+		                   location.reload();
+		                },
+				        error : function(xhr,errmsg,err) {
+							var resp = xhr.responseText.split("TRACEBACK");
+				            console.log(xhr.status + ": " + resp[1]); 
+				            BootstrapDialog.alert({
+				            	title:'ERROR',
+				            	message:resp[0],
+				            	type: BootstrapDialog.TYPE_DANGER,
+				            });
+				            
+				        }
+		            });
+		            
+		        },
+		        "取消": function() {
+		            $(this).dialog("close");
+		        }
+		    });
+		    $(dialog_name).dialog("open");
+		    return false;
+		});
+		
+		
+	});
+	
+</script>	

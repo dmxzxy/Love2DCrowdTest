@@ -1,0 +1,22 @@
+{% extends "project_base.html" %}
+{% block project_content %}
+	<h1>
+	自定义类型
+	</h1>
+	
+	<div class="pinned text-right">
+		<button class="button button-raised button-primary button-pill create_custom_type" val="{{ cur_project.id }}">新增类型</button>
+	</div>
+	
+	{% include "custom_type_lists.html" %} 
+	
+	<script>
+		$(document).ready(function() {
+			$(".pinned").pin();
+		});
+	
+	</script>
+
+
+
+{% endblock %}

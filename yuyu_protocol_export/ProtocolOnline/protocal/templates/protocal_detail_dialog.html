@@ -1,0 +1,64 @@
+{% load segtype %}
+<div>
+<div><strong class="col-md-2">ID</strong><span>{{ cur_protocal.protocal_id }}</span></div>
+<div><strong class="col-md-2">协议</strong><span>{{ cur_protocal.name }}</span></div>
+<div><strong class="col-md-2">模块</strong><span>{{ cur_protocal.module.name }}</span></div>
+<div><strong class="col-md-2">类型 </strong><span>{{ cur_protocal.type }}</span></div>
+{% if cur_protocal.relate_protocal %}
+<div><strong><span class="col-md-2">相关协议 </strong><span><a class="show_relate_protocal_detail">{{ cur_protocal.relate_protocal.name }}</a></span></div>
+{% endif %}
+<div><strong class="col-md-2">协议路由</strong><span>{{ cur_protocal.route }}</span></div>
+<div><strong class="col-md-2">描述 </strong><span>{{ cur_protocal.desc }}</span></div>
+</div>
+
+<hr/>
+<div>
+<table id="segment_lists" class="table table-hover">
+	<caption>协议字段</caption>
+<!--    <thead>
+      <tr>
+         <th>种类</th>
+         <th>类型</th>
+         <th>名字</th>
+         <th>描述</th>
+      </tr>
+   </thead> -->
+   <tbody>
+   	  {% for segment in segments %}
+      <tr data-toggle="{{ segment.desc }}" >
+         <td>{{ forloop.counter }}</td>
+         <td class="show_segment_tooltips_class">{{ segment.protocal_type }}</td>
+         <td class="show_segment_tooltips_type">
+         {{ segment|segtype|safe }}
+         </td>
+         <td class="show_segment_tooltips_name">{{ segment.name }}</td>
+         <td class="show_segment_tooltips_name">{{ segment.desc }}</td>
+      </tr>
+	  {% endfor %}
+   </tbody>
+</table>
+
+</div>
+
+<script>
+$(document).ready(function() {
+	$(".show_relate_protocal_detail").unbind('click').click(function(e) {
+		e.preventDefault();
+		
+		var protocal_id = $(this).parent().attr('id');
+		var parent_url = '{% url 'protocal_detail_parent' %}';
+		var url = parent_url + protocal_id;
+		var dtitle = "协议-" + $(this).parent().attr('title');
+		console.log(url)
+ 		BootstrapDialog.show({
+ 			 title:dtitle,
+		     message: $('<div></div>').load(url)
+		 }); 
+		
+
+		return false;
+	});
+});
+
+        
+</script>       

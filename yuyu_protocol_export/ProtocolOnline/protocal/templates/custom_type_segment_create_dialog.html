@@ -1,0 +1,208 @@
+	
+<div id="segment_new_dialog" title = "创建新字段">
+
+<form class="form-horizontal">
+
+	<div id="results" class="alert alert-danger" role="alert"></div>
+
+    
+    
+    <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">字段名称</label>
+          <div class="controls">
+            <input id="field_segment_name" type="text" placeholder="eg.result_id" class="form-control"
+            value="{% if cur_segment %}{{ cur_segment.name }} {% endif %}" >
+            <p class="help-block">输入字段的名称，使用英文，注意，这是在代码中使用的。
+            所以建议统一使用Pascal格式：首字母大写。
+            </p>
+          </div>
+        </div>
+    
+    
+    <div class="row">
+    
+	<div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">字段属性</label>
+      <div class="controls">
+        <select id="field_segment_protocal_type_id" class="selectpicker">
+        	{% for segment_proto_type in segment_proto_types %}
+        	{% if cur_segment.protocal_type.id == segment_proto_type.id %}
+        	<option value="{{ segment_proto_type.id }}" selected="selected">{{ segment_proto_type.name }}</option>
+        	{% else %}
+        	<option value="{{ segment_proto_type.id }}">{{ segment_proto_type.name }}</option>
+        	{% endif %}
+  			
+  			{% endfor %}
+		</select>
+      </div>
+    </div>   
+    
+	<div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">字段类型</label>
+      <div class="controls">
+        <select id="field_segment_type_id" class="selectpicker">
+        	{% for segment_type in segment_types %}
+        	{% if cur_segment.type.id == segment_type.id %}
+        	<option value="{{ segment_type.id }}" selected="selected">{{ segment_type.name }}</option>
+        	{% else %}
+        	<option value="{{ segment_type.id }}">{{ segment_type.name }}</option>
+        	{% endif %}
+  			
+  			{% endfor %}
+		</select>
+      </div>
+    </div>  
+    </div><!-- row -->
+
+	<div id="extra_type" class="row">
+	<div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">字段类型</label>
+      <div class="controls">
+        <select id="field_segment_type_id_extra_1" class="selectpicker">
+        	{% for segment_type in segment_types %}
+        	{% if segment_type.name != 'map' %}
+	        	{% if cur_segment.extra_type1 and cur_segment.extra_type1.id == segment_type.id %}
+	        	<option value="{{ segment_type.id }}" selected="selected">{{ segment_type.name }}</option>
+	        	{% else %}
+	        	<option value="{{ segment_type.id }}">{{ segment_type.name }}</option>
+	        	{% endif %}
+        	{% endif %}
+  			{% endfor %}
+		</select>
+      </div>
+    </div>  
+	<div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">字段类型</label>
+      <div class="controls">
+        <select id="field_segment_type_id_extra_2" class="selectpicker">
+        	{% for segment_type in segment_types %}
+        	{% if segment_type.name != 'map' %}
+	        	{% if cur_segment.extra_type2 and cur_segment.extra_type2.id == segment_type.id %}
+	        	<option value="{{ segment_type.id }}" selected="selected">{{ segment_type.name }}</option>
+	        	{% else %}
+	        	<option value="{{ segment_type.id }}">{{ segment_type.name }}</option>
+	        	{% endif %}
+        	{% endif %}
+  			
+  			{% endfor %}
+		</select>
+      </div>
+    </div>  
+    </div><!-- row -->
+
+    <div class="control-group">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">字段描述</label>
+      <div class="controls">
+        <input id="field_segment_desc" type="text" placeholder="" class="form-control"
+        value="{% if cur_segment %}{{ cur_segment.desc }} {% endif %}" >
+        <p class="help-block">字段的描述，主要是字段用来干嘛。</p>
+      </div>
+    </div>
+    
+    <hr>
+
+    <div class="control-group text-center">
+    	<!-- <span class="col-sm-3"></span> -->
+		<button id="do_create_segment" class="btn btn-success btn-large btn_120px">
+		
+		{% if cur_segment %}
+		更新
+		{% else %}
+		添加
+		{% endif %}
+		</button>
+    </div>
+
+	
+	{% csrf_token %} 
+    </fieldset>
+  </form>
+
+<div class="row">
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</div>
+</div>
+	
+	<script>
+		$(document).ready(function() {
+			$('.selectpicker').selectpicker('render');
+
+			var type_name = $('#field_segment_type_id').find("option:selected").text();
+			if(type_name =='map'){
+				$('#extra_type').show();
+			}else{
+				$('#extra_type').hide();
+			}
+			
+			$('#field_segment_type_id').on('changed.bs.select', function (e) {
+				type_name = $('#field_segment_type_id').find("option:selected").text();
+				if(type_name =='map'){
+					$('#extra_type').show();
+				}else{
+					$('#extra_type').hide();
+				}
+			});
+			
+			var dialog_name = "#segment_new_dialog";
+		
+			var result_box = $(dialog_name + ' #results');
+		    
+		    result_box.hide();
+		    
+			$("#do_create_segment").click(function(e) {
+
+		    	e.preventDefault();
+		    	
+		    	{% if cur_segment %}
+		    	var cur_url = '{% url 'custom_type_segment_edit' cur_segment.id %}';
+		    	{% else %}
+		    	var cur_url = '{% url 'custom_type_segment_create' cur_custom_type.id %}';
+		    	{% endif %}
+		    	
+
+		    	// 打包数据
+		    		var pack_data = {};
+		    		pack_data.segment_name = $('#field_segment_name').val();
+		    		pack_data.segment_desc = $('#field_segment_desc').val();
+		    		pack_data.segment_id = $('#field_segment_id').val();
+		    		pack_data.segment_type_id = $('#field_segment_type_id').val();
+		    		pack_data.segment_extra_type1_id = $('#field_segment_type_id_extra_1').val();
+		    		pack_data.segment_extra_type2_id = $('#field_segment_type_id_extra_2').val();
+		    		pack_data.segment_protocal_type_id = $('#field_segment_protocal_type_id').val();
+
+		        	$.ajaxSetup({
+					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+					});
+		        
+		            $.post({
+		                url: cur_url,
+		                data: pack_data,
+		                success: function() {
+
+		                   location.replace("{% url 'custom_type_segments_detail' cur_custom_type.id %}");
+		                },
+				        error : function(xhr,errmsg,err) {
+				            
+				            var resp = xhr.responseText.split("TRACEBACK");
+				            console.log(xhr.status + ": " + resp[1]); 
+				            BootstrapDialog.alert({
+				            	title:'ERROR',
+				            	message:resp[0],
+				            	type: BootstrapDialog.TYPE_DANGER,
+				            });
+				        }
+		            });
+		    return false;
+		});
+	});
+	
+	</script>

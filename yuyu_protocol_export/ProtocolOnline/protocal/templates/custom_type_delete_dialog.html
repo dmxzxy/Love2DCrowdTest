@@ -1,0 +1,70 @@
+<div id="custom_type_delete_dialog" title = "删除协议">
+
+<p>确认删除协议 <strong> </strong> 吗？</p>
+
+</div>
+
+<script>
+	$(document).ready(function() {
+		var dialog_name = "#custom_type_delete_dialog";
+		
+		$(dialog_name).dialog({
+		    modal: true,
+		    autoOpen: false,
+		    width: "568px",
+   			maxWidth: "90%"
+		});
+		
+		$("button#delete_custom_type").click(function(e) {
+		    e.preventDefault();
+		    
+		    var custom_type_id = $(this).attr('val');
+		    var custom_type_name = $(this).attr('name');
+		    console.log(custom_type_name);
+		    $(dialog_name + ' strong').html(custom_type_name);
+
+		    $(dialog_name).dialog('option', 'buttons', {
+		        "确认": function() {
+		        	// 打包数据
+		    		var pack_data = {};
+		    		pack_data.custom_type_id = custom_type_id;
+
+		        	$.ajaxSetup({
+					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+					});
+		        
+		            $.post({
+		                url: '{% url 'custom_type_delete' %}',
+		                data: pack_data,
+		                success: function() {
+		                   $(dialog_name).dialog("close");
+		                   
+		                   location.reload();
+		                },
+				        error : function(xhr,errmsg,err) {
+
+				            var resp = xhr.responseText.split("TRACEBACK");
+				            console.log(xhr.status + ": " + resp[1]); 
+				            BootstrapDialog.alert({
+    				            title:'ERROR',
+    				            message:resp[0],
+    				            type: BootstrapDialog.TYPE_DANGER,
+    				        });
+							
+				            
+				        }
+		            });
+		            
+		        },
+		        "取消": function() {
+		            $(this).dialog("close");
+		        }
+		    });
+		    $(dialog_name).dialog("open");
+		    return false;
+		});
+		
+		
+	});
+	
+</script>	

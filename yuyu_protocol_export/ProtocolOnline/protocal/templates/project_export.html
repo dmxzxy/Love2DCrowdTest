@@ -1,0 +1,160 @@
+{% extends "project_base.html" %}
+{% block project_content %}
+	<h1>
+	导出项目-{{ cur_project.title }}
+	</h1>
+	
+	<div id="project_new_dialog" title = "导出项目">
+
+	<form class="form-horizontal">
+	    <fieldset>
+	    <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">导出版本</label>
+          <div class="controls">
+            <input id="field_export_version" type="text" placeholder="" class="form-control" value='{{ sugget_version }}'>
+            <p class="help-block">项目的导出版本，建议使用时间戳</p>
+          </div>
+        </div>
+        
+        <div class='row'>
+	        <div class='col-md-4'>
+		        <div class="control-group">
+		          <!-- Text input-->
+		          <label class="control-label padding_4px" for="field_export_force">强制导出</label>
+		          <div class="controls">
+					    <input id='field_export_force' type="checkbox" class="switch switch-large"/>
+					    <p class="help-block">当有其他用户正在执行导出时，系统会默认阻止其他人执行导出。但是如果确认系统存在错误，致使状态无法恢复，那么可以使用强制导出。</p>
+		          </div>
+		        </div>
+	        </div>
+	        <div class='col-md-4'>
+		        <div class="control-group">
+		          <!-- Text input-->
+		          <label class="control-label padding_4px" for="field_export_force">清理废弃协议</label>
+		          <div class="controls">
+					    <input id=field_export_clean type="checkbox" class="switch switch-large"/>
+					    <p class="help-block">当因为协议名字变动之后，执行导出时，有可能之前的协议并没有被删除，但是他们已经没有作用了。通过勾选该选项，导出时系统会执行清理。</p>
+		          </div>
+		        </div>
+	        </div>
+	        <div class='col-md-4'>
+		        <div class="control-group">
+		          <!-- Text input-->
+		          <label class="control-label padding_4px" for="field_export_force">使用proto3</label>
+		          <div class="controls">
+					    <input id='field_use_proto3' type="checkbox" class="switch switch-large" />
+					    <p class="help-block">使用新版本的proto3协议</p>
+		          </div>
+		        </div>
+	        </div>
+        </div>
+        
+        <hr/>
+          
+	    <div class="control-group text-center">
+	    	<!-- <span class="col-sm-3"></span> -->
+			
+			<button type="button" class="btn btn-success btn-lg btn_120px" id="do_export" 
+			data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在导出..">
+			导出
+			</button>
+			
+	    </div>
+		{% csrf_token %} 
+	    </fieldset>
+	  </form>
+	  
+	  
+	  <table id="protocal_lists" class="table table-hover">
+	  	<caption>历史记录</caption>
+		   <thead>
+		      <tr>
+		         <th >时间</th>
+		         <th>项目</th>
+		         <th>版本</th>
+		         <th >状态</th>
+		      </tr>
+		   </thead>
+		   <tbody>
+		   	  {% for exported_project in exported_projects %}
+		      <tr  id="{{ exported_project.id }}" title="{{ exported_project.title }}">
+		         <td>{{ exported_project.timestamp }}</td>
+		         <td>{{ exported_project.project }}</td>
+		         <td>{{ exported_project.version }}</td>
+		         <td>{{ exported_project.get_status_display }}</td>
+		      </tr>
+			  {% endfor %}
+		   </tbody>
+		</table>
+		
+		<div class='text-right' >
+		<a  href="{% url 'project_download' cur_project.id %}" class="btn btn-primary btn-large btn_120px">
+			下载
+		</a>
+		</div>
+	</div>
+	
+<script>
+$(document).ready(function() {
+	$(".switch").bootstrapSwitch();
+	
+	var btn_export = $("#do_export")
+	$("#do_export").click(function(e) {
+		e.preventDefault();
+		
+		$.ajaxSetup({
+		    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+		});
+		
+		// 打包数据
+		var pack_data = {};
+		pack_data.export_version = $('#field_export_version').val();
+		pack_data.export_force = $("#field_export_force").bootstrapSwitch('state');
+		pack_data.export_clean = $("#field_export_clean").bootstrapSwitch('state');
+		pack_data.use_proto3 = $("#field_use_proto3").bootstrapSwitch('state');
+		
+		console.log(pack_data)
+		
+		btn_export.button('loading');
+		
+	    $.post({
+	        url: '{% url 'project_export' cur_project.id %}',
+	        data: pack_data,
+	        success: function() {
+	        	BootstrapDialog.alert({
+	            	title:'Success',
+	            	message:"导出成功！",
+	            	type: BootstrapDialog.TYPE_SUCCESS,
+	            	callback: function(result) {
+	            		location.reload();
+	                }
+	            });
+	        	
+	        },
+	        error : function(xhr,errmsg,err) {
+	            var resp = xhr.responseText.split("TRACEBACK");
+	            console.log(xhr.status + ": " + resp[1]); 
+	            BootstrapDialog.alert({
+	            	title:'ERROR',
+	            	message:'导出失败，原因：' + resp[0],
+	            	type: BootstrapDialog.TYPE_DANGER,
+	            	callback: function(result) {
+	            		location.reload();
+	                }
+	            });
+	            
+	        }
+	    });
+	    /* .always(function() { btn_export.button('reset'); }); */
+		
+		return false;
+	});
+	
+});
+
+</script>
+
+
+
+{% endblock %}

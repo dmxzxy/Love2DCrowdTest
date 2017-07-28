@@ -1,0 +1,40 @@
+.main_bg {
+	background: url(../img/header.jpg) no-repeat fixed top;
+	height: 1267px;
+}
+
+.index_title {
+
+	color: #fff;
+	padding: 20px;
+}
+
+.index_project_title {
+
+	padding: 5px;
+}
+
+.padding_2px {
+
+	padding: 2px;
+}
+
+.padding_4px {
+
+	padding: 4px;
+}
+
+.padding_left_24px {
+	padding-top:5px;
+	padding-left: 24px;
+}
+
+.margin_right_4px {
+
+	margin-right: 4px;
+}
+
+.btn_120px{
+	width: 120px;
+}
+

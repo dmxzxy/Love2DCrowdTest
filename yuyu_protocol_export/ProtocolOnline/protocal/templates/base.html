@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Protocal Online</title>
+        <script type="text/javascript" src="{% static "js/jquery-1.12.4.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/jquery.pin.js" %}"></script>
+        <script type="text/javascript" src="{% static "jquery-ui/jquery-ui.js" %}"></script>
+        <script type="text/javascript" src="{% static "jquery-ui-bootstrap/js/jquery-ui-1.9.2.custom.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+        <script type="text/javascript" src="{% static "bootstrap-select/js/bootstrap-select.js" %}"></script>
+        <script type="text/javascript" src="{% static "bootstrap3-dialog/js/bootstrap-dialog.js" %}"></script>
+        <script type="text/javascript" src="{% static "bootstrap-switch/js/bootstrap-switch.js" %}"></script>
+        
+        <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+        <link href="{% static "bootstrap/css/bootstrap-theme.css" %}" rel="stylesheet">
+        <link href="{% static "bootstrap-select/css/bootstrap-select.css" %}" rel="stylesheet">
+        <link href="{% static "bootstrap3-dialog/css/bootstrap-dialog.css" %}" rel="stylesheet">
+        <link href="{% static "bootstrap-switch/css/bootstrap-switch.css" %}" rel="stylesheet">
+		<link href="{% static "css/style.css" %}" rel="stylesheet">
+		<link href="{% static "jquery-ui/jquery-ui.css" %}" rel="stylesheet">
+		<link href="{% static "jquery-ui/jquery-ui.structure.css" %}" rel="stylesheet">
+		<link href="{% static "jquery-ui/jquery-ui.theme.css" %}" rel="stylesheet">
+		<link href="{% static "jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.0.custom.css" %}" rel="stylesheet">
+		<link href="{% static "css/buttons.css" %}" rel="stylesheet">
+		<link href="{% static "css/simple-sidebar.css" %}" rel="stylesheet">
+    </head>
+
+    <body>
+    	{% block content %}{% endblock content %}
+
+    </body>
+</html>

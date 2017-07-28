@@ -1,0 +1,15 @@
+
+<div class="pinned text-right">
+	{% if cur_module %}
+	<a href="{% url 'protocal_create' cur_module.id %}" id="create_protocal" class="button button-raised button-primary button-pill">新增协议</a> 
+	{% endif %}
+	<a id="show_custom_type" class="button button-raised button-primary button-pill" >自定义类型</a> 
+<!-- 	<a href="#" class="button button-raised button-primary button-pill">Visit Us!</a> -->
+</div>
+
+<script>
+	$(document).ready(function() {
+		$(".pinned").pin();
+
+	});
+</script>

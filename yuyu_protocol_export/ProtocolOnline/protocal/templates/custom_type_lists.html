@@ -1,0 +1,84 @@
+
+<div id="custom_type_lists_dialog" title = "自定义类型">
+<table id="custom_type_lists" class="table table-hover">
+   <thead>
+      <tr>
+         <th>名字</th>
+         <th >描述</th>
+         <th class='col-sm-3'>  </th>
+      </tr>
+   </thead>
+   <tbody>
+   	  {% for custom_type in custom_types %}
+      <tr  id="{{ custom_type.id }}" title="{{ custom_type.name }}">
+         <td class="show_custom_type_detail">{{ custom_type.name }}</td>
+         <td class="show_custom_type_detail">{{ custom_type.desc }}</td>
+         <td>
+         <a id="edit_custom_type_segments" href="{% url 'custom_type_segments_detail' custom_type.id %}" class="btn btn-primary btn-large" val="{{ custom_type.id }}">编辑字段</a>
+         <button  class="edit_custom_type btn btn-success btn-large" val="{{ custom_type.id }}">修改</button>
+         <button id="delete_custom_type" class="btn btn-danger btn-large" val="{{ custom_type.id }}" name = "{{ custom_type.name }}">删除</button>
+         </td>
+      </tr>
+	  {% endfor %}
+   </tbody>
+</table>
+
+<div class="text-center">
+<button class="btn btn-success btn-large btn_120px create_custom_type" val="{{ cur_project.id }}">新增</button>
+</div>
+
+</div>
+{% include "custom_type_delete_dialog.html" %} 
+
+<script>
+$(document).ready(function() {
+	$(".show_custom_type_detail").click(function(e) {
+		e.preventDefault();
+		
+		var custom_type_id = $(this).parent().attr('id');
+		var parent_url = '{% url 'custom_type_detail_parent' %}';
+		var url = parent_url + custom_type_id;
+		var dtitle = "自定义类型-" + $(this).parent().attr('title');
+		console.log(url)
+ 		BootstrapDialog.show({
+ 			 title:dtitle,
+		     message: $('<div></div>').load(url)
+		 }); 
+		
+
+		return false;
+	});
+	
+	
+
+	// 新增自定义类型
+	$('button.create_custom_type').click(function(){
+		var project_id = $(this).attr('val');
+		var parent_url = '{% url 'custom_type_create_parent' %}';
+		var url = parent_url + project_id;
+		var dtitle = "新增自定义类型";
+		console.log(url)
+ 		BootstrapDialog.show({
+		 		title:dtitle,
+     		message: $('<div></div>').load(url)
+		}); 
+		
+	});
+	
+	// 修改自定义类型
+	$('button.edit_custom_type').click(function(){
+		var custom_type_id = $(this).attr('val');
+		var parent_url = '{% url 'custom_type_edit_parent' %}';
+		var url = parent_url + custom_type_id;
+		console.log(url)
+		var dtitle = "修改自定义类型";
+ 		BootstrapDialog.show({
+		 		title:dtitle,
+     		message: $('<div></div>').load(url)
+		}); 
+		
+	});
+});
+
+        
+</script>        

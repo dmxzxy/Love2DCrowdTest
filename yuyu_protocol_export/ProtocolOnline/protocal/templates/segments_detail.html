@@ -1,0 +1,123 @@
+{% extends "project_base.html" %}
+{% load segtype %}
+{% block project_content %}
+	<h1>
+		协议-{{ cur_protocal.name }}  
+	</h1>
+	
+<div id="segment_lists_dialog" title = "修改协议字段">
+<table id="segment_lists" class="table table-hover">
+   <thead>
+      <tr>
+         <th class='col-md-1'>种类</th>
+         <th class='col-md-1'>类型</th>
+         <th class='col-md-2'>名字</th>
+         <th class='col-md-5'>描述</th>
+         <th class='col-sm-2'>  </th>
+      </tr>
+   </thead>
+   <tbody>
+   	  {% for segment in segments %}
+      	<tr >
+         	<td class="segment_protocal_type">{{ segment.protocal_type }}</td>
+         	<td class="segment_type">{{ segment|segtype|safe }}</td>
+         	<td class="segment_name">{{ segment.name }}</td>
+         	<td class="segment_desc">{{ segment.desc }}</td>
+         	<td class="">
+         	<button class="edit_segment btn btn-success btn-large margin_right_4px" val="{{ segment.id }}">修改</button>
+         	<button class="delete_segment btn btn-danger btn-large" val="{{ segment.id }}" name = "{{ segment.name }}">删除</button>
+         	</td>
+      	</tr>
+	  {% endfor %}
+   </tbody>
+</table>
+
+<div class="text-center">
+<button id="create_segment" class="btn btn-success btn-large btn_120px" val="{{ cur_protocal.id }}">新增</button>
+<a href="{% url 'module_detail' cur_module.id %}" class="btn btn-primary btn-large btn_120px" val="{{ cur_protocal.id }}">返回</a>
+</div>
+
+
+</div>
+	
+	<script>
+		$(document).ready(function() {
+			var dialog_name = "#segment_lists_dialog";
+			var result_box = $(dialog_name + ' #results');
+		    result_box.hide();
+			
+			// 删除字段
+			$('button.delete_segment').click(function(){
+				var segment_id = $(this).attr('val');
+				var segment_name = $(this).attr('name');
+				var cur_url = '{% url 'segment_delete' %}';
+				console.log(segment_id)
+				var dtitle = "确认删除字段 " + segment_name + " 吗？";
+		 		BootstrapDialog.confirm(dtitle, function(result){
+            		if(result) {
+        				var pack_data = {};
+    		    		pack_data.segment_id = segment_id;
+            			
+            			$.ajaxSetup({
+    					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    					});
+    		        
+    		            $.post({
+    		                url: cur_url,
+    		                data: pack_data,
+    		                success: function() {
+
+    		                   location.replace("{% url 'segments_detail' cur_protocal.id %}");
+    		                },
+    				        error : function(xhr,errmsg,err) {
+    				            
+    				            var resp = xhr.responseText.split("TRACEBACK");
+    				            /* result_box.html(resp[0]); 
+    				            result_box.show(); */
+    				            console.log(xhr.status + ": " + resp[1]); 
+    				            BootstrapDialog.alert({
+    				            	title:'ERROR',
+    				            	message:resp[0],
+    				            	type: BootstrapDialog.TYPE_DANGER,
+    				            });
+    				        }
+    		            });
+            		}else {
+                		// do nothing
+            		}
+        		});
+			});
+			
+			// 新增字段
+			$('#create_segment').click(function(){
+				var protocal_id = $(this).attr('val');
+				var parent_url = '{% url 'segment_create_parent' %}';
+				var url = parent_url + protocal_id;
+				var dtitle = "新增字段";
+		 		BootstrapDialog.show({
+ 			 		title:dtitle,
+		     		message: $('<div></div>').load(url)
+				}); 
+				
+			});
+			
+			// 修改字段
+			$('button.edit_segment').click(function(){
+				var segment_id = $(this).attr('val');
+				var parent_url = '{% url 'segment_edit_parent' %}';
+				var url = parent_url + segment_id;
+				var dtitle = "修改字段";
+		 		BootstrapDialog.show({
+ 			 		title:dtitle,
+		     		message: $('<div></div>').load(url)
+				}); 
+				
+			});
+			
+	});
+	
+	</script>
+
+
+
+{% endblock %}

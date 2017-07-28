@@ -1,0 +1,64 @@
+<div id="protocal_delete_dialog" title = "删除协议">
+
+<p>确认删除协议 <strong> </strong> 吗？</p>
+
+</div>
+
+<script>
+	$(document).ready(function() {
+		var dialog_name = "#protocal_delete_dialog";
+		
+		$(dialog_name).dialog({
+		    modal: true,
+		    autoOpen: false,
+		    width: "568px",
+   			maxWidth: "90%"
+		});
+		
+		$("button.delete_protocal").click(function(e) {
+		    e.preventDefault();
+		    
+		    var protocal_id = $(this).attr('val');
+		    var protocal_name = $(this).attr('name');
+		    console.log(protocal_name);
+		    $(dialog_name + ' strong').html(protocal_name);
+
+		    $(dialog_name).dialog('option', 'buttons', {
+		        "确认": function() {
+		        	// 打包数据
+		    		var pack_data = {};
+		    		pack_data.protocal_id = protocal_id;
+
+		        	$.ajaxSetup({
+					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+					});
+		        
+		            $.post({
+		                url: '{% url 'protocal_delete' %}',
+		                data: pack_data,
+		                success: function() {
+		                   $(dialog_name).dialog("close");
+		                   
+		                   location.reload();
+		                },
+				        error : function(xhr,errmsg,err) {
+
+				            console.log(xhr.status + ": " + xhr.responseText); 
+							
+				            
+				        }
+		            });
+		            
+		        },
+		        "取消": function() {
+		            $(this).dialog("close");
+		        }
+		    });
+		    $(dialog_name).dialog("open");
+		    return false;
+		});
+		
+		
+	});
+	
+</script>	
