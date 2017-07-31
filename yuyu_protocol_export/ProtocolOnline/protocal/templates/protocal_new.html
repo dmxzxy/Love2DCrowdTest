@@ -95,20 +95,6 @@
       </div>
     </div>
     
-    <hr>
-
-    <div class="control-group">
-      <!-- Text input-->
-      <label class="control-label padding_4px" for="input01">协议路由</label>
-      <div class="controls">
-        <input id="field_protocal_route" type="text" placeholder="" class="form-control"
-        value="{% if cur_protocal %}{{ cur_protocal.route }} {% endif %}" >
-        <p class="help-block">协议的路由，服务器处理用</p>
-      </div>
-    </div>
-    
-    <hr>
-
     <div class="control-group text-center">
     	<span class="col-sm-3"></span>
 		<button id="create_protocal" class="btn btn-success btn-large col-sm-2">
@@ -154,7 +140,6 @@
 		    		var pack_data = {};
 		    		pack_data.protocal_name = $('#field_protocal_name').val();
 		    		pack_data.protocal_desc = $('#field_protocal_desc').val();
-		    		pack_data.protocal_route = $('#field_protocal_route').val();
 		    		pack_data.protocal_id = $('#field_protocal_id').val();
 		    		pack_data.protocal_type_id = $('#field_protocal_type_id').val();
 		    		pack_data.protocal_relate_protocal_id = $('#field_protocal_relate_protocal_id').val();

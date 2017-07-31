@@ -38,16 +38,6 @@
 		          </div>
 		        </div>
 	        </div>
-	        <div class='col-md-4'>
-		        <div class="control-group">
-		          <!-- Text input-->
-		          <label class="control-label padding_4px" for="field_export_force">使用proto3</label>
-		          <div class="controls">
-					    <input id='field_use_proto3' type="checkbox" class="switch switch-large" />
-					    <p class="help-block">使用新版本的proto3协议</p>
-		          </div>
-		        </div>
-	        </div>
         </div>
         
         <hr/>
@@ -112,7 +102,6 @@ $(document).ready(function() {
 		pack_data.export_version = $('#field_export_version').val();
 		pack_data.export_force = $("#field_export_force").bootstrapSwitch('state');
 		pack_data.export_clean = $("#field_export_clean").bootstrapSwitch('state');
-		pack_data.use_proto3 = $("#field_use_proto3").bootstrapSwitch('state');
 		
 		console.log(pack_data)
 		

@@ -7,9 +7,6 @@ from django.db import models
 
 class ExporterSetting(models.Model):
     export_path = models.CharField(max_length = 150,blank = False)
-    export_git_path = models.CharField(max_length = 150,default = '')
-    game_config_export_path = models.CharField(max_length = 150,blank = False,default = '')
-    game_config_name = models.CharField(max_length = 150,blank = False,default = '')
     def __unicode__(self):
         return self.export_path
 
@@ -37,6 +34,7 @@ class ProjectExport(models.Model):
     
 class Module(models.Model):
     name = models.CharField(max_length = 100,blank = False)
+    namedesc = models.CharField(max_length = 100,blank = False)
     desc = models.CharField(max_length = 150,blank = False)
     namespace = models.CharField(max_length = 100,blank = False,unique = True)
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
@@ -53,7 +51,6 @@ class ProtocalType(models.Model):
 class Protocal(models.Model):
     name = models.CharField(max_length = 100,blank = False)
     desc = models.CharField(max_length = 150,blank = False)
-    route = models.CharField(max_length = 100,blank = True,default = '')
     namespace = models.CharField(max_length = 100,blank = False,unique = True)
     protocal_id = models.IntegerField()
     protocal_unique_id = models.IntegerField(unique = True)
@@ -64,7 +61,6 @@ class Protocal(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.name
-    
     
 class SegmentType(models.Model):
     name = models.CharField(max_length = 100,blank = False,unique = True)
@@ -94,28 +90,3 @@ class Segment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.name    
-    
-class CustomSegmentType(models.Model):
-    name = models.CharField(max_length = 100,blank = False,unique = True)
-    desc = models.CharField(max_length = 150,blank = False)    
-    namespace = models.CharField(max_length = 100,blank = False,unique = True)
-    type = models.ForeignKey(SegmentType,on_delete=models.CASCADE,null=True,default=None)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    is_modified = models.BooleanField(default=True)
-    def __unicode__(self):
-        return self.name     
-    
-    
-class CustomSegmentTypeSegment(models.Model):
-    name = models.CharField(max_length = 100,blank = False)
-    desc = models.CharField(max_length = 150,blank = False)
-    belong = models.ForeignKey(CustomSegmentType,on_delete=models.CASCADE)
-    type = models.ForeignKey(SegmentType)
-    extra_type1 = models.ForeignKey(SegmentType,null=True,blank = True,default=None,related_name='custom_type_segment_extra_type_1')
-    extra_type2 = models.ForeignKey(SegmentType,null=True,blank = True,default=None,related_name='custom_type_segment_extra_type_2')
-    protocal_type = models.ForeignKey(SegmentProtoType)
-    namespace = models.CharField(max_length = 100,blank = False,unique = True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    def __unicode__(self):
-        return self.name         
-    

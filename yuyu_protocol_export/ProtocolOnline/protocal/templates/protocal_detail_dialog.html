@@ -7,7 +7,6 @@
 {% if cur_protocal.relate_protocal %}
 <div><strong><span class="col-md-2">相关协议 </strong><span><a class="show_relate_protocal_detail">{{ cur_protocal.relate_protocal.name }}</a></span></div>
 {% endif %}
-<div><strong class="col-md-2">协议路由</strong><span>{{ cur_protocal.route }}</span></div>
 <div><strong class="col-md-2">描述 </strong><span>{{ cur_protocal.desc }}</span></div>
 </div>
 
@@ -15,14 +14,15 @@
 <div>
 <table id="segment_lists" class="table table-hover">
 	<caption>协议字段</caption>
-<!--    <thead>
+    <thead>
       <tr>
+         <th>流水号</th>
          <th>种类</th>
          <th>类型</th>
          <th>名字</th>
          <th>描述</th>
       </tr>
-   </thead> -->
+   </thead> 
    <tbody>
    	  {% for segment in segments %}
       <tr data-toggle="{{ segment.desc }}" >

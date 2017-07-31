@@ -10,12 +10,22 @@
     <div class="control-group">
 
           <!-- Text input-->
-          <label class="control-label padding_4px" for="input01">模块名称</label>
+          <label class="control-label padding_4px" for="input01">中文名称</label>
           <div class="controls">
             <input id="field_module_name" type="text" placeholder="eg.战斗" class="form-control">
-            <p class="help-block">输入模块的名称，使用中文</p>
+            <p class="help-block">输入模块的注释名称，使用中文</p>
           </div>
-        </div>
+    </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">模块名称</label>
+          <div class="controls">
+            <input id="field_module_modulename" type="text" placeholder="eg.Battle" class="form-control">
+            <p class="help-block">输入模块的名称，使用英文，这个就是</p>
+          </div>
+    </div>
 
     <div class="control-group">
 
@@ -23,7 +33,7 @@
       <label class="control-label padding_4px" for="input01">模块描述</label>
       <div class="controls">
         <input id="field_module_desc" type="text" placeholder="xx相关的协议" class="form-control">
-        <p class="help-block">模块的描述，不能为空。想偷懒就直接写比如：战斗相关的协议</p>
+        <p class="help-block">模块的描述，不能为空。</p>
       </div>
     </div>
 
@@ -61,6 +71,7 @@
 		    		var pack_data = {};
 		    		pack_data.module_name = $('#field_module_name').val();
 		    		pack_data.module_desc = $('#field_module_desc').val();
+		    		pack_data.module_modulename = $('#field_module_modulename').val();
 
 		        	$.ajaxSetup({
 					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
