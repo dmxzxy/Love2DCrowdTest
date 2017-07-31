@@ -151,6 +151,7 @@ def do_export(project,version,export_setting):
     context.namespace = project.namespace
     context.root_path = context.setting.export_path + '/protocal/'
     context.proto2_path = context.root_path + 'proto2/'
+    context.protocal_types = ProtocalType.objects.all()
     
     bin_path = os.path.dirname(__file__)
     context.bin_path = os.path.join(bin_path, 'export_bin/' )
@@ -168,5 +169,3 @@ def do_export(project,version,export_setting):
 
     # export for languages
     export_lua.do_export(context)
-    #export_lua.do_zip(context)
-    #zip script files

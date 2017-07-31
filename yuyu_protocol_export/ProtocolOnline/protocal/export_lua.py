@@ -58,13 +58,19 @@ def do_package_lua(context,output_path):
             file_lua.write('%s.%s = %d;\n'%(prefix,protocal.name,protocal.protocal_id))
     file_lua.write("\n");
     
+    file_lua.write('ProtocalTypes = {\n')
+    protocal_types = context.protocal_types
+    for protocal_type in protocal_types:
+        file_lua.write('    %s = %d,\n'%(protocal_type.name,protocal_type.id))
+    file_lua.write('}\n')
+    
     file_lua.write('ProtocalConfigs = {\n')
     file_lua.write('    version = "%s",\n'%(context.version))
     # write modules
     file_lua.write('    modules = {\n')
     for module in modules:
         pb_data,pb_len = load_pb_data(output_path, module.name)
-        file_lua.write('        ["%s"] = { namespace = %s, data = "%s", len = %d }'%(module.name, module.namespace, pb_data, pb_len))
+        file_lua.write('        ["%s"] = { namespace = %s, data = "%s", len = %d },\n'%(module.name, module.namespace, pb_data, pb_len))
     file_lua.write('    },\n')   
 
     # write protocals
@@ -75,11 +81,12 @@ def do_package_lua(context,output_path):
         for protocal in protocals:
             pb_name = protocal.name
             pb_fullname = protocal.namespace
+            module_name = protocal.module.name
             protocal_relate_id = 0
             if protocal.relate_protocal:
                 protocal_relate_id = protocal.relate_protocal.protocal_id
-            file_lua.write('        [%d] = { id = %d,name = "%s",type = %d,ref = %d,full_name = "%s"},\n'%( \
-                        int(protocal.protocal_id),  int(protocal.protocal_id),pb_name, int(protocal.type.id),int(protocal_relate_id), pb_fullname))
+            file_lua.write('        [%d] = { id = %d, module = "%s", name = "%s", type = %s, ref = %d, full_name = "%s"},\n'%( \
+                        int(protocal.protocal_id),int(protocal.protocal_id),module_name,pb_name,"ProtocalTypes."+protocal.type.name,int(protocal_relate_id), pb_fullname))
     file_lua.write('    },\n')   
     file_lua.write('}\n')        
     file_lua.close()
