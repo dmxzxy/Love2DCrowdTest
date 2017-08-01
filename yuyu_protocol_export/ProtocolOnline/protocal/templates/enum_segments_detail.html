@@ -1,0 +1,121 @@
+{% extends "project_base.html" %}
+{% load segtype %}
+{% block project_content %}
+	<h1>
+		枚举-{{ cur_enum.name }}  
+	</h1>
+	
+<div id="segment_lists_dialog" title = "修改协议字段">
+<table id="segment_lists" class="table table-hover">
+   <thead>
+      <tr>
+         <th class='col-md-2'>名字</th>
+         <th class='col-md-2'>值</th>
+         <th class='col-md-5'>描述</th>
+         <th class='col-sm-2'>  </th>
+      </tr>
+   </thead>
+   <tbody>
+   	  {% for enumsegment in enumsegments %}
+      	<tr >
+         	<td class="enum_segment_name">{{ enumsegment.name }}</td>
+            <td class="enum_segment_name">{{ enumsegment.value }}</td>
+         	<td class="enum_segment_desc">{{ enumsegment.desc }}</td>
+         	<td class="">
+         	<button class="edit_enum_segment btn btn-success btn-large btn-sm margin_right_4px" val="{{ enumsegment.id }}">修改</button>
+         	<button class="delete_enum_segment btn btn-danger btn-large btn-sm" val="{{ enumsegment.id }}" name = "{{ enumsegment.name }}">删除</button>
+         	</td>
+      	</tr>
+	  {% endfor %}
+   </tbody>
+</table>
+
+<div class="text-center">
+<button id="create_enum_segment" class="btn btn-success btn-large btn_120px" val="{{ cur_enum.id }}">新增</button>
+<a href="{% url 'module_detail' cur_module.id %}" class="btn btn-primary btn-large btn_120px" val="{{ cur_enum.id }}">返回</a>
+</div>
+
+
+</div>
+	
+	<script>
+		$(document).ready(function() {
+			var dialog_name = "#segment_lists_dialog";
+			var result_box = $(dialog_name + ' #results');
+		    result_box.hide();
+			
+			// 删除字段
+			$('button.delete_enum_segment').click(function(){
+				var segment_id = $(this).attr('val');
+				var segment_name = $(this).attr('name');
+				var cur_url = '{% url 'enum_segment_delete' %}';
+				console.log(segment_id)
+				var dtitle = "确认删除字段 " + segment_name + " 吗？";
+		 		BootstrapDialog.confirm(dtitle, function(result){
+            		if(result) {
+        				var pack_data = {};
+    		    		pack_data.segment_id = segment_id;
+            			
+            			$.ajaxSetup({
+    					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    					});
+    		        
+    		            $.post({
+    		                url: cur_url,
+    		                data: pack_data,
+    		                success: function() {
+
+    		                   location.replace("{% url 'enum_segments_detail' cur_enum.id %}");
+    		                },
+    				        error : function(xhr,errmsg,err) {
+    				            
+    				            var resp = xhr.responseText.split("TRACEBACK");
+    				            /* result_box.html(resp[0]); 
+    				            result_box.show(); */
+    				            console.log(xhr.status + ": " + resp[1]); 
+    				            BootstrapDialog.alert({
+    				            	title:'ERROR',
+    				            	message:resp[0],
+    				            	type: BootstrapDialog.TYPE_DANGER,
+    				            });
+    				        }
+    		            });
+            		}else {
+                		// do nothing
+            		}
+        		});
+			});
+			
+			$('#create_enum_segment').click(function(){
+				var enum_id = $(this).attr('val');
+				var parent_url = '{% url 'enum_segment_create_parent' %}';
+				var url = parent_url + enum_id;
+                console.log(url)
+				var dtitle = "新增枚举值";
+		 		BootstrapDialog.show({
+ 			 		title:dtitle,
+		     		message: $('<div></div>').load(url)
+				}); 
+				
+			});
+			
+			// 修改字段
+			$('button.edit_enum_segment').click(function(){
+				var segment_id = $(this).attr('val');
+				var parent_url = '{% url 'enum_segment_edit_parent' %}';
+				var url = parent_url + segment_id;
+				var dtitle = "修改字段";
+		 		BootstrapDialog.show({
+ 			 		title:dtitle,
+		     		message: $('<div></div>').load(url)
+				}); 
+				
+			});
+			
+	});
+	
+	</script>
+
+
+
+{% endblock %}

@@ -67,6 +67,8 @@ class SegmentType(models.Model):
     desc = models.CharField(max_length = 150,blank = False)
     is_basic = models.BooleanField(default=True)
     project = models.ForeignKey(Project,null=True,blank = True,default=None)
+    module = models.ForeignKey(Module,on_delete=models.CASCADE,null=True,default=None)
+    protocal = models.ForeignKey(Protocal,on_delete=models.CASCADE,null=True,default=None)
     show_priority = models.IntegerField(default = 0)
     timestamp = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
@@ -87,6 +89,47 @@ class Segment(models.Model):
     extra_type1 = models.ForeignKey(SegmentType,null=True,blank = True,default=None,related_name='segment_extra_type_1')
     extra_type2 = models.ForeignKey(SegmentType,null=True,blank = True,default=None,related_name='segment_extra_type_2')
     protocal_type = models.ForeignKey(SegmentProtoType)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __unicode__(self):
+        return self.name    
+
+class CustomType(models.Model):
+    name = models.CharField(max_length = 100,blank = False)
+    desc = models.CharField(max_length = 150,blank = False)
+    type = models.ForeignKey(SegmentType,on_delete=models.CASCADE,null=True,default=None)
+    module = models.ForeignKey(Module,on_delete=models.CASCADE)
+    belong = models.ForeignKey(Protocal,on_delete=models.CASCADE)
+    namespace = models.CharField(max_length = 100,blank = False,unique = True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __unicode__(self):
+        return self.name    
+
+class CustomTypeSegment(models.Model):
+    name = models.CharField(max_length = 100,blank = False)
+    desc = models.CharField(max_length = 150,blank = False)
+    type = models.ForeignKey(SegmentType)
+    protocal_type = models.ForeignKey(SegmentProtoType)
+    belong = models.ForeignKey(CustomType,on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __unicode__(self):
+        return self.name   
+
+class Enum(models.Model):
+    name = models.CharField(max_length = 100,blank = False)
+    desc = models.CharField(max_length = 150,blank = False)
+    type = models.ForeignKey(SegmentType,on_delete=models.CASCADE,null=True,default=None)
+    namespace = models.CharField(max_length = 100,blank = False,unique = True)
+    module = models.ForeignKey(Module,on_delete=models.CASCADE)
+    belong = models.ForeignKey(Protocal,on_delete=models.CASCADE,null=True,default=None)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __unicode__(self):
+        return self.name    
+
+class EnmuSegment(models.Model):
+    name = models.CharField(max_length = 100,blank = False)
+    desc = models.CharField(max_length = 150,blank = False)
+    value = models.IntegerField()
+    belong = models.ForeignKey(Enum,on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.name    

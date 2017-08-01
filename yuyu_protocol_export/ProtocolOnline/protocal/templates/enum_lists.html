@@ -1,0 +1,49 @@
+
+
+<table id="enum_lists" class="table table-hover">
+   <thead>
+      <tr>
+         <th>名字</th>
+         <th>描述</th>
+         <th class='col-sm-3'>  </th>
+      </tr>
+   </thead>
+   <tbody>
+   	{% for enum in enums %}
+      <tr  id="{{ enum.id }}" title="{{ enum.name }}">
+         <td class="show_enum_detail">{{ enum.name }}</td>
+         <td class="show_enum_detail">{{ enum.desc }}</td>
+         <td>
+         <a id="edit_enum_segments" href="{% url 'enum_segments_detail' enum.id %}" class="btn btn-primary btn-large" val="{{ enum.id }}">编辑</a>
+         <a id="edit_enum" href="{% url 'protocal_edit' enum.id %}" class="btn btn-success btn-large" val="{{ enum.id }}">修改</a>
+         <button class="delete_enum btn btn-danger btn-large" val="{{ enum.id }}" name = "{{ enum.name }}">删除</button>
+         </td>
+      </tr>
+	  {% endfor %}
+   </tbody>
+</table>
+
+{% include "protocal_delete_dialog.html" %} 
+
+<script>
+$(document).ready(function() {
+	$(".show_enum_detail").click(function(e) {
+		e.preventDefault();
+		
+		var enum_id = $(this).parent().attr('id');
+		var parent_url = '{% url 'enum_detail_parent' %}';
+		var url = parent_url + enum_id;
+		var dtitle = "枚举-" + $(this).parent().attr('title');
+		console.log(url)
+ 		BootstrapDialog.show({
+ 			 title:dtitle,
+		     message: $('<div></div>').load(url)
+		 }); 
+		
+
+		return false;
+	});
+});
+
+        
+</script>        

@@ -11,10 +11,30 @@
 	<div class="pinned text-right">
 		{% if cur_module %}
 		<a href="{% url 'protocal_create' cur_module.id %}" id="create_protocal" class="button button-raised button-primary button-pill">新增协议</a> 
+		<a href="{% url 'enum_create' cur_module.id %}" id="enum_create" class="button button-raised button-action button-pill">新增枚举</a>
 		{% endif %} 
 	</div>
 	
-	{% include "protocal_lists.html" %} 
+	<ul id="myTab" class="nav nav-tabs">
+		<li class="active">
+			<a href="#protocal" data-toggle="tab">
+				<h3>协议</h3>
+			</a>
+		</li>
+		<li>
+			<a href="#enum" data-toggle="tab">
+				<h3>枚举</h3>
+			</a>
+		</li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade in active" id="protocal">
+			{% include "protocal_lists.html" %} 
+		</div>
+		<div class="tab-pane fade" id="enum">
+			{% include "enum_lists.html" %} 
+		</div>
+	</div>
 	
 	<script>
 		$(document).ready(function() {

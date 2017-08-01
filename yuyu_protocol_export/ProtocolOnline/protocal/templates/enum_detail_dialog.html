@@ -1,0 +1,40 @@
+{% load segtype %}
+<div>
+<div><strong class="col-md-2">枚举类型</strong><span>{{ cur_enum.name }}</span></div>
+<div><strong class="col-md-2">模块</strong><span>{{ cur_enum.module.name }}</span></div>
+<div><strong class="col-md-2">所属协议</strong><span>{{ cur_enum.belong.name }}</span></div>
+<div><strong class="col-md-2">描述 </strong><span>{{ cur_enum.desc }}</span></div>
+</div>
+
+<hr/>
+<div>
+<table id="segment_lists" class="table table-hover table-condensed">
+	<caption>枚举内容</caption>
+    <thead>
+      <tr>
+         <th>流水号</th>
+         <th>名称</th>
+         <th>值</th>
+         <th>描述</th>
+      </tr>
+   </thead> 
+   <tbody>
+   	  {% for segment in segments %}
+      <tr data-toggle="{{ segment.desc }}" >
+         <td>{{ forloop.counter }}</td>
+         <td class="show_segment_tooltips_name">{{ segment.name }}</td>
+         <td class="show_segment_tooltips_name">{{ segment.value }}</td>
+         <td class="show_segment_tooltips_name">{{ segment.desc }}</td>
+      </tr>
+	  {% endfor %}
+   </tbody>
+</table>
+
+</div>
+
+<script>
+$(document).ready(function() {
+});
+
+        
+</script>       
