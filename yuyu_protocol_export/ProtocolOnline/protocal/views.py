@@ -569,6 +569,7 @@ def segment_create(request,protocal_id,segment_id = 0):
         cur_module = cur_protocal.module
         cur_project = cur_module.project
         segment_types = SegmentType.objects.filter(Q(is_basic = True) | (Q(is_basic=False) and Q(module=cur_module))).order_by('-is_basic','-show_priority','-timestamp')
+        segment_types = segment_types.exclude(~Q(protocal = None) , ~Q(protocal = cur_protocal))
         segment_proto_types = SegmentProtoType.objects.all()
         
         return render(request, 'segment_create_dialog.html',{
