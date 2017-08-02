@@ -130,9 +130,9 @@
 		    	e.preventDefault();
 		    	
 		    	{% if cur_protocal %}
-		    	var cur_url = '{% url 'protocal_edit' cur_protocal.id %}';
+		    	var cur_url = '{% url 'protocal_edit' cur_project.id cur_protocal.id %}';
 		    	{% else %}
-		    	var cur_url = '{% url 'protocal_create' cur_module.id %}';
+		    	var cur_url = '{% url 'protocal_create' cur_project.id cur_module.id %}';
 		    	{% endif %}
 		    	
 

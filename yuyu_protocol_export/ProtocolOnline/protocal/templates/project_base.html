@@ -20,9 +20,7 @@
                 <li>
                     <a href="{% url 'project_detail' cur_project.id %}">
                     {% if not cur_module %}
-                    {% if not show_custom_types %}
                     =>
-                    {% endif %}
                     {% endif %}
                     所有协议
                     </a>
@@ -30,13 +28,13 @@
 
                 <!-- 全局协议 -->
                 <li>
-                    <a href="{% url 'project_detail' cur_project.id %}">
-                    {% if not cur_module %}
-                    {% if not show_global_module %}
+                    <a href="{% url 'module_detail' 0 %}">
+                    {% if cur_module %}
+                    {% if cur_module.id == 0 %}
                     =>
                     {% endif %}
                     {% endif %}
-                    全局协议
+                    全局模块
                     </a>
                 </li>
                 

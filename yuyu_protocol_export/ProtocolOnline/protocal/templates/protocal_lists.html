@@ -19,7 +19,7 @@
          <td class="show_protocal_detail">{{ protocal.desc }}</td>
          <td>
          <a id="edit_protocal_segments" href="{% url 'segments_detail' protocal.id %}" class="btn btn-primary btn-large" val="{{ protocal.id }}">编辑字段</a>
-         <a id="edit_protocal" href="{% url 'protocal_edit' protocal.id %}" class="btn btn-success btn-large" val="{{ protocal.id }}">修改</a>
+         <a id="edit_protocal" href="{% url 'protocal_edit' cur_project.id protocal.id %}" class="btn btn-success btn-large" val="{{ protocal.id }}">修改</a>
          <button class="delete_protocal btn btn-danger btn-large" val="{{ protocal.id }}" name = "{{ protocal.name }}">删除</button>
          </td>
       </tr>

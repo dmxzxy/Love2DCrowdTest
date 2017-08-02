@@ -11,6 +11,7 @@ from django.db.models.query_utils import Q
 from django.forms.models import ModelForm
 from django.http.response import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template import RequestContext  
 
 from datetime import datetime
 from string import strip
@@ -18,6 +19,30 @@ from string import strip
 from protocal.models import *
 from protocal import export_utils, utils
 from protocal.utils import try_parse_int
+
+cur_edit_project = None
+
+def get_module_by_id(request, module_id):
+    global cur_edit_project;
+    if cur_edit_project == None:
+        return None, index(request)
+
+    cur_module = None
+    if try_parse_int(module_id) == 0:
+        cur_module = Module(
+            id = 0,
+            name = 'global',
+            namedesc = '全局模块',
+            desc = '',
+            project = cur_edit_project,
+            namespace = cur_edit_project.namespace)
+    else:
+        cur_module = get_object_or_404(Module, pk=module_id)
+    return cur_module, None
+
+def custom_pros(request):   #context处理器  
+    global cur_edit_project;
+    return {'cur_project':cur_edit_project} 
 
 def project_help(request,project_id):
     cur_project = get_object_or_404(Project, pk=project_id)
@@ -58,6 +83,10 @@ def project_create(request):
 
 def project_detail(request,project_id):
     cur_project = get_object_or_404(Project, pk=project_id)
+
+    global cur_edit_project;
+    cur_edit_project = cur_project
+
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
     protocals = Protocal.objects.filter(module__in = modules).order_by('-timestamp')
     enums = Enum.objects.filter(module__in = modules).order_by('-timestamp')
@@ -559,10 +588,10 @@ def protocal_detail(request,protocal_id):
                                                   'segments':segments,
                                                   }) 
 
-def protocal_create(request,module_id,protocal_id = 0):
+def protocal_create(request,project_id,module_id,protocal_id = 0):
     if request.method == 'POST': 
-        cur_module = get_object_or_404(Module, pk=module_id)
-        cur_project = cur_module.project
+        cur_project = get_object_or_404(Project, pk=project_id)
+        cur_module = get_module_by_id(request,module_id)
         cur_protocal = Protocal.objects.filter(pk=protocal_id).first()
         
         protocal_name = request.POST['protocal_name'] 
@@ -571,7 +600,9 @@ def protocal_create(request,module_id,protocal_id = 0):
         protocal_protocal_unique_id = try_parse_int(protocal_protocal_id)
         protocal_type_id = request.POST['protocal_type_id'] 
         protocal_relate_protocal_id = request.POST['protocal_relate_protocal_id'] 
-        protocal_namespace = cur_module.namespace + "." + protocal_name
+        protocal_namespace = cur_project.namespace + "." + protocal_name
+        if cur_module:
+            protocal_namespace = cur_module.namespace + "." + protocal_name
         
         if not protocal_name or strip(protocal_name) == '':
             raise ValidationError("protocal_name should not be null.");
@@ -632,10 +663,9 @@ def protocal_create(request,module_id,protocal_id = 0):
                 Protocal.objects.filter(pk=protocal_relate_protocal_id).update( relate_protocal = protocal)
         return HttpResponse("<h1>Created successfully .</h1>")  
     else:
-        cur_module = get_object_or_404(Module, pk=module_id)
-        cur_project = cur_module.project
+        cur_project = get_object_or_404(Project, pk=project_id)
+        cur_module = get_module_by_id(request,module_id)
         cur_protocal = Protocal.objects.filter(id=protocal_id).first()
-        
         modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
         protocal_types = ProtocalType.objects.all()
         segment_types = SegmentType.objects.filter(Q(is_basic = True) | (Q(is_basic=False) and Q(project = cur_project))).order_by('-is_basic','-show_priority','-timestamp')
@@ -653,9 +683,10 @@ def protocal_create(request,module_id,protocal_id = 0):
                                                   
                                                   }) 
 
-def protocal_edit(request,protocal_id):
+def protocal_edit(request,project_id,protocal_id):
+    cur_project = get_object_or_404(Project, pk=project_id)
     cur_protocal = get_object_or_404(Protocal, pk=protocal_id)
-    return protocal_create(request,cur_protocal.module.id,cur_protocal.id)
+    return protocal_create(request,project_id,cur_protocal.module.id,cur_protocal.id)
 
 def protocal_delete(request):
     if request.method == 'POST': 
@@ -813,7 +844,10 @@ def module_create(request,project_id):
         return HttpResponse("<h1>Invalid request.</h1>") 
 
 def module_detail(request,module_id):
-    cur_module = get_object_or_404(Module, pk=module_id)
+    cur_module,c = get_module_by_id(request, module_id)
+    if cur_module == None:
+        return c
+
     cur_project = cur_module.project
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
     protocals = Protocal.objects.filter(module = cur_module).order_by('-timestamp')
@@ -823,7 +857,7 @@ def module_detail(request,module_id):
     segment_types = SegmentType.objects.filter(Q(is_basic = True) | (Q(is_basic=False) and Q(project = cur_project))).order_by('-is_basic','-show_priority', '-timestamp')
     segment_proto_types = SegmentProtoType.objects.all()
     relative_protocals = Protocal.objects.filter(module = cur_module)
-    
+
     return render(request, 'project_detail.html',{'cur_project':cur_project,
                                                   'cur_module':cur_module,
                                                   'modules':modules,

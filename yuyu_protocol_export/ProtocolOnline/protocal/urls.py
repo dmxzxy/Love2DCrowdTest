@@ -16,8 +16,8 @@ urlpatterns = [
 
     url(r'^protocal/$', views.index, name='protocal_detail_parent'),
     url(r'^protocal/(?P<protocal_id>[0-9]+)$', views.protocal_detail, name='protocal_detail'),
-    url(r'^protocal/create/(?P<module_id>[0-9]+)$', views.protocal_create, name='protocal_create'),
-    url(r'^protocal/edit/(?P<protocal_id>[0-9]+)$', views.protocal_edit, name='protocal_edit'),
+    url(r'^protocal/create/(?P<project_id>[0-9]+)/(?P<module_id>[0-9]+)$', views.protocal_create, name='protocal_create'),
+    url(r'^protocal/edit/(?P<project_id>[0-9]+)/(?P<protocal_id>[0-9]+)$', views.protocal_edit, name='protocal_edit'),
     url(r'^protocal/delete/$', views.protocal_delete, name='protocal_delete'),
     url(r'^protocal/(?P<protocal_id>[0-9]+)$', views.protocal_detail, name='protocal_detail'),
     
