@@ -11,14 +11,15 @@
 <div>
 <table id="segment_lists" class="table table-hover">
 	<caption>字段</caption>
-<!--    <thead>
+    <thead>
       <tr>
+         <th>流水号</th>
          <th>种类</th>
          <th>类型</th>
          <th>名字</th>
          <th>描述</th>
       </tr>
-   </thead> -->
+   </thead>
    <tbody>
    	  {% for segment in segments %}
       <tr data-toggle="{{ segment.desc }}" >
@@ -36,7 +37,6 @@
 
 </div>
 
-
 <script>
 $(document).ready(function() {
 	
@@ -44,7 +44,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		
 		var custom_type_id = $(this).attr('id');
-		var parent_url = '{% url 'custom_type_detail_by_segment_parent' %}';
+		var parent_url = '{% url 'customtype_detail_by_segment_parent' %}';
 		var url = parent_url + custom_type_id;
 		var dtitle = "自定义类型-" + $(this).attr('title');
 		console.log(url)
@@ -53,7 +53,6 @@ $(document).ready(function() {
 		     message: $('<div></div>').load(url)
 		 }); 
 		
-
 		return false;
 	});
 });

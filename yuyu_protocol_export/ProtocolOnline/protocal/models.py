@@ -98,7 +98,7 @@ class CustomType(models.Model):
     desc = models.CharField(max_length = 150,blank = False)
     type = models.ForeignKey(SegmentType,on_delete=models.CASCADE,null=True,default=None)
     module = models.ForeignKey(Module,on_delete=models.CASCADE)
-    belong = models.ForeignKey(Protocal,on_delete=models.CASCADE)
+    belong = models.ForeignKey(Protocal,on_delete=models.CASCADE,null=True,default=None)
     namespace = models.CharField(max_length = 100,blank = False,unique = True)
     timestamp = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):

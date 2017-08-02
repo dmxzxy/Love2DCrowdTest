@@ -163,9 +163,9 @@
 		    	e.preventDefault();
 		    	
 		    	{% if cur_segment %}
-		    	var cur_url = '{% url 'custom_type_segment_edit' cur_segment.id %}';
+		    	var cur_url = '{% url 'customtype_segment_edit' cur_segment.id %}';
 		    	{% else %}
-		    	var cur_url = '{% url 'custom_type_segment_create' cur_custom_type.id %}';
+		    	var cur_url = '{% url 'customtype_segment_create' cur_customtype.id %}';
 		    	{% endif %}
 		    	
 
@@ -188,7 +188,7 @@
 		                data: pack_data,
 		                success: function() {
 
-		                   location.replace("{% url 'custom_type_segments_detail' cur_custom_type.id %}");
+		                   location.replace("{% url 'customtype_segments_detail' cur_customtype.id %}");
 		                },
 				        error : function(xhr,errmsg,err) {
 				            

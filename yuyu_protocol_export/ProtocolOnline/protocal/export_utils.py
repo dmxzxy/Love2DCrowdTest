@@ -122,17 +122,18 @@ def pre_handle_modules(context):
         customtypesegments = CustomTypeSegment.objects.filter(belong__in = customtypes).order_by('belong')
 
         customtypes_dict = {}
-        for customtype in customtypes:
+        for customtypesegment in customtypesegments:
             customtype_segments = None
-            if not customtypes_dict.has_key(customtype.belong.id):
+            print customtypesegment.belong
+            if not customtypes_dict.has_key(customtypesegment.belong.id):
                 customtype_segments = []
-                customtypes_dict[customtype.belong.id] = customtype_segments
+                customtypes_dict[customtypesegment.belong.id] = customtype_segments
             else:
-                customtype_segments = customtypes_dict[customtype.belong.id]
-            customtype_segments.append(customtype)
+                customtype_segments = customtypes_dict[customtypesegment.belong.id]
+            customtype_segments.append(customtypesegment)
 
         moduleCustoms = customtypes.filter(belong = None)
-        for customtype in customtypes:
+        for customtype in moduleCustoms:
             if customtypes_dict.has_key(customtype.id):
                 customtype.segments = customtypes_dict[customtype.id]
             else:
@@ -170,7 +171,7 @@ def pre_handle_modules(context):
                     enum.segments = []
             protocal.innerenums = innerenums
 
-            innercustomtypes = customtypes.filter(belong = None)
+            innercustomtypes = customtypes.filter(belong = protocal)
             for customtype in innercustomtypes:
                 if customtypes_dict.has_key(customtype.id):
                     customtype.segments = customtypes_dict[customtype.id]

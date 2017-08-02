@@ -320,33 +320,43 @@ def customtype_create(request,module_id,customtype_id = 0):
         cur_project = cur_module.project
         cur_customtype = CustomType.objects.filter(pk=customtype_id).first()
 
-        enum_name = request.POST['enum_name']
-        enum_desc = request.POST['enum_desc']
-        enum_value = request.POST['enum_value']
-        enum_inner_protocal_id = request.POST['enum_inner_protocal_id'] 
-        enum_namespace = cur_module.namespace + "." + enum_name
+        customtype_name = request.POST['customtype_name']
+        customtype_desc = request.POST['customtype_desc']
+        customtype_inner_protocal_id = request.POST['customtype_inner_protocal_id'] 
+        customtype_namespace = cur_module.namespace + "." + customtype_name
 
-        if not enum_name or strip(enum_name) == '':
-            raise ValidationError("enum_name should not be null.");
-        if not enum_desc:
-            raise ValidationError("enum_desc should not be null.");
-        if not enum_inner_protocal_id:
-            raise ValidationError("enum_type should not be null.");
+        if not customtype_name or strip(customtype_name) == '':
+            raise ValidationError("customtype_name should not be null.");
+        if not customtype_desc:
+            raise ValidationError("customtype_desc should not be null.");
         else:
-            inner_protocal = get_object_or_404(Protocal, pk=enum_inner_protocal_id) 
+            if not customtype_inner_protocal_id:
+                inner_protocal = None
+            else:
+                inner_protocal = get_object_or_404(Protocal, pk=customtype_inner_protocal_id) 
             if cur_customtype:          
                 pass          
             else:
-                enum = Enum(name = strip(enum_name),
-                            desc = enum_desc,
+                customtype = CustomType(name = strip(customtype_name),
+                            desc = customtype_desc,
                             module = cur_module,
-                            namespace = enum_namespace,
+                            namespace = customtype_namespace,
                             belong = inner_protocal,
                             )
     
-                enum.save()
+                customtype.save()
 
-        return HttpResponse("<h1>Created Enum successfully .</h1>")  
+                segment_type = SegmentType(name = strip(customtype_name),
+                                           desc = customtype_desc,
+                                           module = cur_module,
+                                           protocal = inner_protocal,
+                                           is_basic = False,
+                                           project = cur_project
+                                           )
+                segment_type.save()
+                CustomType.objects.filter(id=customtype.id).update(type = segment_type)
+
+        return HttpResponse("<h1>Created CustomType successfully .</h1>")  
     else:
         cur_module = get_object_or_404(Module, pk=module_id)
         cur_project = cur_module.project
@@ -380,66 +390,99 @@ def customtype_delete(request):
     else:
         return HttpResponse("<h1>Invalid request.</h1>")  
 
+def customtype_detail_by_segment(request,segment_type_id):
+    cur_segment_type = get_object_or_404(SegmentType, pk=segment_type_id)
+    cur_customtype = get_object_or_404(CustomType, type=cur_segment_type)
+    segments = CustomTypeSegment.objects.filter(belong = cur_customtype)
+    return render(request, 'custom_type_detail_dialog.html',{
+                                                  'cur_customtype':cur_customtype,
+                                                  'segments':segments,
+                                                  }) 
+
 # customtype segments ------------------------------------------------------------------------------------
-def customtype_segments_detail(request,enum_id):
-    cur_enum = get_object_or_404(Enum, pk=enum_id)
-    cur_module = cur_enum.module
+def customtype_segments_detail(request,customtype_id):
+    cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
+    cur_module = cur_customtype.module
     cur_project = cur_module.project
     
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
-    enumsegments = CustomTypeSegment.objects.filter(belong = cur_enum).order_by('value')
+    segments = CustomTypeSegment.objects.filter(belong = cur_customtype).order_by('timestamp')
     
-    return render(request, 'enum_segments_detail.html',{  'cur_project':cur_project,
+    return render(request, 'custom_type_segments_detail.html',{  'cur_project':cur_project,
                                                           'cur_module':cur_module,
-                                                          'cur_enum':cur_enum,
+                                                          'cur_customtype':cur_customtype,
                                                           'modules':modules,
-                                                          'enumsegments':enumsegments,
+                                                          'segments':segments,
                                                         })
 
-def customtype_segment_create(request,enum_id,segment_id = 0):
+def customtype_segment_create(request,customtype_id,segment_id = 0):
     if request.method == 'POST': 
-        cur_enum = get_object_or_404(Enum, pk=enum_id)
-        cur_segment = CustomTypeSegment.objects.filter(pk=segment_id)
-        cur_module = cur_enum.module
+        cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
+        cur_customtype_segment = CustomTypeSegment.objects.filter(pk=segment_id)
+        cur_module = cur_customtype.module
         cur_project = cur_module.project
         
-        segment_name = request.POST['segment_name']
-        segment_value = request.POST['segment_value']  
-        segment_desc = request.POST['segment_desc'] 
+        customtype_segment_name = request.POST['segment_name'] 
+        customtype_segment_desc = request.POST['segment_desc'] 
+        customtype_segment_type_id = request.POST['segment_type_id'] 
+        segment_extra_type1_id = request.POST['segment_extra_type1_id'] 
+        segment_extra_type2_id = request.POST['segment_extra_type2_id'] 
+        customtype_segment_protocal_type_id = request.POST['segment_protocal_type_id'] 
         
-        if not segment_name:
-            raise ValidationError("segment_name should not be null.");
-        if not segment_desc:
-            raise ValidationError("segment_desc should not be null.");
-        if not segment_value :
-            raise ValidationError("segment_value should not be null.");
+        if not customtype_segment_name:
+            raise ValidationError("custom_type_segment_name should not be null.");
+        if not customtype_segment_desc:
+            raise ValidationError("custom_type_segment_desc should not be null.");
+        if not customtype_segment_protocal_type_id :
+            raise ValidationError("custom_type_segment_protocal_type_id should not be null.");
+        if not customtype_segment_type_id:
+            raise ValidationError("custom_type_segment_type should not be null.");
         else:
-            if cur_segment:
-                cur_segment.update( name = strip(segment_name),
-                                    value = segment_value,
-                                    desc = segment_desc,
-                                    belong = cur_enum,
+            customtype_segment_type = get_object_or_404(SegmentType, pk=customtype_segment_type_id) 
+            segment_extra_type1 = get_object_or_404(SegmentType, pk=segment_extra_type1_id) 
+            segment_extra_type2 = get_object_or_404(SegmentType, pk=segment_extra_type2_id) 
+            customtype_segment_protocal_type = get_object_or_404(SegmentProtoType, pk=customtype_segment_protocal_type_id) 
+            
+            if cur_customtype_segment:
+                cur_customtype_segment.update(name = strip(customtype_segment_name),
+                                    desc = customtype_segment_desc,
+                                    belong = cur_customtype,
+                                    protocal_type = customtype_segment_protocal_type,
+                                    type = customtype_segment_type,
                                     )
             else:
-                segment = CustomTypeSegment(  name = strip(segment_name),
-                                    value = segment_value,
-                                    desc = segment_desc,
-                                    belong = cur_enum,
+                customtype_segment = CustomTypeSegment(name = strip(customtype_segment_name),
+                                    desc = customtype_segment_desc,
+                                    belong = cur_customtype,
+                                    protocal_type = customtype_segment_protocal_type,
+                                    type = customtype_segment_type,
                                     )
     
-                segment.save()
+                customtype_segment.save()
+
         return HttpResponse("<h1>Created successfully .</h1>")  
     else:
-        cur_enum = get_object_or_404(Enum, pk=enum_id)
+        cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
+        cur_protocal = cur_customtype.belong
         cur_segment = CustomTypeSegment.objects.filter(id=segment_id).first()
-        cur_module = cur_enum.module
+        cur_module = cur_customtype.module
         cur_project = cur_module.project
-        
-        return render(request, 'enum_segment_create_dialog.html',{
-                                                  'cur_enum':cur_enum,
+        segment_proto_types = SegmentProtoType.objects.all()
+        segment_types = SegmentType.objects.filter(Q(is_basic = True) | (Q(is_basic=False) and Q(module=cur_module))).order_by('-is_basic','-show_priority','-timestamp')
+        if cur_protocal:
+            segment_types = segment_types.exclude(~Q(protocal = None), ~Q(protocal = cur_protocal))
+        else:
+            segment_types = segment_types.exclude(~Q(protocal = None))
+            
+        segment_types = segment_types.exclude(Q(pk=cur_customtype.type.id))
+
+        return render(request, 'custom_type_segment_create_dialog.html',{
+                                                  'cur_customtype':cur_customtype,
                                                   'cur_segment':cur_segment, 
                                                   'cur_module':cur_module,
-                                                  'cur_project':cur_project
+                                                  'cur_project':cur_project,
+                                                  'segment_proto_types':segment_proto_types,
+                                                  'segment_types':segment_types,
                                                   }) 
 
 def customtype_segment_edit(request,segment_id):

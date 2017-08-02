@@ -2,7 +2,7 @@
 {% block project_content %}
 {% load segtype %}
 	<h1>
-		类型 - {{ cur_custom_type.name }}
+		类型 - {{ cur_customtype.name }}
 	</h1>
 	
 <div id="segment_lists_dialog" >
@@ -35,8 +35,8 @@
 </table>
 
 <div class="text-center">
-<button id="create_segment" class="btn btn-success btn-large btn_120px" val="{{ cur_custom_type.id }}">新增</button>
-<a href="{% url 'custom_types_detail' cur_project.id %}" class="btn btn-primary btn-large btn_120px" val="{{ cur_project.id }}">返回</a>
+<button id="create_segment" class="btn btn-success btn-large btn_120px" val="{{ cur_customtype.id }}">新增</button>
+<a href="{% url 'customtype_detail' cur_project.id %}" class="btn btn-primary btn-large btn_120px" val="{{ cur_project.id }}">返回</a>
 </div>
 
 
@@ -52,7 +52,7 @@
 			$('button.delete_segment').click(function(){
 				var segment_id = $(this).attr('val');
 				var segment_name = $(this).attr('name');
-				var cur_url = '{% url 'custom_type_segment_delete' %}';
+				var cur_url = '{% url 'customtype_segment_delete' %}';
 				console.log(segment_id)
 				var dtitle = "确认删除字段 " + segment_name + " 吗？";
 		 		BootstrapDialog.confirm(dtitle, function(result){
@@ -69,7 +69,7 @@
     		                data: pack_data,
     		                success: function() {
 
-    		                   location.replace("{% url 'custom_type_segments_detail' cur_custom_type.id %}");
+    		                   location.replace("{% url 'customtype_segments_detail' cur_customtype.id %}");
     		                },
     				        error : function(xhr,errmsg,err) {
     				            
@@ -93,7 +93,7 @@
 			// 新增字段
 			$('#create_segment').click(function(){
 				var project_id = $(this).attr('val');
-				var parent_url = '{% url 'custom_type_segment_create_parent' %}';
+				var parent_url = '{% url 'customtype_segment_create_parent' %}';
 				var url = parent_url + project_id;
 				var dtitle = "新增字段";
 		 		BootstrapDialog.show({
@@ -106,7 +106,7 @@
 			// 修改字段
 			$('button.edit_segment').click(function(){
 				var segment_id = $(this).attr('val');
-				var parent_url = '{% url 'custom_type_segment_edit_parent' %}';
+				var parent_url = '{% url 'customtype_segment_edit_parent' %}';
 				var url = parent_url + segment_id;
 				var dtitle = "修改字段";
 		 		BootstrapDialog.show({
@@ -120,7 +120,7 @@
 				e.preventDefault();
 				
 				var custom_type_id = $(this).attr('id');
-				var parent_url = '{% url 'custom_type_detail_by_segment_parent' %}';
+				var parent_url = '{% url 'customtype_detail_by_segment_parent' %}';
 				var url = parent_url + custom_type_id;
 				var dtitle = "自定义类型-" + $(this).attr('title');
 				console.log(url)

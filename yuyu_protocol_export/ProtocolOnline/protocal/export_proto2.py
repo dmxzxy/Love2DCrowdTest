@@ -20,8 +20,28 @@ def write_enum(file_proto, context, enum, indent=''):
     file_proto.write(indent+'}\n')
     file_proto.write('\n')
 
+def write_customtype(file_proto, context, customtype, indent=''):
+    file_proto.write(indent+'// ')
+    file_proto.write(customtype.desc.encode('utf-8'))
+    file_proto.write('\n')
+    file_proto.write(indent+'message %s {\n' % (customtype.name))
 
+    segments = customtype.segments
+    index = 1
+    for segment in segments:
+        segIndent = indent + '    '
+        if segment.type.name == 'map':
+            file_proto.write(segIndent+'%s %s<%s,%s> %s = %d;' % (segment.protocal_type, segment.type.name, segment.extra_type1.name, segment.extra_type2.name, segment.name, index))
+        else:
+            file_proto.write(segIndent+'%s %s %s = %d;' % (segment.protocal_type, segment.type.name, segment.name, index))
 
+        file_proto.write('      // ')
+        file_proto.write(segment.desc.encode('utf-8'))
+        file_proto.write('\n');
+        index = index + 1
+
+    file_proto.write(indent+'}\n')
+    file_proto.write('\n')
 
 def write_protocal(file_proto, context, protocal, indent=''):
     file_proto.write(indent+'// ')
@@ -36,7 +56,7 @@ def write_protocal(file_proto, context, protocal, indent=''):
 
     innercustomtypes = protocal.innercustomtypes
     for innercustomtype in innercustomtypes:
-        write_protocal(file_proto, context, innercustomtype, segIndent);
+        write_customtype(file_proto, context, innercustomtype, segIndent);
 
     segments = protocal.segments
     index = 1
@@ -70,7 +90,7 @@ def do_export_protocal(context):
             write_enum(file_proto, context, enum)
 
         for customtype in module.customtypes:
-            write_protocal(file_proto, context, customtype)
+            write_customtype(file_proto, context, customtype)
 
         for protocal in module.protocals:
             write_protocal(file_proto, context, protocal)

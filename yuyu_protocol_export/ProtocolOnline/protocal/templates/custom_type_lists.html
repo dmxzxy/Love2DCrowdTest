@@ -14,7 +14,7 @@
          <td class="show_custom_type_detail">{{ customtype.name }}</td>
          <td class="show_custom_type_detail">{{ customtype.desc }}</td>
          <td>
-         <a id="edit_custom_type_segments" href="{% url 'custom_type_segments_detail' customtype.id %}" class="btn btn-primary btn-large" val="{{ customtype.id }}">编辑字段</a>
+         <a id="edit_custom_type_segments" href="{% url 'customtype_segments_detail' customtype.id %}" class="btn btn-primary btn-large" val="{{ customtype.id }}">编辑字段</a>
          <button  class="edit_custom_type btn btn-success btn-large" val="{{ customtype.id }}">修改</button>
          <button id="delete_custom_type" class="btn btn-danger btn-large" val="{{ customtype.id }}" name = "{{ customtype.name }}">删除</button>
          </td>
@@ -23,9 +23,9 @@
    </tbody>
 </table>
 
-<div class="text-center">
+<!-- <div class="text-center">
 <button class="btn btn-success btn-large btn_120px create_custom_type" val="{{ cur_module.id }}">新增</button>
-</div>
+</div> -->
 
 </div>
 {% include "custom_type_delete_dialog.html" %} 

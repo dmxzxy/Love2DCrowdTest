@@ -61,7 +61,7 @@ $(document).ready(function() {
       e.preventDefault();
       
       var custom_type_id = $(this).attr('id');
-      var parent_url = '{% url 'custom_type_detail_by_segment_parent' %}';
+      var parent_url = '{% url 'customtype_detail_by_segment_parent' %}';
       var url = parent_url + custom_type_id;
       var dtitle = "自定义类型-" + $(this).attr('title');
       console.log(url)
