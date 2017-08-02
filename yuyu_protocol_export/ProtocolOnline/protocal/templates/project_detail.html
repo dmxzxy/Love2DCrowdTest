@@ -12,6 +12,7 @@
 		{% if cur_module %}
 		<a href="{% url 'protocal_create' cur_module.id %}" id="create_protocal" class="button button-raised button-primary button-pill">新增协议</a> 
 		<a href="{% url 'enum_create' cur_module.id %}" id="enum_create" class="button button-raised button-action button-pill">新增枚举</a>
+		<a href="{% url 'customtype_create' cur_module.id %}" id="customtype_create" class="button button-raised button-action button-pill">新增类型</a>
 		{% endif %} 
 	</div>
 	
@@ -26,6 +27,11 @@
 				<h3>枚举</h3>
 			</a>
 		</li>
+		<li>
+			<a href="#customtype" data-toggle="tab">
+				<h3>类型</h3>
+			</a>
+		</li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="protocal">
@@ -33,6 +39,9 @@
 		</div>
 		<div class="tab-pane fade" id="enum">
 			{% include "enum_lists.html" %} 
+		</div>
+		<div class="tab-pane fade" id="customtype">
+			{% include "custom_type_lists.html" %} 
 		</div>
 	</div>
 	

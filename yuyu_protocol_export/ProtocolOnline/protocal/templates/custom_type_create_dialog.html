@@ -39,9 +39,6 @@
 		添加
 		{% endif %}
 		</button>
-<!-- 		<span class="col-sm-2"></span>
-		<a href="{% url 'custom_types_detail' cur_project.id %}" class="btn btn-danger btn-large col-sm-2">取消</a>
-		<span class="col-sm-3"></span> -->
     </div>
 
 	
@@ -73,9 +70,9 @@
 		    	e.preventDefault();
 		    	
 		    	{% if cur_custom_type %}
-		    	var cur_url = '{% url 'custom_type_edit' cur_custom_type.id %}';
+		    	var cur_url = '{% url 'customtype_edit' cur_customtype.id %}';
 		    	{% else %}
-		    	var cur_url = '{% url 'custom_type_create' cur_project.id %}';
+		    	var cur_url = '{% url 'customtype_create' cur_project.id %}';
 		    	{% endif %}
 		    	
 
@@ -93,7 +90,7 @@
 		                data: pack_data,
 		                success: function() {
 
-		                   location.replace("{% url 'custom_types_detail' cur_project.id %}");
+		                   location.replace("{% url 'customtype_detail' cur_project.id %}");
 		                },
 				        error : function(xhr,errmsg,err) {
 				            

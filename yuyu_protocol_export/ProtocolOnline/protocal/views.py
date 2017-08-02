@@ -306,11 +306,19 @@ def enum_segment_delete(request):
         return HttpResponse("<h1>Invalid request.</h1>")  
 
 # customType ------------------------------------------------------------
-def customType_create(request,module_id,customType_id = 0):
+def customtype_detail(request,customtype_id = 0):
+    cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
+    segments = CustomTypeSegment.objects.filter(belong = cur_customtype)
+    return render(request, 'custom_type_detail_dialog.html',{
+                                                  'cur_customtype':cur_customtype,
+                                                  'segments':segments,
+                                                  }) 
+
+def customtype_create(request,module_id,customtype_id = 0):
     if request.method == 'POST': 
         cur_module = get_object_or_404(Module, pk=module_id)
         cur_project = cur_module.project
-        cur_enum = Enum.objects.filter(pk=enum_id).first()
+        cur_customtype = CustomType.objects.filter(pk=customtype_id).first()
 
         enum_name = request.POST['enum_name']
         enum_desc = request.POST['enum_desc']
@@ -326,7 +334,7 @@ def customType_create(request,module_id,customType_id = 0):
             raise ValidationError("enum_type should not be null.");
         else:
             inner_protocal = get_object_or_404(Protocal, pk=enum_inner_protocal_id) 
-            if cur_enum:          
+            if cur_customtype:          
                 pass          
             else:
                 enum = Enum(name = strip(enum_name),
@@ -342,23 +350,116 @@ def customType_create(request,module_id,customType_id = 0):
     else:
         cur_module = get_object_or_404(Module, pk=module_id)
         cur_project = cur_module.project
-        cur_enum = Enum.objects.filter(pk=enum_id).first()
+        cur_customtype = CustomType.objects.filter(pk=customtype_id).first()
         modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
         protocals = Protocal.objects.filter(module = cur_module)
 
-        return render(request, 'enum_new.html',{  'cur_project':cur_project,
+        return render(request, 'custom_type_create_dialog.html',{  'cur_project':cur_project,
                                                   'cur_module':cur_module,
-                                                  'cur_enum':cur_enum,
+                                                  'cur_customtype':cur_customtype,
                                                   'modules':modules,
                                                   'protocals':protocals,                                               
                                                   }) 
 
-def customType_edit(request,customType_id):
+def customtype_edit(request,customType_id):
     cur_customType = get_object_or_404(CustomType, pk=customType_id)
-    return customType_create(request,cur_customType.module.id,cur_customType.id)
+    return customtype_create(request,cur_customType.module.id,cur_customType.id)
 
-def customType_delete(request):
-    pass
+def customtype_delete(request):
+    if request.method == 'POST': 
+        customtype_id = request.POST['customtype_id'] 
+        cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
+
+        if cur_customtype:
+            cur_customtype.delete()
+
+        else:
+            raise ValidationError("segment_id should not be null.");
+        
+        return HttpResponse("<h1>Created successfully .</h1>")  
+    else:
+        return HttpResponse("<h1>Invalid request.</h1>")  
+
+# customtype segments ------------------------------------------------------------------------------------
+def customtype_segments_detail(request,enum_id):
+    cur_enum = get_object_or_404(Enum, pk=enum_id)
+    cur_module = cur_enum.module
+    cur_project = cur_module.project
+    
+    modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
+    enumsegments = CustomTypeSegment.objects.filter(belong = cur_enum).order_by('value')
+    
+    return render(request, 'enum_segments_detail.html',{  'cur_project':cur_project,
+                                                          'cur_module':cur_module,
+                                                          'cur_enum':cur_enum,
+                                                          'modules':modules,
+                                                          'enumsegments':enumsegments,
+                                                        })
+
+def customtype_segment_create(request,enum_id,segment_id = 0):
+    if request.method == 'POST': 
+        cur_enum = get_object_or_404(Enum, pk=enum_id)
+        cur_segment = CustomTypeSegment.objects.filter(pk=segment_id)
+        cur_module = cur_enum.module
+        cur_project = cur_module.project
+        
+        segment_name = request.POST['segment_name']
+        segment_value = request.POST['segment_value']  
+        segment_desc = request.POST['segment_desc'] 
+        
+        if not segment_name:
+            raise ValidationError("segment_name should not be null.");
+        if not segment_desc:
+            raise ValidationError("segment_desc should not be null.");
+        if not segment_value :
+            raise ValidationError("segment_value should not be null.");
+        else:
+            if cur_segment:
+                cur_segment.update( name = strip(segment_name),
+                                    value = segment_value,
+                                    desc = segment_desc,
+                                    belong = cur_enum,
+                                    )
+            else:
+                segment = CustomTypeSegment(  name = strip(segment_name),
+                                    value = segment_value,
+                                    desc = segment_desc,
+                                    belong = cur_enum,
+                                    )
+    
+                segment.save()
+        return HttpResponse("<h1>Created successfully .</h1>")  
+    else:
+        cur_enum = get_object_or_404(Enum, pk=enum_id)
+        cur_segment = CustomTypeSegment.objects.filter(id=segment_id).first()
+        cur_module = cur_enum.module
+        cur_project = cur_module.project
+        
+        return render(request, 'enum_segment_create_dialog.html',{
+                                                  'cur_enum':cur_enum,
+                                                  'cur_segment':cur_segment, 
+                                                  'cur_module':cur_module,
+                                                  'cur_project':cur_project
+                                                  }) 
+
+def customtype_segment_edit(request,segment_id):
+    cur_segment = get_object_or_404(CustomTypeSegment, pk=segment_id)
+    return customtype_segment_create(request,cur_segment.belong.id,cur_segment.id)
+
+def customtype_segment_delete(request):
+    if request.method == 'POST': 
+        segment_id = request.POST['segment_id'] 
+        cur_segment = get_object_or_404(CustomTypeSegment, pk=segment_id)
+
+        if cur_segment:
+            cur_segment.delete()
+
+        else:
+            raise ValidationError("segment_id should not be null.");
+        
+        return HttpResponse("<h1>Created successfully .</h1>")  
+    else:
+        return HttpResponse("<h1>Invalid request.</h1>")  
 
 # protocal --------------------------------------------------------
 def protocal_detail(request,protocal_id):
@@ -628,6 +729,7 @@ def module_detail(request,module_id):
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
     protocals = Protocal.objects.filter(module = cur_module).order_by('-timestamp')
     enums = Enum.objects.filter(module = cur_module).order_by('-timestamp')
+    customtypes = CustomType.objects.filter(module = cur_module).order_by('-timestamp')
     protocal_types = ProtocalType.objects.all()
     segment_types = SegmentType.objects.filter(Q(is_basic = True) | (Q(is_basic=False) and Q(project = cur_project))).order_by('-is_basic','-show_priority', '-timestamp')
     segment_proto_types = SegmentProtoType.objects.all()
@@ -638,6 +740,7 @@ def module_detail(request,module_id):
                                                   'modules':modules,
                                                   'protocals':protocals,
                                                   'enums':enums,
+                                                  'customtypes':customtypes,
                                                   'protocal_types':protocal_types,
                                                   'segment_types':segment_types,
                                                   'segment_proto_types':segment_proto_types,

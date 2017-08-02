@@ -28,9 +28,7 @@
       <tr data-toggle="{{ segment.desc }}" >
          <td>{{ forloop.counter }}</td>
          <td class="show_segment_tooltips_class">{{ segment.protocal_type }}</td>
-         <td class="show_segment_tooltips_type">
-         {{ segment|segtype|safe }}
-         </td>
+         <td class="show_segment_tooltips_type">{{ segment|segtype|safe }}</td>
          <td class="show_segment_tooltips_name">{{ segment.name }}</td>
          <td class="show_segment_tooltips_name">{{ segment.desc }}</td>
       </tr>
@@ -58,6 +56,23 @@ $(document).ready(function() {
 
 		return false;
 	});
+   
+   $(".show_segment_class_detail").unbind('click').click(function(e) {
+      e.preventDefault();
+      
+      var custom_type_id = $(this).attr('id');
+      var parent_url = '{% url 'custom_type_detail_by_segment_parent' %}';
+      var url = parent_url + custom_type_id;
+      var dtitle = "自定义类型-" + $(this).attr('title');
+      console.log(url)
+      BootstrapDialog.show({
+          title:dtitle,
+           message: $('<div></div>').load(url)
+       }); 
+      
+
+      return false;
+   });
 });
 
         
