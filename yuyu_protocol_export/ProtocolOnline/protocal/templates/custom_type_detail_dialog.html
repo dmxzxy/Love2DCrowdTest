@@ -1,13 +1,15 @@
 {% load segtype %}
 
 <div>
-{{ cur_customtype.name }}
+<div><strong class="col-md-2">协议</strong><span>{{ cur_customtype.name }}</span></div>
+{% if cur_customtype.belong %}
+<div><strong class="col-md-2">所属协议</strong><span><a class="show_belong_protocal_detail" val ="{{ cur_customtype.belong.id }}" name = "{{ cur_customtype.belong.name }}">{{ cur_customtype.belong.name }}</a></span></div>
+{% endif %}
+<div><strong class="col-md-2">描述</strong><span>{{ cur_customtype.desc }}</span></div>
 </div>
 
 <hr/>
-<div>
-{{ cur_customtype.desc }}
-</div>
+
 <div>
 <table id="segment_lists" class="table table-hover">
 	<caption>字段</caption>
@@ -40,6 +42,40 @@
 <script>
 $(document).ready(function() {
 	
+   $(".show_belong_protocal_detail").unbind('click').click(function(e) {
+      e.preventDefault();
+      
+      var protocal_id = $(this).attr('val');
+      var parent_url = '{% url 'protocal_detail_parent' %}';
+      var url = parent_url + protocal_id;
+      var dtitle = "协议-" + $(this).attr('name');
+      console.log(url)
+      BootstrapDialog.show({
+          title:dtitle,
+           message: $('<div></div>').load(url)
+       }); 
+      
+
+      return false;
+   });
+
+   $(".show_enum_segment_class_detail").unbind('click').click(function(e) {
+      e.preventDefault();
+      
+      var segment_id = $(this).attr('id');
+      var parent_url = '{% url 'enum_detail_by_segment_parent' %}';
+      var url = parent_url + segment_id;
+      var dtitle = "枚举-" + $(this).attr('title');
+      console.log(url)
+      BootstrapDialog.show({
+          title:dtitle,
+           message: $('<div></div>').load(url)
+       }); 
+      
+
+      return false;
+   });
+   
 	$(".show_segment_class_detail").unbind('click').click(function(e) {
 		e.preventDefault();
 		

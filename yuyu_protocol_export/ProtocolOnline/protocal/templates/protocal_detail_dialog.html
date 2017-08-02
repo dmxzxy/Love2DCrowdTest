@@ -18,7 +18,7 @@
      <tbody>
         {% for innerEnum in cur_protocal.innerEnums %}
           <tr>
-            <td><a class='show_segment_class_detail' id = {{innerEnum.type.id}} title={{innerEnum.name}}>{{innerEnum.name}}</a></td>
+            <td><a class='show_enum_segment_class_detail' id = {{innerEnum.id}} title={{innerEnum.name}}>{{innerEnum.name}}</a></td>
           </tr>
         {% endfor %}
      </tbody>
@@ -84,7 +84,6 @@ $(document).ready(function() {
 
 		return false;
 	});
-   
    $(".show_segment_class_detail").unbind('click').click(function(e) {
       e.preventDefault();
       
@@ -92,6 +91,23 @@ $(document).ready(function() {
       var parent_url = '{% url 'customtype_detail_by_segment_parent' %}';
       var url = parent_url + custom_type_id;
       var dtitle = "自定义类型-" + $(this).attr('title');
+      console.log(url)
+      BootstrapDialog.show({
+          title:dtitle,
+           message: $('<div></div>').load(url)
+       }); 
+      
+
+      return false;
+   });
+   
+   $(".show_enum_segment_class_detail").unbind('click').click(function(e) {
+      e.preventDefault();
+      
+      var segment_id = $(this).attr('id');
+      var parent_url = '{% url 'enum_detail_by_segment_parent' %}';
+      var url = parent_url + segment_id;
+      var dtitle = "枚举-" + $(this).attr('title');
       console.log(url)
       BootstrapDialog.show({
           title:dtitle,

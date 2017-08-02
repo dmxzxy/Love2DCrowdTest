@@ -3,7 +3,7 @@
 <div><strong class="col-md-2">枚举类型</strong><span>{{ cur_enum.name }}</span></div>
 <div><strong class="col-md-2">模块</strong><span>{{ cur_enum.module.name }}</span></div>
 {% if cur_enum.belong %}
-<div><strong class="col-md-2">所属协议</strong><span>{{ cur_enum.belong.name }}</span></div>
+<div><strong class="col-md-2">所属协议</strong><span><a class="show_belong_protocal_detail" val ="{{ cur_enum.belong.id }}" name = "{{ cur_enum.belong.name }}">{{ cur_enum.belong.name }}</a></span></div>
 {% endif %}
 <div><strong class="col-md-2">描述 </strong><span>{{ cur_enum.desc }}</span></div>
 </div>
@@ -36,6 +36,22 @@
 
 <script>
 $(document).ready(function() {
+   $(".show_belong_protocal_detail").unbind('click').click(function(e) {
+      e.preventDefault();
+      
+      var protocal_id = $(this).attr('val');
+      var parent_url = '{% url 'protocal_detail_parent' %}';
+      var url = parent_url + protocal_id;
+      var dtitle = "协议-" + $(this).attr('name');
+      console.log(url)
+      BootstrapDialog.show({
+          title:dtitle,
+           message: $('<div></div>').load(url)
+       }); 
+      
+
+      return false;
+   });
 });
 
         

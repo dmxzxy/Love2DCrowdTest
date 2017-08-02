@@ -243,6 +243,14 @@ def enum_delete(request):
     else:
         return HttpResponse("<h1>Invalid request.</h1>")  
 
+def enum_detail_by_segment(request,segment_type_id):
+    cur_segment_type = get_object_or_404(SegmentType, pk=segment_type_id)
+    cur_enum = get_object_or_404(Enum, type=cur_segment_type)
+    segments = EnmuSegment.objects.filter(belong = cur_enum)
+    return render(request, 'enum_detail_dialog.html',{
+                                                  'cur_enum':cur_enum,
+                                                  'segments':segments,
+                                                  }) 
 # enum segments ------------------------------------------------------------------------------------
 def enum_segments_detail(request,enum_id):
     cur_enum = get_object_or_404(Enum, pk=enum_id)

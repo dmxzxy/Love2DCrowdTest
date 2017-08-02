@@ -51,6 +51,8 @@ urlpatterns = [
 
     url(r'^customtype_detail_by_segment/$', views.index, name='customtype_detail_by_segment_parent'),
     url(r'^customtype_detail_by_segment/(?P<segment_type_id>[0-9]+)/$', views.customtype_detail_by_segment, name='customtype_detail_by_segment'),
+    url(r'^enum_detail_by_segment/$', views.index, name='enum_detail_by_segment_parent'),
+    url(r'^enum_detail_by_segment/(?P<segment_type_id>[0-9]+)/$', views.enum_detail_by_segment, name='enum_detail_by_segment'),
 
     url(r'^customtypesegments/(?P<customtype_id>[0-9]+)$', views.customtype_segments_detail, name='customtype_segments_detail'),
     url(r'^customtypesegments/create/$', views.index, name='customtype_segment_create_parent'),
