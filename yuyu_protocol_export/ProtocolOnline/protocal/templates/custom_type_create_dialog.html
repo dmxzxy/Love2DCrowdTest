@@ -10,7 +10,7 @@
           <label class="control-label padding_4px" for="input01">自定义类型名称</label>
           <div class="controls">
             <input id="field_custom_type_name" type="text" placeholder="eg.BattleRoundData" class="form-control"
-            value="{% if cur_custom_type %}{{ cur_custom_type.name }} {% endif %}" >
+            value="{% if cur_customtype %}{{ cur_customtype.name }} {% endif %}" >
             <p class="help-block">输入自定义类型的名称，使用英文，注意，这是在代码中使用的。
             所以建议统一使用Pascal格式：首字母大写。
             </p>
@@ -23,16 +23,20 @@
 	      <!-- Text input-->
 	      <label class="control-label padding_4px" for="input01">嵌套协议</label>
 	      <div class="controls">
-	     		 {% if cur_protocal.relate_protocal %}
+	     		 {% if cur_customtype.belong %}
 					<select id="field_custom_type_inner_protocal_id" class="selectpicker"  >
-	  					{% for relate_protocal in relate_protocals %}
-	  					<option value="{{ relate_protocal.id }}">{{ relate_protocal.name }}</option>
+	  			 		<option value="0">无嵌套</option>
+	  					{% for protocal in protocals %}
+	  					 {% if protocal.id == cur_customtype.belong.id %}
+	  						<option value="{{ protocal.id }}" selected="selected">{{ protocal.name }}</option>
+	  					 {% else %}
+	  						<option value="{{ protocal.id }}">{{ protocal.name }}</option>
+	  					 {% endif %}
 	  					{% endfor %}
-	  					<option value="0">无相关协议</option>
-	  					<option value="{{ cur_protocal.relate_protocal.id }}" selected="selected">{{ cur_protocal.relate_protocal.name }}</option>
 					</select>
 	        	{% else %}
 	        		<select id="field_custom_type_inner_protocal_id" class="selectpicker" title="选择相关协议.." >
+	  			 		<option value="0">无嵌套</option>
 	  					{% for protocal in protocals %}
 	  					<option value="{{ protocal.id }}" >{{ protocal.name }}</option>
 	  					{% endfor %}
@@ -50,7 +54,7 @@
       <label class="control-label padding_4px" for="input01">自定义类型描述</label>
       <div class="controls">
         <input id="field_custom_type_desc" type="text" placeholder="" class="form-control"
-        value="{% if cur_custom_type %}{{ cur_custom_type.desc }} {% endif %}" >
+        value="{% if cur_customtype %}{{ cur_customtype.desc }} {% endif %}" >
         <p class="help-block">自定义类型的描述，主要是该自定义类型用来干嘛。</p>
       </div>
     </div>

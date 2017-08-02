@@ -109,10 +109,6 @@ def do_zip(context):
     zip_src_path = context.compile_path
     file_path = context.zip_dst_path + 'protocal_lua.zip'
     file_zip = zipfile.ZipFile(file_path,'w',zipfile.ZIP_DEFLATED)
-#     for dirpath, dirnames, filenames in os.walk(zip_src_path): 
-#         for filename in filenames: 
-#             file_zip.write(os.path.join(dirpath,filename),filename) 
-#    file_zip.write(os.path.join(zip_src_path,'AllProtocols.dll'),'AllProtocols.dll')
     file_zip.write(os.path.join(zip_src_path,'protocals.lua'),'protocals.lua')
     file_zip.write(context.version_path,'protocal_version.txt') 
     file_zip.close()     

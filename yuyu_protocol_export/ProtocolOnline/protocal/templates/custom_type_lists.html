@@ -5,6 +5,7 @@
       <tr>
          <th>名字</th>
          <th >描述</th>
+         <th>所属协议</th>
          <th class='col-sm-3'>  </th>
       </tr>
    </thead>
@@ -13,10 +14,15 @@
       <tr  id="{{ customtype.id }}" title="{{ customtype.name }}">
          <td class="show_custom_type_detail">{{ customtype.name }}</td>
          <td class="show_custom_type_detail">{{ customtype.desc }}</td>
+         {% if customtype.belong %}
+         <td class="show_custom_type_belong_detail" val = "{{ customtype.belong.id }}" name = "{{ customtype.belong.name }}"><a>{{ customtype.belong.name }}</a></td>
+         {% else %}
+         <td class="show_custom_type_detail">无</td>
+         {% endif %}
          <td>
          <a id="edit_custom_type_segments" href="{% url 'customtype_segments_detail' customtype.id %}" class="btn btn-primary btn-large" val="{{ customtype.id }}">编辑字段</a>
-         <button  class="edit_custom_type btn btn-success btn-large" val="{{ customtype.id }}">修改</button>
-         <button id="delete_custom_type" class="btn btn-danger btn-large" val="{{ customtype.id }}" name = "{{ customtype.name }}">删除</button>
+         <button class="edit_custom_type btn btn-success btn-large" val="{{ customtype.id }}">修改</button>
+         <button class="delete_customtype btn btn-danger btn-large" val="{{ customtype.id }}" name = "{{ customtype.name }}">删除</button>
          </td>
       </tr>
 	  {% endfor %}
@@ -45,10 +51,25 @@ $(document).ready(function() {
 		     message: $('<div></div>').load(url)
 		 }); 
 		
-
 		return false;
 	});
 	
+	$(".show_custom_type_belong_detail").click(function(e) {
+		e.preventDefault();
+		
+      	var custom_type_id = $(this).attr('val');
+		var parent_url = '{% url 'protocal_detail_parent' %}';
+		var url = parent_url + custom_type_id;
+		var dtitle = "协议-" + $(this).attr('name');
+		console.log(url)
+ 		BootstrapDialog.show({
+ 			 title:dtitle,
+		     message: $('<div></div>').load(url)
+		 }); 
+		
+
+		return false;
+	});
 	
 
 	// 新增自定义类型
@@ -67,9 +88,9 @@ $(document).ready(function() {
 	
 	// 修改自定义类型
 	$('button.edit_custom_type').click(function(){
-		var custom_type_id = $(this).attr('val');
+		var customtype_id = $(this).attr('val');
 		var parent_url = '{% url 'customtype_edit_parent' %}';
-		var url = parent_url + custom_type_id;
+		var url = parent_url + customtype_id;
 		console.log(url)
 		var dtitle = "修改自定义类型";
  		BootstrapDialog.show({

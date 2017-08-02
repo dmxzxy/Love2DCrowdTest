@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
+import os
+
 # Create your views here.
 from django.core.exceptions import ValidationError
 from django.db.models.query_utils import Q
@@ -55,14 +57,18 @@ def project_create(request):
 
 
 def project_detail(request,project_id):
-	cur_project = get_object_or_404(Project, pk=project_id)
-	modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
-	protocals = Protocal.objects.filter(module__in = modules).order_by('-timestamp')
-	protocal_types = ProtocalType.objects.all()
-	return render(request, 'project_detail.html', { 'cur_project':cur_project,
-													'modules':modules,
-													'protocals':protocals,
-													'protocal_types':protocal_types,
+    cur_project = get_object_or_404(Project, pk=project_id)
+    modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
+    protocals = Protocal.objects.filter(module__in = modules).order_by('-timestamp')
+    enums = Enum.objects.filter(module__in = modules).order_by('-timestamp')
+    customtypes = CustomType.objects.filter(module__in = modules).order_by('-timestamp')
+    protocal_types = ProtocalType.objects.all()
+    return render(request, 'project_detail.html', { 'cur_project':cur_project,
+    												'modules':modules,
+    												'protocals':protocals,
+    												'protocal_types':protocal_types,
+                                                    'enums':enums,
+                                                    'customtypes':customtypes,
 													})
 
 def project_export(request,project_id):
@@ -131,7 +137,7 @@ def project_download(request,project_id):
                 else:
                     break
     the_file_name = 'protocal_lua.zip'                
-    the_file_path = export_setting.export_path + cur_project.namespace + '/archive/' + the_file_name
+    the_file_path = export_setting.export_path + '/protocal'+  '/archive/' + the_file_name
 #     print 'the_file_path:' + the_file_path
     file_size = os.path.getsize(the_file_path)
     print 'file size:' + str(file_size)
@@ -166,12 +172,22 @@ def enum_create(request,module_id,enum_id = 0):
         if not enum_desc:
             raise ValidationError("enum_desc should not be null.");
         else:
-            if not enum_inner_protocal_id:
+            if not enum_inner_protocal_id or (try_parse_int(enum_inner_protocal_id) == 0):
                 inner_protocal = None
             else:
                 inner_protocal = get_object_or_404(Protocal, pk=enum_inner_protocal_id) 
-            if cur_enum:          
-                pass          
+            if cur_enum:   
+                Enum.objects.filter(pk=enum_id).update(name = strip(enum_name),
+                                                        desc = enum_desc,
+                                                        module = cur_module,
+                                                        namespace = enum_namespace,
+                                                        belong = inner_protocal,
+                                                        )
+
+
+                segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
+                if segment_type:
+                    segment_type.update(name = strip(enum_name),desc = enum_desc)
             else:
                 enum = Enum(name = strip(enum_name),
                             desc = enum_desc,
@@ -186,7 +202,8 @@ def enum_create(request,module_id,enum_id = 0):
                                            module = cur_module,
                                            protocal = inner_protocal,
                                            is_basic = False,
-                                           project = cur_project
+                                           project = cur_project,
+                                           provider_type = 1,
                                            )
                 segment_type.save()
                 Enum.objects.filter(id=enum.id).update(type = segment_type)
@@ -213,10 +230,12 @@ def enum_edit(request,enum_id):
 def enum_delete(request):
     if request.method == 'POST': 
         enum_id = request.POST['enum_id'] 
-        cur_protocal = get_object_or_404(Enum, pk=enum_id)
+        cur_enum = get_object_or_404(Enum, pk=enum_id)
+        cur_enum_type = get_object_or_404(SegmentType, pk=cur_enum.type.id)
 
-        if cur_protocal:
-            cur_protocal.delete()
+        if cur_enum:
+            cur_enum.delete()
+            cur_enum_type.delete()
         else:
             raise ValidationError("enum_id should not be null.");
         
@@ -330,12 +349,22 @@ def customtype_create(request,module_id,customtype_id = 0):
         if not customtype_desc:
             raise ValidationError("customtype_desc should not be null.");
         else:
-            if not customtype_inner_protocal_id:
+            print(customtype_inner_protocal_id)
+            if (not customtype_inner_protocal_id) or (try_parse_int(customtype_inner_protocal_id) == 0):
                 inner_protocal = None
             else:
                 inner_protocal = get_object_or_404(Protocal, pk=customtype_inner_protocal_id) 
             if cur_customtype:          
-                pass          
+                CustomType.objects.filter(pk=customtype_id).update(name = strip(customtype_name),
+                                                                    desc = customtype_desc,
+                                                                    module = cur_module,
+                                                                    namespace = customtype_namespace,
+                                                                    belong = inner_protocal,
+                                                                    )
+
+                segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
+                if segment_type:
+                    segment_type.update(name = strip(customtype_name),desc = customtype_desc)
             else:
                 customtype = CustomType(name = strip(customtype_name),
                             desc = customtype_desc,
@@ -351,7 +380,8 @@ def customtype_create(request,module_id,customtype_id = 0):
                                            module = cur_module,
                                            protocal = inner_protocal,
                                            is_basic = False,
-                                           project = cur_project
+                                           project = cur_project,
+                                           provider_type = 2,
                                            )
                 segment_type.save()
                 CustomType.objects.filter(id=customtype.id).update(type = segment_type)
@@ -371,20 +401,22 @@ def customtype_create(request,module_id,customtype_id = 0):
                                                   'protocals':protocals,                                               
                                                   }) 
 
-def customtype_edit(request,customType_id):
-    cur_customType = get_object_or_404(CustomType, pk=customType_id)
+def customtype_edit(request,customtype_id):
+    cur_customType = get_object_or_404(CustomType, pk=customtype_id)
     return customtype_create(request,cur_customType.module.id,cur_customType.id)
 
 def customtype_delete(request):
     if request.method == 'POST': 
         customtype_id = request.POST['customtype_id'] 
         cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
+        cur_customtype_type = get_object_or_404(SegmentType, pk=cur_customtype.type.id)
 
         if cur_customtype:
             cur_customtype.delete()
+            cur_customtype_type.delete()
 
         else:
-            raise ValidationError("segment_id should not be null.");
+            raise ValidationError("customtype_id should not be null.");
         
         return HttpResponse("<h1>Created successfully .</h1>")  
     else:
@@ -473,7 +505,7 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
             segment_types = segment_types.exclude(~Q(protocal = None), ~Q(protocal = cur_protocal))
         else:
             segment_types = segment_types.exclude(~Q(protocal = None))
-            
+
         segment_types = segment_types.exclude(Q(pk=cur_customtype.type.id))
 
         return render(request, 'custom_type_segment_create_dialog.html',{
@@ -491,7 +523,7 @@ def customtype_segment_edit(request,segment_id):
 
 def customtype_segment_delete(request):
     if request.method == 'POST': 
-        segment_id = request.POST['segment_id'] 
+        segment_id = request.POST['custom_type_segment_id'] 
         cur_segment = get_object_or_404(CustomTypeSegment, pk=segment_id)
 
         if cur_segment:
@@ -507,6 +539,12 @@ def customtype_segment_delete(request):
 # protocal --------------------------------------------------------
 def protocal_detail(request,protocal_id):
     cur_protocal = get_object_or_404(Protocal, pk=protocal_id)
+    innerEnums = Enum.objects.filter(belong = cur_protocal)
+    innerCustomTypes = CustomType.objects.filter(belong = cur_protocal)
+    if len(innerEnums) > 0:
+        cur_protocal.innerEnums = innerEnums;
+    if len(innerCustomTypes) > 0:
+        cur_protocal.innerCustomTypes = innerCustomTypes;
     segments = Segment.objects.filter(protocal = cur_protocal)
     return render(request, 'protocal_detail_dialog.html',{
                                                   'cur_protocal':cur_protocal,

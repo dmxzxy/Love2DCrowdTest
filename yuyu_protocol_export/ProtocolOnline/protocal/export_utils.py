@@ -198,6 +198,9 @@ def do_init_folder(context):
     #create proto folder
     if not os.path.exists(context.proto2_path):
         os.mkdir(context.proto2_path) 
+        
+    if not os.path.exists(context.zip_dst_path):
+        os.mkdir(context.zip_dst_path) 
 
 def do_write_down_version(context,version_path):
     print 'Do write down version'
@@ -214,6 +217,7 @@ def do_export(project,version,export_setting):
     context.project = project
     context.namespace = project.namespace
     context.root_path = context.setting.export_path + '/protocal/'
+    context.zip_dst_path = context.root_path + 'archive/'
     context.proto2_path = context.root_path + 'proto2/'
     context.protocal_types = ProtocalType.objects.all()
     
@@ -233,3 +237,4 @@ def do_export(project,version,export_setting):
 
     # export for languages
     export_lua.do_export(context)
+    export_lua.do_zip(context)

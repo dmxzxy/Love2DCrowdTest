@@ -70,6 +70,7 @@ class SegmentType(models.Model):
     module = models.ForeignKey(Module,on_delete=models.CASCADE,null=True,default=None)
     protocal = models.ForeignKey(Protocal,on_delete=models.CASCADE,null=True,default=None)
     show_priority = models.IntegerField(default = 0)
+    provider_type = models.IntegerField(default = 0) # 0 basic 1 enum 2 customtype
     timestamp = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.name

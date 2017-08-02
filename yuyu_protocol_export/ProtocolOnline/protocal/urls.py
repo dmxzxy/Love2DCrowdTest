@@ -31,10 +31,12 @@ urlpatterns = [
     url(r'^enum/$', views.index, name='enum_detail_parent'),
     url(r'^enum/(?P<enum_id>[0-9]+)$', views.enum_detail, name='enum_detail'),
     url(r'^enum/create/(?P<module_id>[0-9]+)$', views.enum_create, name='enum_create'),
+    url(r'^enum/edit/(?P<enum_id>[0-9]+)$', views.enum_edit, name='enum_edit'),
+    url(r'^enum/delete/$', views.enum_delete, name='enum_delete'),
 
     url(r'^enumsegments/(?P<enum_id>[0-9]+)$', views.enum_segments_detail, name='enum_segments_detail'),
     url(r'^enumsegments/create/$', views.index, name='enum_segment_create_parent'),
-    url(r'^enumsegments/create/(?P<module_id>[0-9]+)$', views.enum_segment_create, name='enum_segment_create'),
+    url(r'^enumsegments/create/(?P<enum_id>[0-9]+)$', views.enum_segment_create, name='enum_segment_create'),
     url(r'^enumsegments/edit/$', views.index, name='enum_segment_edit_parent'),
     url(r'^enumsegments/edit/(?P<segment_id>[0-9]+)$', views.enum_segment_edit, name='enum_segment_edit'),
     url(r'^enumsegments/delete/$', views.enum_segment_delete, name='enum_segment_delete'),

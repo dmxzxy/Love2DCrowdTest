@@ -28,6 +28,19 @@
                     </a>
                 </li>
 
+                <!-- 全局协议 -->
+                <li>
+                    <a href="{% url 'project_detail' cur_project.id %}">
+                    {% if not cur_module %}
+                    {% if not show_global_module %}
+                    =>
+                    {% endif %}
+                    {% endif %}
+                    全局协议
+                    </a>
+                </li>
+                
+
 				{% for module in modules %}
 				<li><a href="{% url 'module_detail' module.id %}">
 				{% if cur_module.id == module.id %}

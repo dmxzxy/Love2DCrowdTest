@@ -2,7 +2,9 @@
 <div>
 <div><strong class="col-md-2">枚举类型</strong><span>{{ cur_enum.name }}</span></div>
 <div><strong class="col-md-2">模块</strong><span>{{ cur_enum.module.name }}</span></div>
+{% if cur_enum.belong %}
 <div><strong class="col-md-2">所属协议</strong><span>{{ cur_enum.belong.name }}</span></div>
+{% endif %}
 <div><strong class="col-md-2">描述 </strong><span>{{ cur_enum.desc }}</span></div>
 </div>
 

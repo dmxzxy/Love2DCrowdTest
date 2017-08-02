@@ -7,8 +7,10 @@ def segtype_a(segment_type):
     if segment_type.is_basic:
         return segment_type.name
     else:
-#         return "<a class='show_segment_class_detail' id='{{ segment.type.id }}' title='{{ segment.type.name }}'>{{ segment.type }}</a>"
-        return "<a class='show_segment_class_detail' id='%d' title='%s'>%s</a>"%(segment_type.id,segment_type.name,segment_type.name)
+    	if segment_type.provider_type == 1:
+        	return "<a class='show_enum_segment_class_detail' id='%d' title='%s'>%s</a>"%(segment_type.id,segment_type.name,segment_type.name)
+    	if segment_type.provider_type == 2:
+        	return "<a class='show_segment_class_detail' id='%d' title='%s'>%s</a>"%(segment_type.id,segment_type.name,segment_type.name)
     
 @register.filter(name='segtype')
 def segtype(segment):

@@ -11,31 +11,59 @@
 </div>
 
 <hr/>
+{% if cur_protocal.innerEnums %}
 <div>
-<table id="segment_lists" class="table table-hover">
-	<caption>协议字段</caption>
-    <thead>
-      <tr>
-         <th>流水号</th>
-         <th>种类</th>
-         <th>类型</th>
-         <th>名字</th>
-         <th>描述</th>
-      </tr>
-   </thead> 
-   <tbody>
-   	  {% for segment in segments %}
-      <tr data-toggle="{{ segment.desc }}" >
-         <td>{{ forloop.counter }}</td>
-         <td class="show_segment_tooltips_class">{{ segment.protocal_type }}</td>
-         <td class="show_segment_tooltips_type">{{ segment|segtype|safe }}</td>
-         <td class="show_segment_tooltips_name">{{ segment.name }}</td>
-         <td class="show_segment_tooltips_name">{{ segment.desc }}</td>
-      </tr>
-	  {% endfor %}
-   </tbody>
-</table>
+  <table id="segment_lists" class="table table-hover table-condensed">
+    <caption>子枚举</caption>
+     <tbody>
+        {% for innerEnum in cur_protocal.innerEnums %}
+          <tr>
+            <td><a class='show_segment_class_detail' id = {{innerEnum.type.id}} title={{innerEnum.name}}>{{innerEnum.name}}</a></td>
+          </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+</div>
+{% endif %}
+{% if cur_protocal.innerCustomTypes %}
+<div>
+  <table id="segment_lists" class="table table-hover table-condensed">
+    <caption>子协议</caption>
+     <tbody>
+        {% for innerCustomType in cur_protocal.innerCustomTypes %}
+          <tr>
+            <td><a class='show_segment_class_detail' id = {{innerCustomType.type.id}} title={{innerCustomType.name}}>{{innerCustomType.name}}</a></td>
+          </tr>
+        {% endfor %}
+     </tbody>
+  </table>
+</div>
+{% endif %}
 
+<div>
+  <table id="segment_lists" class="table table-hover">
+  	<caption>协议字段</caption>
+      <thead>
+        <tr>
+           <th>流水号</th>
+           <th>种类</th>
+           <th>类型</th>
+           <th>名字</th>
+           <th>描述</th>
+        </tr>
+     </thead> 
+     <tbody>
+     	  {% for segment in segments %}
+        <tr data-toggle="{{ segment.desc }}" >
+           <td>{{ forloop.counter }}</td>
+           <td class="show_segment_tooltips_class">{{ segment.protocal_type }}</td>
+           <td class="show_segment_tooltips_type">{{ segment|segtype|safe }}</td>
+           <td class="show_segment_tooltips_name">{{ segment.name }}</td>
+           <td class="show_segment_tooltips_name">{{ segment.desc }}</td>
+        </tr>
+  	  {% endfor %}
+     </tbody>
+  </table>
 </div>
 
 <script>
