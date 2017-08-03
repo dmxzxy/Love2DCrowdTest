@@ -26,6 +26,7 @@ def do_execute_proto(context,proto_name,output_path):
     cmd_call(cmd)
 
 def load_pb_data(output_path,pb_name):
+    print(pb_name)
     file_pb_path = output_path + pb_name + '.pb'
     file_pb = open(file_pb_path,'rb')
     bdata = file_pb.read()
@@ -110,7 +111,7 @@ def do_export(context):
     if global_module:
         name = global_module.name
         do_execute_proto(context,name,output_path)
-        
+
     modules = context.modules
     for module in modules:
         name = module.name

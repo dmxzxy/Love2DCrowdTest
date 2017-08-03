@@ -102,9 +102,9 @@ def project_detail(request,project_id):
     cur_edit_project = cur_project
 
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
-    protocals = Protocal.objects.filter(module__in = modules).order_by('-timestamp')
-    enums = Enum.objects.filter(module__in = modules).order_by('-timestamp')
-    customtypes = CustomType.objects.filter(module__in = modules).order_by('-timestamp')
+    protocals = Protocal.objects.filter(Q(module__in = modules) and Q(module_id = 0)).order_by('-timestamp')
+    enums = Enum.objects.filter(Q(module__in = modules) and Q(module_id = 0)).order_by('-timestamp')
+    customtypes = CustomType.objects.filter(Q(module__in = modules) and Q(module_id = 0)).order_by('-timestamp')
     protocal_types = ProtocalType.objects.all()
     return render(request, 'project_detail.html', { 'cur_project':cur_project,
     												'modules':modules,
@@ -554,7 +554,10 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
             segment_extra_type1 = get_object_or_404(SegmentType, pk=segment_extra_type1_id) 
             segment_extra_type2 = get_object_or_404(SegmentType, pk=segment_extra_type2_id) 
             customtype_segment_protocal_type = get_object_or_404(SegmentProtoType, pk=customtype_segment_protocal_type_id) 
-            enumsegemet = get_object_or_404(EnmuSegment, pk=segment_default_value)
+            if try_parse_int(segment_default_value):
+                enumsegemet = get_object_or_404(EnmuSegment, pk=segment_default_value)
+            else:
+                enumsegemet = None
             
             if cur_customtype_segment:
                 cur_customtype_segment.update(name = strip(customtype_segment_name),
@@ -830,7 +833,10 @@ def segment_create(request,protocal_id,segment_id = 0):
             segment_extra_type1 = get_object_or_404(SegmentType, pk=segment_extra_type1_id) 
             segment_extra_type2 = get_object_or_404(SegmentType, pk=segment_extra_type2_id) 
             segment_protocal_type = get_object_or_404(SegmentProtoType, pk=segment_protocal_type_id) 
-            enumsegemet = get_object_or_404(EnmuSegment, pk=segment_default_value)
+            if try_parse_int(segment_default_value):
+                enumsegemet = get_object_or_404(EnmuSegment, pk=segment_default_value)
+            else:
+                enumsegemet = None
             
             if cur_segment:
                 cur_segment.update(name = strip(segment_name),
