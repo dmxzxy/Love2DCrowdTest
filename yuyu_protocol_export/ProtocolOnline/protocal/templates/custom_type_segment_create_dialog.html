@@ -46,12 +46,23 @@
         <select id="field_segment_type_id" class="selectpicker">
         	{% for segment_type in segment_types %}
         	{% if cur_segment.type.id == segment_type.id %}
-        	<option value="{{ segment_type.id }}" selected="selected">{{ segment_type.name }}</option>
+        	<option value="{{ segment_type.id }}" type="{{ segment_type.provider_type }}" selected="selected">{{ segment_type.name }}</option>
         	{% else %}
-        	<option value="{{ segment_type.id }}">{{ segment_type.name }}</option>
+        	<option value="{{ segment_type.id }}" type="{{ segment_type.provider_type }}">{{ segment_type.name }}</option>
         	{% endif %}
   			
   			{% endfor %}
+		</select>
+      </div>
+    </div>  
+    </div><!-- row -->
+
+	<div id="enum_defalut_type" class="row">
+	<div class="control-group col-sm-6">
+      <!-- Text input-->
+      <label class="control-label padding_4px" for="input01">默认枚举值</label>
+      <div class="controls">
+        <select id="field_default_enum_type" class="selectpicker">
 		</select>
       </div>
     </div>  
@@ -136,6 +147,19 @@
 		$(document).ready(function() {
 			$('.selectpicker').selectpicker('render');
 
+		    var enum_segment_data = {};
+        	{% for segment_type in segment_types %}
+	        	{% if segment_type.provider_type == 1 %}
+
+	        		var enum_values = {};
+	        		{% for enumsegment in segment_type.enumsegments %}
+	        			enum_values[{{enumsegment.id}}] = { 'id':"{{enumsegment.id}}", 'name':"{{enumsegment.name}}", 'value':"{{enumsegment.value}}" }
+	        		{% endfor %}
+	        		enum_segment_data[{{segment_type.id}}] = enum_values
+
+	        	{% endif %}
+  			{% endfor %}
+
 			var type_name = $('#field_segment_type_id').find("option:selected").text();
 			if(type_name =='map'){
 				$('#extra_type').show();
@@ -143,7 +167,42 @@
 				$('#extra_type').hide();
 			}
 			
+
+			if($('#field_segment_type_id').find("option:selected").attr("type") == 1){
+				$('#enum_defalut_type').show();
+				$('#field_default_enum_type').find('[type = 1]').remove()
+				var v = $('#field_segment_type_id').find("option:selected").attr("value");
+				var contents = enum_segment_data[v];
+				$("#field_default_enum_type").append("<option type='1' value='0'>无默认</option>"); 
+				for( k in contents){
+					content = contents[k]
+					$("#field_default_enum_type").append("<option type='1' value='"+ content.id +"'>"+content.name+" = "+content.value+"</option>"); 
+				}
+				$('#field_default_enum_type').selectpicker('val', '{{cur_segment.defaultEnum.id}}');
+				$('#field_default_enum_type').selectpicker('refresh');
+			}else{
+				$('#enum_defalut_type').hide();
+			}
+
 			$('#field_segment_type_id').on('changed.bs.select', function (e) {
+
+				if($('#field_segment_type_id').find("option:selected").attr("type") == 1){
+					$('#enum_defalut_type').show();
+
+					$('#field_default_enum_type').find('[type = 1]').remove()
+					var v = $('#field_segment_type_id').find("option:selected").attr("value");
+					var contents = enum_segment_data[v];
+					$("#field_default_enum_type").append("<option type='1' value='0'>无默认</option>"); 
+					for( k in contents){
+						content = contents[k]
+						$("#field_default_enum_type").append("<option type='1' value='"+ content.id +"'>"+content.name+" = "+content.value+"</option>"); 
+					}
+					$('#field_default_enum_type').selectpicker('val', '{{cur_segment.defaultEnum.id}}');
+					$('#field_default_enum_type').selectpicker('refresh');
+				}else{
+					$('#enum_defalut_type').hide();
+				}
+
 				type_name = $('#field_segment_type_id').find("option:selected").text();
 				if(type_name =='map'){
 					$('#extra_type').show();
@@ -178,6 +237,7 @@
 		    		pack_data.segment_extra_type1_id = $('#field_segment_type_id_extra_1').val();
 		    		pack_data.segment_extra_type2_id = $('#field_segment_type_id_extra_2').val();
 		    		pack_data.segment_protocal_type_id = $('#field_segment_protocal_type_id').val();
+		    		pack_data.segment_default_value = $('#field_default_enum_type').val();
 
 		        	$.ajaxSetup({
 					    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },

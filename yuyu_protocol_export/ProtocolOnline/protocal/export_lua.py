@@ -106,6 +106,11 @@ def do_export(context):
     output_path = context.compile_path
     do_init_folder(context,output_path)
             
+    global_module = context.global_module
+    if global_module:
+        name = global_module.name
+        do_execute_proto(context,name,output_path)
+        
     modules = context.modules
     for module in modules:
         name = module.name

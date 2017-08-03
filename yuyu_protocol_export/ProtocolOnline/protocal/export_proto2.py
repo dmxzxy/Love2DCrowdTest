@@ -36,7 +36,10 @@ def write_customtype(file_proto, context, customtype, indent=''):
         if segment.type.name == 'map':
             file_proto.write(segIndent+'%s %s<%s,%s> %s = %d;' % (segment.protocal_type, segment.type.name, segment.extra_type1.name, segment.extra_type2.name, segment.name, index))
         else:
-            file_proto.write(segIndent+'%s %s %s = %d;' % (segment.protocal_type, segment.type.name, segment.name, index))
+            if segment.defaultEnum.id == 0 :
+                file_proto.write(segIndent+'%s %-15s %s = %d;' % (segment.protocal_type, segment.type.name, segment.name, index))
+            else:
+                file_proto.write(segIndent+'%s %-15s %s = %d [ default = %s ];' % (segment.protocal_type, segment.type.name, segment.name, index, segment.defaultEnum.name))
 
         file_proto.write('      // ')
         file_proto.write(segment.desc.encode('utf-8'))
@@ -67,7 +70,11 @@ def write_protocal(file_proto, context, protocal, indent=''):
         if segment.type.name == 'map':
             file_proto.write(segIndent+'%s %s<%s,%s> %s = %d;' % (segment.protocal_type, segment.type.name, segment.extra_type1.name, segment.extra_type2.name, segment.name, index))
         else:
-            file_proto.write(segIndent+'%s %s %s = %d;' % (segment.protocal_type, segment.type.name, segment.name, index))
+            if segment.defaultEnum.id == 0 :
+                file_proto.write(segIndent+'%s %-15s %s = %d;' % (segment.protocal_type, segment.type.name, segment.name, index))
+            else:
+                file_proto.write(segIndent+'%s %-15s %s = %d [ default = %s ];' % (segment.protocal_type, segment.type.name, segment.name, index, segment.defaultEnum.name))
+
 
         file_proto.write('      // ')
         file_proto.write(segment.desc.encode('utf-8'))

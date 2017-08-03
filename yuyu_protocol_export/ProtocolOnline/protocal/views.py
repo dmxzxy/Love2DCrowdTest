@@ -539,6 +539,7 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
         segment_extra_type1_id = request.POST['segment_extra_type1_id'] 
         segment_extra_type2_id = request.POST['segment_extra_type2_id'] 
         customtype_segment_protocal_type_id = request.POST['segment_protocal_type_id'] 
+        segment_default_value = request.POST['segment_default_value']
         
         if not customtype_segment_name:
             raise ValidationError("custom_type_segment_name should not be null.");
@@ -553,6 +554,7 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
             segment_extra_type1 = get_object_or_404(SegmentType, pk=segment_extra_type1_id) 
             segment_extra_type2 = get_object_or_404(SegmentType, pk=segment_extra_type2_id) 
             customtype_segment_protocal_type = get_object_or_404(SegmentProtoType, pk=customtype_segment_protocal_type_id) 
+            enumsegemet = get_object_or_404(EnmuSegment, pk=segment_default_value)
             
             if cur_customtype_segment:
                 cur_customtype_segment.update(name = strip(customtype_segment_name),
@@ -560,6 +562,7 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
                                     belong = cur_customtype,
                                     protocal_type = customtype_segment_protocal_type,
                                     type = customtype_segment_type,
+                                    defaultEnum = enumsegemet
                                     )
             else:
                 customtype_segment = CustomTypeSegment(name = strip(customtype_segment_name),
@@ -567,6 +570,7 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
                                     belong = cur_customtype,
                                     protocal_type = customtype_segment_protocal_type,
                                     type = customtype_segment_type,
+                                    defaultEnum = enumsegemet
                                     )
     
                 customtype_segment.save()
@@ -588,6 +592,12 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
             segment_types = segment_types.exclude(~Q(protocal = None))
 
         segment_types = segment_types.exclude(Q(pk=cur_customtype.type.id))
+
+        for segment_type in segment_types:
+            if segment_type.provider_type == 1:
+                enum = Enum.objects.filter(type = segment_type)
+                enumsegments = EnmuSegment.objects.filter(belong = enum)
+                segment_type.enumsegments = enumsegments
 
         return render(request, 'custom_type_segment_create_dialog.html',{
                                                   'cur_customtype':cur_customtype,
@@ -804,6 +814,7 @@ def segment_create(request,protocal_id,segment_id = 0):
         segment_extra_type2_id = request.POST['segment_extra_type2_id'] 
         segment_protocal_type_id = request.POST['segment_protocal_type_id'] 
         segment_namespace = cur_protocal.namespace + "." + segment_name
+        segment_default_value = request.POST['segment_default_value']
         
         if not segment_name:
             raise ValidationError("segment_name should not be null.");
@@ -819,6 +830,7 @@ def segment_create(request,protocal_id,segment_id = 0):
             segment_extra_type1 = get_object_or_404(SegmentType, pk=segment_extra_type1_id) 
             segment_extra_type2 = get_object_or_404(SegmentType, pk=segment_extra_type2_id) 
             segment_protocal_type = get_object_or_404(SegmentProtoType, pk=segment_protocal_type_id) 
+            enumsegemet = get_object_or_404(EnmuSegment, pk=segment_default_value)
             
             if cur_segment:
                 cur_segment.update(name = strip(segment_name),
@@ -829,6 +841,7 @@ def segment_create(request,protocal_id,segment_id = 0):
                                     extra_type1 = segment_extra_type1,
                                     extra_type2 = segment_extra_type2,
                                     namespace = strip(segment_namespace),
+                                    defaultEnum = enumsegemet
                                     )
             else:
                 segment = Segment(name = strip(segment_name),
@@ -839,6 +852,7 @@ def segment_create(request,protocal_id,segment_id = 0):
                                     extra_type1 = segment_extra_type1,
                                     extra_type2 = segment_extra_type2,
                                     namespace = strip(segment_namespace),
+                                    defaultEnum = enumsegemet
                                     )
     
                 segment.save()
@@ -853,7 +867,13 @@ def segment_create(request,protocal_id,segment_id = 0):
         segment_types = SegmentType.objects.filter(Q(is_basic = True) | (Q(is_basic=False) and Q(module=cur_module))).order_by('-is_basic','-show_priority','-timestamp')
         segment_types = segment_types.exclude(~Q(protocal = None) , ~Q(protocal = cur_protocal))
         segment_proto_types = SegmentProtoType.objects.all()
-        
+
+        for segment_type in segment_types:
+            if segment_type.provider_type == 1:
+                enum = Enum.objects.filter(type = segment_type)
+                enumsegments = EnmuSegment.objects.filter(belong = enum)
+                segment_type.enumsegments = enumsegments
+
         return render(request, 'segment_create_dialog.html',{
                                                   'cur_protocal':cur_protocal,
                                                   'cur_segment':cur_segment,
