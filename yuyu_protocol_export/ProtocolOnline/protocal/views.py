@@ -22,10 +22,10 @@ from protocal.utils import try_parse_int
 
 cur_edit_project = None
 
-def get_module_by_id(request, module_id):
+def get_module_by_id(module_id):
     global cur_edit_project;
     if cur_edit_project == None:
-        return None, index(request)
+        return None
 
     cur_module = None
     if try_parse_int(module_id) == 0:
@@ -38,11 +38,25 @@ def get_module_by_id(request, module_id):
             namespace = cur_edit_project.namespace)
     else:
         cur_module = get_object_or_404(Module, pk=module_id)
-    return cur_module, None
+    return cur_module
 
-def custom_pros(request):   #context处理器  
+def try_get_module(model):
     global cur_edit_project;
-    return {'cur_project':cur_edit_project} 
+    if cur_edit_project == None:
+        return None
+
+    try:
+        cur_module = model.Module;
+    except:
+        cur_module = Module(
+            id = 0,
+            name = 'global',
+            namedesc = '全局模块',
+            desc = '',
+            project = cur_edit_project,
+            namespace = cur_edit_project.namespace)
+    return cur_module
+
 
 def project_help(request,project_id):
     cur_project = get_object_or_404(Project, pk=project_id)
@@ -187,7 +201,10 @@ def enum_detail(request,enum_id):
 
 def enum_create(request,module_id,enum_id = 0):
     if request.method == 'POST': 
-        cur_module = get_object_or_404(Module, pk=module_id)
+        cur_module = get_module_by_id(module_id)
+        if cur_module == None:
+            return index(request)
+
         cur_project = cur_module.project
         cur_enum = Enum.objects.filter(pk=enum_id).first()
 
@@ -239,7 +256,10 @@ def enum_create(request,module_id,enum_id = 0):
 
         return HttpResponse("<h1>Created Enum successfully .</h1>")  
     else:
-        cur_module = get_object_or_404(Module, pk=module_id)
+        cur_module = get_module_by_id(module_id)
+        if cur_module == None:
+            return index(request)
+
         cur_project = cur_module.project
         cur_enum = Enum.objects.filter(pk=enum_id).first()
         modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
@@ -254,7 +274,10 @@ def enum_create(request,module_id,enum_id = 0):
 
 def enum_edit(request,enum_id):
     cur_enum = get_object_or_404(Enum, pk=enum_id)
-    return enum_create(request,cur_enum.module.id,cur_enum.id)
+    cur_module = try_get_module(cur_enum)
+    if cur_module == None:
+        return index(request)
+    return enum_create(request,cur_module.id,cur_enum.id)
 
 def enum_delete(request):
     if request.method == 'POST': 
@@ -283,7 +306,9 @@ def enum_detail_by_segment(request,segment_type_id):
 # enum segments ------------------------------------------------------------------------------------
 def enum_segments_detail(request,enum_id):
     cur_enum = get_object_or_404(Enum, pk=enum_id)
-    cur_module = cur_enum.module
+    cur_module = try_get_module(cur_enum)
+    if cur_module == None:
+        return index(request)
     cur_project = cur_module.project
     
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
@@ -300,7 +325,9 @@ def enum_segment_create(request,enum_id,segment_id = 0):
     if request.method == 'POST': 
         cur_enum = get_object_or_404(Enum, pk=enum_id)
         cur_segment = EnmuSegment.objects.filter(pk=segment_id)
-        cur_module = cur_enum.module
+        cur_module = try_get_module(cur_enum)
+        if cur_module == None:
+            return index(request)
         cur_project = cur_module.project
         
         segment_name = request.POST['segment_name']
@@ -332,7 +359,9 @@ def enum_segment_create(request,enum_id,segment_id = 0):
     else:
         cur_enum = get_object_or_404(Enum, pk=enum_id)
         cur_segment = EnmuSegment.objects.filter(id=segment_id).first()
-        cur_module = cur_enum.module
+        cur_module = try_get_module(cur_enum)
+        if cur_module == None:
+            return index(request)
         cur_project = cur_module.project
         
         return render(request, 'enum_segment_create_dialog.html',{
@@ -372,7 +401,10 @@ def customtype_detail(request,customtype_id = 0):
 
 def customtype_create(request,module_id,customtype_id = 0):
     if request.method == 'POST': 
-        cur_module = get_object_or_404(Module, pk=module_id)
+        cur_module = get_module_by_id(module_id)
+        if cur_module == None:
+            return index(request)
+
         cur_project = cur_module.project
         cur_customtype = CustomType.objects.filter(pk=customtype_id).first()
 
@@ -425,7 +457,10 @@ def customtype_create(request,module_id,customtype_id = 0):
 
         return HttpResponse("<h1>Created CustomType successfully .</h1>")  
     else:
-        cur_module = get_object_or_404(Module, pk=module_id)
+        cur_module = get_module_by_id(module_id)
+        if cur_module == None:
+            return index(request)
+
         cur_project = cur_module.project
         cur_customtype = CustomType.objects.filter(pk=customtype_id).first()
         modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
@@ -440,7 +475,10 @@ def customtype_create(request,module_id,customtype_id = 0):
 
 def customtype_edit(request,customtype_id):
     cur_customType = get_object_or_404(CustomType, pk=customtype_id)
-    return customtype_create(request,cur_customType.module.id,cur_customType.id)
+    cur_module = try_get_module(cur_customtype)
+    if cur_module == None:
+        return index(request)
+    return customtype_create(request,cur_module.id,cur_customType.id)
 
 def customtype_delete(request):
     if request.method == 'POST': 
@@ -471,7 +509,9 @@ def customtype_detail_by_segment(request,segment_type_id):
 # customtype segments ------------------------------------------------------------------------------------
 def customtype_segments_detail(request,customtype_id):
     cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
-    cur_module = cur_customtype.module
+    cur_module = try_get_module(cur_customtype)
+    if cur_module == None:
+        return index(request)
     cur_project = cur_module.project
     
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
@@ -488,7 +528,9 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
     if request.method == 'POST': 
         cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
         cur_customtype_segment = CustomTypeSegment.objects.filter(pk=segment_id)
-        cur_module = cur_customtype.module
+        cur_module = try_get_module(cur_customtype)
+        if cur_module == None:
+            return index(request)
         cur_project = cur_module.project
         
         customtype_segment_name = request.POST['segment_name'] 
@@ -534,7 +576,9 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
         cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
         cur_protocal = cur_customtype.belong
         cur_segment = CustomTypeSegment.objects.filter(id=segment_id).first()
-        cur_module = cur_customtype.module
+        cur_module = try_get_module(cur_customtype)
+        if cur_module == None:
+            return index(request)
         cur_project = cur_module.project
         segment_proto_types = SegmentProtoType.objects.all()
         segment_types = SegmentType.objects.filter(Q(is_basic = True) | (Q(is_basic=False) and Q(module=cur_module))).order_by('-is_basic','-show_priority','-timestamp')
@@ -591,7 +635,11 @@ def protocal_detail(request,protocal_id):
 def protocal_create(request,project_id,module_id,protocal_id = 0):
     if request.method == 'POST': 
         cur_project = get_object_or_404(Project, pk=project_id)
-        cur_module = get_module_by_id(request,module_id)
+
+        cur_module = get_module_by_id(module_id)
+        if cur_module == None:
+            return index(request)
+
         cur_protocal = Protocal.objects.filter(pk=protocal_id).first()
         
         protocal_name = request.POST['protocal_name'] 
@@ -663,8 +711,11 @@ def protocal_create(request,project_id,module_id,protocal_id = 0):
                 Protocal.objects.filter(pk=protocal_relate_protocal_id).update( relate_protocal = protocal)
         return HttpResponse("<h1>Created successfully .</h1>")  
     else:
+        cur_module = get_module_by_id(module_id)
+        if cur_module == None:
+            return index(request)
+
         cur_project = get_object_or_404(Project, pk=project_id)
-        cur_module = get_module_by_id(request,module_id)
         cur_protocal = Protocal.objects.filter(id=protocal_id).first()
         modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
         protocal_types = ProtocalType.objects.all()
@@ -686,7 +737,11 @@ def protocal_create(request,project_id,module_id,protocal_id = 0):
 def protocal_edit(request,project_id,protocal_id):
     cur_project = get_object_or_404(Project, pk=project_id)
     cur_protocal = get_object_or_404(Protocal, pk=protocal_id)
-    return protocal_create(request,project_id,cur_protocal.module.id,cur_protocal.id)
+    cur_module = try_get_module(cur_protocal)
+    if cur_module == None:
+        return index(request)
+
+    return protocal_create(request,project_id,cur_module.id,cur_protocal.id)
 
 def protocal_delete(request):
     if request.method == 'POST': 
@@ -710,7 +765,10 @@ def protocal_delete(request):
 # segments ------------------------------------------------------------------------------------
 def segments_detail(request,protocal_id):
     cur_protocal = get_object_or_404(Protocal, pk=protocal_id)
-    cur_module = cur_protocal.module
+    cur_module = try_get_module(cur_protocal)
+    if cur_module == None:
+        return index(request)
+
     cur_project = cur_module.project
     
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
@@ -735,8 +793,9 @@ def segment_create(request,protocal_id,segment_id = 0):
     if request.method == 'POST': 
         cur_protocal = get_object_or_404(Protocal, pk=protocal_id)
         cur_segment = Segment.objects.filter(pk=segment_id)
-        cur_module = cur_protocal.module
-        cur_project = cur_module.project
+        cur_module = try_get_module(cur_protocal)
+        if cur_module == None:
+            return index(request)
         
         segment_name = request.POST['segment_name'] 
         segment_desc = request.POST['segment_desc'] 
@@ -787,8 +846,10 @@ def segment_create(request,protocal_id,segment_id = 0):
     else:
         cur_protocal = get_object_or_404(Protocal, pk=protocal_id)
         cur_segment = Segment.objects.filter(id=segment_id).first()
-        cur_module = cur_protocal.module
-        cur_project = cur_module.project
+        cur_module = try_get_module(cur_protocal)
+        if cur_module == None:
+            return index(request)
+
         segment_types = SegmentType.objects.filter(Q(is_basic = True) | (Q(is_basic=False) and Q(module=cur_module))).order_by('-is_basic','-show_priority','-timestamp')
         segment_types = segment_types.exclude(~Q(protocal = None) , ~Q(protocal = cur_protocal))
         segment_proto_types = SegmentProtoType.objects.all()
@@ -844,9 +905,9 @@ def module_create(request,project_id):
         return HttpResponse("<h1>Invalid request.</h1>") 
 
 def module_detail(request,module_id):
-    cur_module,c = get_module_by_id(request, module_id)
+    cur_module = get_module_by_id(module_id)
     if cur_module == None:
-        return c
+        return index(request)
 
     cur_project = cur_module.project
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')

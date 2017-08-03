@@ -94,7 +94,105 @@ def sort_segments(d):
 def pre_handle_modules(context):
     project = context.project
     modules = Module.objects.filter(project = project)
+
+    #global module----------------------------------------------------------------------
+    global_module = Module(
+                    id = 0,
+                    name = 'global',
+                    namedesc = 'global',
+                    desc = '',
+                    project = project,
+                    namespace = project.namespace)
+
+    enums = Enum.objects.filter(module = global_module)
+    enumsegments = EnmuSegment.objects.filter(belong__in = enums).order_by('belong')
+
+    customtypes = CustomType.objects.filter(module = global_module)
+    customtypesegments = CustomTypeSegment.objects.filter(belong__in = customtypes).order_by('belong')
+
+    protocals = Protocal.objects.filter(module = global_module)
+    segments = Segment.objects.filter(protocal__in = protocals).order_by('protocal')
+
+    if len(enums) > 0 or len(customtypes) > 0 or len(protocals) > 0:
+        enums_dict = {}
+        for enumsegment in enumsegments:
+            enum_segments = None
+            if not enums_dict.has_key(enumsegment.belong.id):
+                enum_segments = []
+                enums_dict[enumsegment.belong.id] = enum_segments
+            else:
+                enum_segments = enums_dict[enumsegment.belong.id]
+            enum_segments.append(enumsegment)
+
+        moduleEnums = enums.filter(belong = None)
+        for enum in moduleEnums:
+            if enums_dict.has_key(enum.id):
+                enum.segments = enums_dict[enum.id]
+            else:
+                enum.segments = []
+                
+        global_module.enums = moduleEnums
+
+        customtypes_dict = {}
+        for customtypesegment in customtypesegments:
+            customtype_segments = None
+            print customtypesegment.belong
+            if not customtypes_dict.has_key(customtypesegment.belong.id):
+                customtype_segments = []
+                customtypes_dict[customtypesegment.belong.id] = customtype_segments
+            else:
+                customtype_segments = customtypes_dict[customtypesegment.belong.id]
+            customtype_segments.append(customtypesegment)
+
+        moduleCustoms = customtypes.filter(belong = None)
+        for customtype in moduleCustoms:
+            if customtypes_dict.has_key(customtype.id):
+                customtype.segments = customtypes_dict[customtype.id]
+            else:
+                customtype.segments = []
+
+        global_module.customtypes = moduleCustoms
+
+        protocals_dict = {}
+
+        for segment in segments:
+            protocal_segments = None
+            if not protocals_dict.has_key(segment.protocal.id):
+                protocal_segments = []
+                protocals_dict[segment.protocal.id] = protocal_segments
+            else:
+                protocal_segments = protocals_dict[segment.protocal.id]
+            
+            protocal_segments.append(segment)
+            
+        for protocal in protocals:
+            if protocals_dict.has_key(protocal.id):
+                protocal.segments = protocals_dict[protocal.id]
+            else:
+                protocal.segments = []
+
+            innerenums = enums.filter(belong = protocal);
+            for enum in innerenums:
+                if enums_dict.has_key(enum.id):
+                    enum.segments = enums_dict[enum.id]
+                else:
+                    enum.segments = []
+            protocal.innerenums = innerenums
+
+            innercustomtypes = customtypes.filter(belong = protocal)
+            for customtype in innercustomtypes:
+                if customtypes_dict.has_key(customtype.id):
+                    customtype.segments = customtypes_dict[customtype.id]
+                else:
+                    customtype.segments = []
+                    
+            protocal.innercustomtypes = innercustomtypes
+
+        global_module.protocals = protocals
+
+        context.global_module = global_module
         
+    #module----------------------------------------------------------------------
     for module in modules:
         enums = Enum.objects.filter(module = module)
         enumsegments = EnmuSegment.objects.filter(belong__in = enums).order_by('belong')
@@ -220,6 +318,7 @@ def do_export(project,version,export_setting):
     context.zip_dst_path = context.root_path + 'archive/'
     context.proto2_path = context.root_path + 'proto2/'
     context.protocal_types = ProtocalType.objects.all()
+    context.global_module = None
     
     bin_path = os.path.dirname(__file__)
     context.bin_path = os.path.join(bin_path, 'export_bin/' )

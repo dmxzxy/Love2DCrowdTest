@@ -67,6 +67,15 @@ def do_package_lua(context,output_path):
     file_lua.write('ProtocalConfigs = {\n')
     file_lua.write('    version = "%s",\n'%(context.version))
     # write modules
+
+    file_lua.write('    globalmodules = {\n')
+    global_module = context.global_module
+    if global_module:
+        pb_data,pb_len = load_pb_data(output_path, global_module.name)
+        file_lua.write('        ["%s"] = { namespace = %s, data = "%s", len = %d },\n'%(global_module.name, global_module.namespace, pb_data, pb_len))
+    file_lua.write('    },\n')   
+
+
     file_lua.write('    modules = {\n')
     for module in modules:
         pb_data,pb_len = load_pb_data(output_path, module.name)
