@@ -30,10 +30,20 @@ def write_customtype(file_proto, context, customtype, indent=''):
     file_proto.write('\n')
     file_proto.write(indent+'message %s {\n' % (customtype.name))
 
+    segIndent = indent + '    '
+    innerenums = customtype.innerenums
+    if innerenums:
+        for innerenum in innerenums:
+            write_enum(file_proto, context, innerenum, segIndent);
+
+    innercustomtypes = customtype.innercustomtypes
+    if innercustomtypes:
+        for innercustomtype in innercustomtypes:
+            write_customtype(file_proto, context, innercustomtype, segIndent);
+
     segments = customtype.segments
     index = 1
     for segment in segments:
-        segIndent = indent + '    '
         if segment.type.name == 'map':
             file_proto.write(segIndent+'%s %s<%s,%s> %s = %d;' % (segment.protocal_type, segment.type.name, segment.extra_type1.name, segment.extra_type2.name, segment.name, index))
         else:

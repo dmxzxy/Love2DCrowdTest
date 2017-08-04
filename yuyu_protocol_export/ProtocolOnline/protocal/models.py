@@ -80,7 +80,19 @@ class SegmentProtoType(models.Model):
     desc = models.CharField(max_length = 150,blank = False)
     def __unicode__(self):
         return self.name
-        
+
+class CustomType(models.Model):
+    name = models.CharField(max_length = 100,blank = False)
+    desc = models.CharField(max_length = 150,blank = False)
+    type = models.ForeignKey(SegmentType,on_delete=models.CASCADE,null=True,default=None)
+    module = models.ForeignKey(Module,on_delete=models.CASCADE,null=True,default=None)
+    belong = models.ForeignKey(Protocal,on_delete=models.CASCADE,null=True,default=None)
+    belong_ct = models.ForeignKey('self',null=True,default=None)
+    namespace = models.CharField(max_length = 100,blank = False,unique = True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __unicode__(self):
+        return self.name    
+
 class Enum(models.Model):
     name = models.CharField(max_length = 100,blank = False)
     desc = models.CharField(max_length = 150,blank = False)
@@ -88,6 +100,7 @@ class Enum(models.Model):
     namespace = models.CharField(max_length = 100,blank = False,unique = True)
     module = models.ForeignKey(Module,on_delete=models.CASCADE,null=True,default=None)
     belong = models.ForeignKey(Protocal,on_delete=models.CASCADE,null=True,default=None)
+    belong_ct = models.ForeignKey(CustomType,null=True,default=None)
     timestamp = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.name    
@@ -115,17 +128,6 @@ class Segment(models.Model):
     def __unicode__(self):
         return self.name    
 
-class CustomType(models.Model):
-    name = models.CharField(max_length = 100,blank = False)
-    desc = models.CharField(max_length = 150,blank = False)
-    type = models.ForeignKey(SegmentType,on_delete=models.CASCADE,null=True,default=None)
-    module = models.ForeignKey(Module,on_delete=models.CASCADE,null=True,default=None)
-    belong = models.ForeignKey(Protocal,on_delete=models.CASCADE,null=True,default=None)
-    namespace = models.CharField(max_length = 100,blank = False,unique = True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    def __unicode__(self):
-        return self.name    
-
 class CustomTypeSegment(models.Model):
     name = models.CharField(max_length = 100,blank = False)
     desc = models.CharField(max_length = 150,blank = False)
@@ -136,3 +138,4 @@ class CustomTypeSegment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.name   
+        

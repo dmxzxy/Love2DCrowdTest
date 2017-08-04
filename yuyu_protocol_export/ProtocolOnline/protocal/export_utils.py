@@ -6,6 +6,7 @@ import traceback, sys
 
 from django.core.exceptions import PermissionDenied
 from django.http.response import HttpResponse
+from django.db.models.query_utils import Q
 
 from protocal import export_proto2
 from protocal import export_lua
@@ -92,9 +93,140 @@ def calculate_type_level(cur_type_name,candidates,founded,depend_on,looped_type,
 def sort_segments(d):
     return d[1].level
 
+def do_pre_handle_module(context, module, null = False):
+    enums = Enum.objects.filter(module = module)
+    enumsegments = EnmuSegment.objects.filter(belong__in = enums).order_by('belong')
+
+    customtypes = CustomType.objects.filter(module = module)
+    customtypesegments = CustomTypeSegment.objects.filter(belong__in = customtypes).order_by('belong')
+
+    protocals = Protocal.objects.filter(module = module)
+    segments = Segment.objects.filter(protocal__in = protocals).order_by('protocal')
+
+    if len(enums) > 0 or len(customtypes) > 0 or len(protocals) > 0:
+        #write module global enum and customtype
+        enums_dict = {}
+        for enumsegment in enumsegments:
+            enum_segments = None
+            if not enums_dict.has_key(enumsegment.belong.id):
+                enum_segments = []
+                enums_dict[enumsegment.belong.id] = enum_segments
+            else:
+                enum_segments = enums_dict[enumsegment.belong.id]
+            enum_segments.append(enumsegment)
+
+        moduleEnums = enums.filter(Q(belong = None) and Q(belong_ct = None))
+        for enum in moduleEnums:
+            if enums_dict.has_key(enum.id):
+                enum.segments = enums_dict[enum.id]
+            else:
+                enum.segments = []
+        module.enums = moduleEnums
+
+        customtypes_dict = {}
+        for customtypesegment in customtypesegments:
+            customtype_segments = None
+            print customtypesegment.belong
+            if not customtypes_dict.has_key(customtypesegment.belong.id):
+                customtype_segments = []
+                customtypes_dict[customtypesegment.belong.id] = customtype_segments
+            else:
+                customtype_segments = customtypes_dict[customtypesegment.belong.id]
+            customtype_segments.append(customtypesegment)
+
+        moduleCustoms = customtypes.filter(Q(belong = None), Q(belong_ct = None))
+        ct_customtypes_dict = {}
+        for customtype in moduleCustoms:
+            if ct_customtypes_dict.has_key(customtype.id):
+                customtype.segments = ct_customtypes_dict[customtype.id]
+            else:
+                customtype.segments = []
+
+            innerenums = enums.filter(belong_ct = customtype);
+            for enum in innerenums:
+                if enums_dict.has_key(enum.id):
+                    enum.segments = enums_dict[enum.id]
+                else:
+                    enum.segments = []
+            customtype.innerenums = innerenums
+
+            innercustomtypes = customtypes.filter(belong_ct = customtype)
+            for ct_customtype in innercustomtypes:
+                ct_customtype.innerenums = None;
+                ct_customtype.innercustomtypes = None;
+                if ct_customtypes_dict.has_key(customtype.id):
+                    ct_customtype.segments = ct_customtypes_dict[customtype.id]
+                else:
+                    ct_customtype.segments = []
+
+            customtype.innercustomtypes = innercustomtypes
+
+        module.customtypes = moduleCustoms
+
+        #write protocal
+        protocals_dict = {}
+        for segment in segments:
+            protocal_segments = None
+            if not protocals_dict.has_key(segment.protocal.id):
+                protocal_segments = []
+                protocals_dict[segment.protocal.id] = protocal_segments
+            else:
+                protocal_segments = protocals_dict[segment.protocal.id]
+            
+            protocal_segments.append(segment)
+            
+        for protocal in protocals:
+            if protocals_dict.has_key(protocal.id):
+                protocal.segments = protocals_dict[protocal.id]
+            else:
+                protocal.segments = []
+
+            innerenums = enums.filter(belong = protocal);
+            for enum in innerenums:
+                if enums_dict.has_key(enum.id):
+                    enum.segments = enums_dict[enum.id]
+                else:
+                    enum.segments = []
+            protocal.innerenums = innerenums
+
+            innercustomtypes = customtypes.filter(belong = protocal)
+            for customtype in innercustomtypes:
+                if ct_customtypes_dict.has_key(customtype.id):
+                    customtype.segments = ct_customtypes_dict[customtype.id]
+                else:
+                    customtype.segments = []
+
+                ct_innerenums = enums.filter(belong_ct = customtype);
+                for enum in ct_innerenums:
+                    if enums_dict.has_key(enum.id):
+                        enum.segments = enums_dict[enum.id]
+                    else:
+                        enum.segments = []
+                customtype.innerenums = ct_innerenums
+
+                ct_innercustomtypes = customtypes.filter(belong_ct = customtype)
+                for ct_customtype in ct_innercustomtypes:
+                    ct_customtype.innerenums = None;
+                    ct_customtype.innercustomtypes = None;
+                    if ct_customtypes_dict.has_key(ct_customtype.id):
+                        ct_customtype.segments = ct_customtypes_dict[customtype.id]
+                    else:
+                        ct_customtype.segments = []
+                        
+                customtype.innercustomtypes = ct_innercustomtypes
+                    
+            protocal.innercustomtypes = innercustomtypes
+
+        module.protocals = protocals
+    else:
+        if null:
+            return None;
+
+    return module
+
+
 def pre_handle_modules(context):
     project = context.project
-    modules = Module.objects.filter(project = project)
 
     #global module----------------------------------------------------------------------
     global_module = Module(
@@ -105,183 +237,21 @@ def pre_handle_modules(context):
                     project = project,
                     namespace = project.namespace)
 
-    enums = Enum.objects.filter(module = global_module)
-    enumsegments = EnmuSegment.objects.filter(belong__in = enums).order_by('belong')
-
-    customtypes = CustomType.objects.filter(module = global_module)
-    customtypesegments = CustomTypeSegment.objects.filter(belong__in = customtypes).order_by('belong')
-
-    protocals = Protocal.objects.filter(module = global_module)
-    segments = Segment.objects.filter(protocal__in = protocals).order_by('protocal')
-
-    if len(enums) > 0 or len(customtypes) > 0 or len(protocals) > 0:
-        enums_dict = {}
-        for enumsegment in enumsegments:
-            enum_segments = None
-            if not enums_dict.has_key(enumsegment.belong.id):
-                enum_segments = []
-                enums_dict[enumsegment.belong.id] = enum_segments
-            else:
-                enum_segments = enums_dict[enumsegment.belong.id]
-            enum_segments.append(enumsegment)
-
-        moduleEnums = enums.filter(belong = None)
-        for enum in moduleEnums:
-            if enums_dict.has_key(enum.id):
-                enum.segments = enums_dict[enum.id]
-            else:
-                enum.segments = []
-                
-        global_module.enums = moduleEnums
-
-        customtypes_dict = {}
-        for customtypesegment in customtypesegments:
-            customtype_segments = None
-            print customtypesegment.belong
-            if not customtypes_dict.has_key(customtypesegment.belong.id):
-                customtype_segments = []
-                customtypes_dict[customtypesegment.belong.id] = customtype_segments
-            else:
-                customtype_segments = customtypes_dict[customtypesegment.belong.id]
-            customtype_segments.append(customtypesegment)
-
-        moduleCustoms = customtypes.filter(belong = None)
-        for customtype in moduleCustoms:
-            if customtypes_dict.has_key(customtype.id):
-                customtype.segments = customtypes_dict[customtype.id]
-            else:
-                customtype.segments = []
-
-        global_module.customtypes = moduleCustoms
-
-        protocals_dict = {}
-
-        for segment in segments:
-            protocal_segments = None
-            if not protocals_dict.has_key(segment.protocal.id):
-                protocal_segments = []
-                protocals_dict[segment.protocal.id] = protocal_segments
-            else:
-                protocal_segments = protocals_dict[segment.protocal.id]
-            
-            protocal_segments.append(segment)
-            
-        for protocal in protocals:
-            if protocals_dict.has_key(protocal.id):
-                protocal.segments = protocals_dict[protocal.id]
-            else:
-                protocal.segments = []
-
-            innerenums = enums.filter(belong = protocal);
-            for enum in innerenums:
-                if enums_dict.has_key(enum.id):
-                    enum.segments = enums_dict[enum.id]
-                else:
-                    enum.segments = []
-            protocal.innerenums = innerenums
-
-            innercustomtypes = customtypes.filter(belong = protocal)
-            for customtype in innercustomtypes:
-                if customtypes_dict.has_key(customtype.id):
-                    customtype.segments = customtypes_dict[customtype.id]
-                else:
-                    customtype.segments = []
-                    
-            protocal.innercustomtypes = innercustomtypes
-
-        global_module.protocals = protocals
-
-        context.global_module = global_module
+    context.global_module = do_pre_handle_module(context, global_module, True)
         
     #module----------------------------------------------------------------------
+    modules = Module.objects.filter(project = project)
+    ids = []
     for module in modules:
-        enums = Enum.objects.filter(module = module)
-        enumsegments = EnmuSegment.objects.filter(belong__in = enums).order_by('belong')
+        m = do_pre_handle_module(context, module, True)
+        if m == None:
+            ids.append(module.id)
+    modules = modules.exclude(pk__in=ids);
 
-        enums_dict = {}
-        for enumsegment in enumsegments:
-            enum_segments = None
-            if not enums_dict.has_key(enumsegment.belong.id):
-                enum_segments = []
-                enums_dict[enumsegment.belong.id] = enum_segments
-            else:
-                enum_segments = enums_dict[enumsegment.belong.id]
-            enum_segments.append(enumsegment)
+    for module in modules:
+        module = do_pre_handle_module(context, module)
 
-        moduleEnums = enums.filter(belong = None)
-        for enum in moduleEnums:
-            if enums_dict.has_key(enum.id):
-                enum.segments = enums_dict[enum.id]
-            else:
-                enum.segments = []
-                
-        module.enums = moduleEnums
-
-        customtypes = CustomType.objects.filter(module = module)
-        customtypesegments = CustomTypeSegment.objects.filter(belong__in = customtypes).order_by('belong')
-
-        customtypes_dict = {}
-        for customtypesegment in customtypesegments:
-            customtype_segments = None
-            print customtypesegment.belong
-            if not customtypes_dict.has_key(customtypesegment.belong.id):
-                customtype_segments = []
-                customtypes_dict[customtypesegment.belong.id] = customtype_segments
-            else:
-                customtype_segments = customtypes_dict[customtypesegment.belong.id]
-            customtype_segments.append(customtypesegment)
-
-        moduleCustoms = customtypes.filter(belong = None)
-        for customtype in moduleCustoms:
-            if customtypes_dict.has_key(customtype.id):
-                customtype.segments = customtypes_dict[customtype.id]
-            else:
-                customtype.segments = []
-
-        module.customtypes = moduleCustoms
-
-
-        protocals = Protocal.objects.filter(module = module)
-        segments = Segment.objects.filter(protocal__in = protocals).order_by('protocal')
-
-        protocals_dict = {}
-
-        for segment in segments:
-            protocal_segments = None
-            if not protocals_dict.has_key(segment.protocal.id):
-                protocal_segments = []
-                protocals_dict[segment.protocal.id] = protocal_segments
-            else:
-                protocal_segments = protocals_dict[segment.protocal.id]
-            
-            protocal_segments.append(segment)
-            
-        for protocal in protocals:
-            if protocals_dict.has_key(protocal.id):
-                protocal.segments = protocals_dict[protocal.id]
-            else:
-                protocal.segments = []
-
-            innerenums = enums.filter(belong = protocal);
-            for enum in innerenums:
-                if enums_dict.has_key(enum.id):
-                    enum.segments = enums_dict[enum.id]
-                else:
-                    enum.segments = []
-            protocal.innerenums = innerenums
-
-            innercustomtypes = customtypes.filter(belong = protocal)
-            for customtype in innercustomtypes:
-                if customtypes_dict.has_key(customtype.id):
-                    customtype.segments = customtypes_dict[customtype.id]
-                else:
-                    customtype.segments = []
-                    
-            protocal.innercustomtypes = innercustomtypes
-
-        module.protocals = protocals
-
-    context.modules = modules;
+    context.modules = modules
 
 def do_init_folder(context):
     print 'Do init folder'

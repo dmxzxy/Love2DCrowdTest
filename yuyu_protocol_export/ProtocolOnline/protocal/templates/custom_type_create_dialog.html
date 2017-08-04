@@ -23,22 +23,33 @@
 	      <!-- Text input-->
 	      <label class="control-label padding_4px" for="input01">嵌套协议</label>
 	      <div class="controls">
-	     		 {% if cur_customtype.belong %}
+	     		 {% if cur_customtype.belong or cur_customtype.belong_ct %}
 					<select id="field_custom_type_inner_protocal_id" class="selectpicker"  >
-	  			 		<option value="0">无嵌套</option>
+	  			 		<option value="0" type="0">无嵌套</option>
 	  					{% for protocal in protocals %}
-	  					 {% if protocal.id == cur_customtype.belong.id %}
-	  						<option value="{{ protocal.id }}" selected="selected">{{ protocal.name }}</option>
-	  					 {% else %}
-	  						<option value="{{ protocal.id }}">{{ protocal.name }}</option>
-	  					 {% endif %}
+						{% if protocal.id == cur_customtype.belong.id %}
+						<option value="{{ protocal.id }}" type="0" selected="selected">(p) {{ protocal.name }}</option>
+						{% else %}
+						<option value="{{ protocal.id }}" type="0">(p) {{ protocal.name }}</option>
+						{% endif %}
+	  					{% endfor %}
+
+	  					{% for customtype in customtypes %}
+						{% if customtype.id == cur_customtype.belong_ct.id %}
+							<option value="{{ customtype.id }}" type="2" selected="selected">(ct) {{ customtype.name }}</option>
+						{% else %}
+	  						<option value="{{ customtype.id }}" type="2" >(ct) {{ customtype.name }}</option>
+						{% endif %}
 	  					{% endfor %}
 					</select>
 	        	{% else %}
 	        		<select id="field_custom_type_inner_protocal_id" class="selectpicker" title="选择相关协议.." >
-	  			 		<option value="0">无嵌套</option>
+	  			 		<option value="0" type="0">无嵌套</option>
 	  					{% for protocal in protocals %}
-	  					<option value="{{ protocal.id }}" >{{ protocal.name }}</option>
+	  					<option value="{{ protocal.id }}" type="0" >(p) {{ protocal.name }}</option>
+	  					{% endfor %}
+	  					{% for customtype in customtypes %}
+	  					<option value="{{ customtype.id }}" type="2" >(ct) {{ customtype.name }}</option>
 	  					{% endfor %}
 					</select>
 	        	{% endif %}
@@ -112,6 +123,7 @@
 	    		var pack_data = {};		    		
 	    		pack_data.customtype_name = $('#field_custom_type_name').val();
 	    		pack_data.customtype_desc = $('#field_custom_type_desc').val();
+    			pack_data.customtype_inner_type = $('#field_custom_type_inner_protocal_id').find("option:selected").attr('type');
     			pack_data.customtype_inner_protocal_id = $('#field_custom_type_inner_protocal_id').val();
 
 

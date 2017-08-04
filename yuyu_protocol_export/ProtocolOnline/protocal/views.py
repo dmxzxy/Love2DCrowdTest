@@ -255,6 +255,7 @@ def enum_create(request,module_id,enum_id = 0):
 
         enum_name = request.POST['enum_name']
         enum_desc = request.POST['enum_desc']
+        enum_inner_type = request.POST['enum_inner_type']
         enum_inner_protocal_id = request.POST['enum_inner_protocal_id'] 
         enum_namespace = cur_module.namespace + "." + enum_name
 
@@ -263,16 +264,27 @@ def enum_create(request,module_id,enum_id = 0):
         if not enum_desc:
             raise ValidationError("enum_desc should not be null.");
         else:
-            if not enum_inner_protocal_id or (try_parse_int(enum_inner_protocal_id) == 0):
-                inner_protocal = None
-            else:
-                inner_protocal = get_object_or_404(Protocal, pk=enum_inner_protocal_id) 
+            inner_protocal = None
+            inner_customtype = None
+            if try_parse_int(enum_inner_type) == 0:
+                if (not enum_inner_protocal_id) or (try_parse_int(enum_inner_protocal_id) == 0):
+                    inner_protocal = None
+                else:
+                    inner_protocal = get_object_or_404(Protocal, pk=enum_inner_protocal_id) 
+
+            if try_parse_int(enum_inner_type) == 2:
+                if (not enum_inner_protocal_id) or (try_parse_int(enum_inner_protocal_id) == 0):
+                    inner_customtype = None
+                else:
+                    inner_customtype = get_object_or_404(CustomType, pk=enum_inner_protocal_id) 
+
             if cur_enum:   
                 Enum.objects.filter(pk=enum_id).update(name = strip(enum_name),
                                                         desc = enum_desc,
                                                         module = cur_module,
                                                         namespace = enum_namespace,
                                                         belong = inner_protocal,
+                                                        belong_ct = inner_customtype,
                                                         )
 
 
@@ -285,6 +297,7 @@ def enum_create(request,module_id,enum_id = 0):
                             module = cur_module,
                             namespace = enum_namespace,
                             belong = inner_protocal,
+                            belong_ct = inner_customtype,
                             )
                 enum.save()
 
@@ -308,13 +321,15 @@ def enum_create(request,module_id,enum_id = 0):
         cur_project = cur_module.project
         cur_enum = Enum.objects.filter(pk=enum_id).first()
         modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
-        protocals = Protocal.objects.filter(module = cur_module)
+        protocals = Protocal.objects.filter(Q(module = cur_module))
+        customtypes = CustomType.objects.filter(Q(module = cur_module)).order_by('-timestamp')
 
         return render(request, 'enum_new.html',{  'cur_project':cur_project,
                                                   'cur_module':cur_module,
                                                   'cur_enum':cur_enum,
                                                   'modules':modules,
-                                                  'protocals':protocals,                                               
+                                                  'protocals':protocals, 
+                                                  'customtypes':customtypes,                                              
                                                   }) 
 
 def enum_edit(request,enum_id):
@@ -455,6 +470,7 @@ def customtype_create(request,module_id,customtype_id = 0):
 
         customtype_name = request.POST['customtype_name']
         customtype_desc = request.POST['customtype_desc']
+        customtype_inner_type = request.POST['customtype_inner_type']
         customtype_inner_protocal_id = request.POST['customtype_inner_protocal_id'] 
         customtype_namespace = cur_module.namespace + "." + customtype_name
 
@@ -463,17 +479,28 @@ def customtype_create(request,module_id,customtype_id = 0):
         if not customtype_desc:
             raise ValidationError("customtype_desc should not be null.");
         else:
-            print(customtype_inner_protocal_id)
-            if (not customtype_inner_protocal_id) or (try_parse_int(customtype_inner_protocal_id) == 0):
-                inner_protocal = None
-            else:
-                inner_protocal = get_object_or_404(Protocal, pk=customtype_inner_protocal_id) 
+            inner_protocal = None
+            inner_customtype = None
+            if try_parse_int(customtype_inner_type) == 0:
+                if (not customtype_inner_protocal_id) or (try_parse_int(customtype_inner_protocal_id) == 0):
+                    inner_protocal = None
+                else:
+                    inner_protocal = get_object_or_404(Protocal, pk=customtype_inner_protocal_id) 
+
+            if try_parse_int(customtype_inner_type) == 2:
+                if (not customtype_inner_protocal_id) or (try_parse_int(customtype_inner_protocal_id) == 0):
+                    inner_customtype = None
+                else:
+                    inner_customtype = get_object_or_404(CustomType, pk=customtype_inner_protocal_id) 
+
+
             if cur_customtype:          
                 CustomType.objects.filter(pk=customtype_id).update(name = strip(customtype_name),
                                                                     desc = customtype_desc,
                                                                     module = cur_module,
                                                                     namespace = customtype_namespace,
                                                                     belong = inner_protocal,
+                                                                    belong_ct = inner_customtype,
                                                                     )
 
                 segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
@@ -485,6 +512,7 @@ def customtype_create(request,module_id,customtype_id = 0):
                             module = cur_module,
                             namespace = customtype_namespace,
                             belong = inner_protocal,
+                            belong_ct = inner_customtype,
                             )
     
                 customtype.save()
@@ -509,21 +537,25 @@ def customtype_create(request,module_id,customtype_id = 0):
         cur_project = cur_module.project
         cur_customtype = CustomType.objects.filter(pk=customtype_id).first()
         modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
-        protocals = Protocal.objects.filter(module = cur_module)
+        protocals = Protocal.objects.filter(Q(module = cur_module)).order_by('-timestamp')
+        customtypes = CustomType.objects.filter(Q(module = cur_module)).order_by('-timestamp')
+        if cur_customtype:
+            customtypes = customtypes.exclude(pk=cur_customtype.id)
 
         return render(request, 'custom_type_create_dialog.html',{  'cur_project':cur_project,
                                                   'cur_module':cur_module,
                                                   'cur_customtype':cur_customtype,
                                                   'modules':modules,
-                                                  'protocals':protocals,                                               
+                                                  'protocals':protocals,
+                                                  'customtypes':customtypes,                                               
                                                   }) 
 
 def customtype_edit(request,customtype_id):
-    cur_customType = get_object_or_404(CustomType, pk=customtype_id)
+    cur_customtype = get_object_or_404(CustomType, pk=customtype_id)
     cur_module = try_get_module(cur_customtype)
     if cur_module == None:
         return index(request)
-    return customtype_create(request,cur_module.id,cur_customType.id)
+    return customtype_create(request,cur_module.id,cur_customtype.id)
 
 def customtype_delete(request):
     if request.method == 'POST': 
