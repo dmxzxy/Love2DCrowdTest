@@ -2,6 +2,7 @@ import json
 import os
 import shutil
 import traceback, sys
+import zipfile
 
 def write_enum(file_proto, context, enum, indent=''):
     segments = enum.segments
@@ -87,6 +88,11 @@ def write_protocal(file_proto, context, protocal, indent=''):
 
 
 def do_export_protocal(context):
+    context.compile_path = context.root_path + 'proto2/'
+    zip_src_path = context.compile_path
+    file_path = context.zip_dst_path + 'protocal_proto.zip'
+    file_zip = zipfile.ZipFile(file_path,'w',zipfile.ZIP_DEFLATED)
+
     global_module = context.global_module
     if global_module:
         proto_path = context.proto2_path + global_module.name + '.proto'
@@ -115,6 +121,7 @@ def do_export_protocal(context):
             write_protocal(file_proto, context, protocal)
 
         file_proto.close()    
+        file_zip.write(os.path.join(zip_src_path,global_module.name + '.proto'),global_module.name + '.proto')
 
     modules = context.modules
     for module in modules:
@@ -151,3 +158,6 @@ def do_export_protocal(context):
             write_protocal(file_proto, context, protocal)
 
         file_proto.close()    
+        file_zip.write(os.path.join(zip_src_path,module.name + '.proto'),module.name + '.proto')
+
+    file_zip.close()     

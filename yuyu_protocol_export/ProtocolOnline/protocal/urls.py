@@ -10,7 +10,8 @@ urlpatterns = [
     url(r'^project/help/(?P<project_id>[0-9]+)/$', views.project_help, name='project_help'),
     url(r'^project/export/(?P<project_id>[0-9]+)/$', views.project_export, name='project_export'),
     url(r'^project/download/(?P<project_id>[0-9]+)/$', views.project_download, name='project_download'),
-    
+    url(r'^project/downloadproto/(?P<project_id>[0-9]+)/$', views.project_download_proto, name='project_download_proto'),
+
     url(r'^module/create/(?P<project_id>[0-9]+)$', views.module_create, name='module_create'),
     url(r'^module/detail/(?P<module_id>[0-9]+)$', views.module_detail, name='module_detail'),
 
