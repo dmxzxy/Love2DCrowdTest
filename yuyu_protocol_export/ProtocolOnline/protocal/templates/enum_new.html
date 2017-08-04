@@ -126,7 +126,12 @@
 	    		var pack_data = {};
 	    		pack_data.enum_name = $('#field_enum_name').val();
 	    		pack_data.enum_desc = $('#field_enum_desc').val();
-	    		pack_data.enum_inner_type = $('#field_enum_inner_protocal_id').find("option:selected").attr('type');
+	    		tp = $('#field_enum_inner_protocal_id').find("option:selected").attr('type');
+	    		if (!tp){
+    				pack_data.enum_inner_type = 0
+	    		}else{
+    				pack_data.enum_inner_type = tp
+	    		}
 	    		pack_data.enum_inner_protocal_id = $('#field_enum_inner_protocal_id').val();
 
 	        	$.ajaxSetup({

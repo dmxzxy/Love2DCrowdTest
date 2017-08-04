@@ -123,7 +123,12 @@
 	    		var pack_data = {};		    		
 	    		pack_data.customtype_name = $('#field_custom_type_name').val();
 	    		pack_data.customtype_desc = $('#field_custom_type_desc').val();
-    			pack_data.customtype_inner_type = $('#field_custom_type_inner_protocal_id').find("option:selected").attr('type');
+	    		tp = $('#field_custom_type_inner_protocal_id').find("option:selected").attr('type');
+	    		if (!tp){
+    				pack_data.customtype_inner_type = 0
+	    		}else{
+    				pack_data.customtype_inner_type = tp
+	    		}
     			pack_data.customtype_inner_protocal_id = $('#field_custom_type_inner_protocal_id').val();
 
 
