@@ -9,6 +9,7 @@ from django.http.response import HttpResponse
 
 from protocal import export_proto2
 from protocal import export_lua
+from protocal import export_cpp
 from protocal.models import *
 
 
@@ -337,3 +338,6 @@ def do_export(project,version,export_setting):
     # export for languages
     export_lua.do_export(context)
     export_lua.do_zip(context)
+
+    export_cpp.do_export(context)
+    export_cpp.do_zip(context)

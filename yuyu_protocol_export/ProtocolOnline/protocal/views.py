@@ -212,6 +212,29 @@ def project_download_proto(request,project_id):
     response['Content-Length'] = file_size
     return response
     
+
+def project_download_cpp(request,project_id):
+    cur_project = get_object_or_404(Project, pk=project_id)
+    export_setting = ExporterSetting.objects.first()
+    def file_iterator(file_path, chunk_size=512):
+        with open(file_path,'rb') as f:
+            while True:
+                c = f.read(chunk_size)
+                if c:
+                    yield c
+                else:
+                    break
+    the_file_name = 'protocal_cpp.zip'                
+    the_file_path = export_setting.export_path + '/protocal'+  '/archive/' + the_file_name
+#     print 'the_file_path:' + the_file_path
+    file_size = os.path.getsize(the_file_path)
+    print 'file size:' + str(file_size)
+    response = StreamingHttpResponse(file_iterator(the_file_path))
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+    response['Content-Length'] = file_size
+    return response
+
 # enum ------------------------------------------------------------
 def enum_detail(request,enum_id):
     cur_enum = get_object_or_404(Enum, pk=enum_id)

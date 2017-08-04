@@ -60,10 +60,10 @@
 	  	<caption>历史记录</caption>
 		   <thead>
 		      <tr>
-		         <th >时间</th>
+		         <th>时间</th>
 		         <th>项目</th>
 		         <th>版本</th>
-		         <th >状态</th>
+		         <th>状态</th>
 		      </tr>
 		   </thead>
 		   <tbody>
@@ -79,11 +79,14 @@
 		</table>
 		
 		<div class='text-right' >
+		<a  href="{% url 'project_download_proto' cur_project.id %}" class="btn btn-primary btn-large btn_120px">
+			下载源协议
+		</a>
 		<a  href="{% url 'project_download' cur_project.id %}" class="btn btn-primary btn-large btn_120px">
 			下载lua
 		</a>
-		<a  href="{% url 'project_download_proto' cur_project.id %}" class="btn btn-primary btn-large btn_120px">
-			下载源协议
+		<a  href="{% url 'project_download_cpp' cur_project.id %}" class="btn btn-primary btn-large btn_120px">
+			下载cpp
 		</a>
 		</div>
 	</div>
