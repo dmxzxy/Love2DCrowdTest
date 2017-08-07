@@ -4,4 +4,4 @@ for /f "tokens=4" %%a in ('route print^|findstr 0.0.0.0.*0.0.0.0') do (
 )
 echo %IP%
 
-python manage.py runserver %IP%:8000
+python manage.py runserver 0.0.0.0:8000

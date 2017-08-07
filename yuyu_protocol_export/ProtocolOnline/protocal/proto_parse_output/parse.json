@@ -4,51 +4,29 @@
             "enumlist": [], 
             "messagelist": [
                 {
-                    "enumlist": [
-                        {
-                            "name": "Type", 
-                            "valuelist": [
-                                {
-                                    "name": "eResourceType_Pack", 
-                                    "number": 1
-                                }, 
-                                {
-                                    "name": "eResourceType_Props", 
-                                    "number": 2
-                                }, 
-                                {
-                                    "name": "eResourceType_Item", 
-                                    "number": 3
-                                }, 
-                                {
-                                    "name": "eResourceType_Hero", 
-                                    "number": 4
-                                }
-                            ]
-                        }
-                    ], 
+                    "desc": "", 
+                    "enumlist": [], 
                     "fieldlist": [
                         {
+                            "desc": "", 
                             "label": 2, 
-                            "name": "type", 
+                            "name": "basetype", 
                             "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "object", 
-                            "number": 2, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "count", 
-                            "number": 3, 
-                            "type": 13
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                0
+                            ], 
+                            "type": 5
                         }
                     ], 
-                    "name": "Resource", 
-                    "nestedtypelist": []
+                    "name": "BaseType", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        0
+                    ]
                 }
             ], 
             "package": "msg"
@@ -56,1224 +34,159 @@
         {
             "enumlist": [
                 {
-                    "name": "MessageBattle", 
-                    "valuelist": []
-                }, 
-                {
-                    "name": "ErrorcodeRole", 
-                    "valuelist": []
-                }
-            ], 
-            "messagelist": [
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 2, 
-                            "name": "roleid", 
-                            "number": 1, 
-                            "type": 4
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "rolename", 
-                            "number": 2, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 3, 
-                            "name": "soldiers", 
-                            "number": 3, 
-                            "type": 11
-                        }
-                    ], 
-                    "name": "CombatGroup", 
-                    "nestedtypelist": [
-                        {
-                            "enumlist": [], 
-                            "fieldlist": [
-                                {
-                                    "label": 2, 
-                                    "name": "id", 
-                                    "number": 1, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "level", 
-                                    "number": 2, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "position", 
-                                    "number": 3, 
-                                    "type": 11
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "scale", 
-                                    "number": 4, 
-                                    "type": 11
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "factor", 
-                                    "number": 5, 
-                                    "type": 11
-                                }, 
-                                {
-                                    "label": 3, 
-                                    "name": "Spells", 
-                                    "number": 6, 
-                                    "type": 11
-                                }
-                            ], 
-                            "name": "Soldier", 
-                            "nestedtypelist": [
-                                {
-                                    "enumlist": [], 
-                                    "fieldlist": [
-                                        {
-                                            "label": 2, 
-                                            "name": "id", 
-                                            "number": 1, 
-                                            "type": 13
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "level", 
-                                            "number": 2, 
-                                            "type": 13
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "roleindex", 
-                                            "number": 3, 
-                                            "type": 13
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "cost", 
-                                            "number": 4, 
-                                            "type": 13
-                                        }
-                                    ], 
-                                    "name": "Spell", 
-                                    "nestedtypelist": []
-                                }, 
-                                {
-                                    "enumlist": [], 
-                                    "fieldlist": [
-                                        {
-                                            "label": 2, 
-                                            "name": "x", 
-                                            "number": 1, 
-                                            "type": 5
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "y", 
-                                            "number": 2, 
-                                            "type": 5
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "z", 
-                                            "number": 3, 
-                                            "type": 5
-                                        }
-                                    ], 
-                                    "name": "Position", 
-                                    "nestedtypelist": []
-                                }, 
-                                {
-                                    "enumlist": [], 
-                                    "fieldlist": [
-                                        {
-                                            "label": 2, 
-                                            "name": "x", 
-                                            "number": 1, 
-                                            "type": 2
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "y", 
-                                            "number": 2, 
-                                            "type": 2
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "z", 
-                                            "number": 3, 
-                                            "type": 2
-                                        }
-                                    ], 
-                                    "name": "Scale", 
-                                    "nestedtypelist": []
-                                }, 
-                                {
-                                    "enumlist": [], 
-                                    "fieldlist": [
-                                        {
-                                            "label": 2, 
-                                            "name": "fd", 
-                                            "number": 1, 
-                                            "type": 13
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "hp", 
-                                            "number": 2, 
-                                            "type": 13
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "maxhp", 
-                                            "number": 3, 
-                                            "type": 13
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "attack", 
-                                            "number": 4, 
-                                            "type": 13
-                                        }, 
-                                        {
-                                            "label": 2, 
-                                            "name": "defend", 
-                                            "number": 5, 
-                                            "type": 13
-                                        }
-                                    ], 
-                                    "name": "Attribute", 
-                                    "nestedtypelist": []
-                                }
-                            ]
-                        }
-                    ]
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 2, 
-                            "name": "heroid", 
-                            "number": 1, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "action", 
-                            "number": 2, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "actionframe", 
-                            "number": 3, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 3, 
-                            "name": "parameters", 
-                            "number": 4, 
-                            "type": 5
-                        }
-                    ], 
-                    "name": "BattleCmd", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }
-                    ], 
-                    "name": "MessageMatchRequest", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "host", 
-                            "number": 2, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "port", 
-                            "number": 3, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "seed", 
-                            "number": 4, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "token", 
-                            "number": 5, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "attacker", 
-                            "number": 6, 
-                            "type": 11
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "defender", 
-                            "number": 7, 
-                            "type": 11
-                        }
-                    ], 
-                    "name": "MessageMatchResponse", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "roleid", 
-                            "number": 2, 
-                            "type": 4
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "token", 
-                            "number": 3, 
-                            "type": 9
-                        }
-                    ], 
-                    "name": "MessageReadyRequest", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }
-                    ], 
-                    "name": "MessageStartNotify", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "cmd", 
-                            "number": 2, 
-                            "type": 11
-                        }
-                    ], 
-                    "name": "MessageReportCmdRequest", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "frame", 
-                            "number": 2, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 3, 
-                            "name": "cmds", 
-                            "number": 3, 
-                            "type": 11
-                        }
-                    ], 
-                    "name": "MessageSyncCmdNotify", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "result", 
-                            "number": 2, 
-                            "type": 13
-                        }
-                    ], 
-                    "name": "MessageStopRequest", 
-                    "nestedtypelist": []
-                }
-            ], 
-            "package": "msg.battle"
-        }, 
-        {
-            "enumlist": [
-                {
-                    "name": "MessageItem", 
-                    "valuelist": []
-                }, 
-                {
-                    "name": "ErrorcodeItem", 
-                    "valuelist": []
-                }
-            ], 
-            "messagelist": [
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 2, 
-                            "name": "base", 
-                            "number": 1, 
-                            "type": 11
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "equip", 
-                            "number": 2, 
-                            "type": 11
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "lifetime", 
-                            "number": 5, 
-                            "type": 3
-                        }
-                    ], 
-                    "name": "ItemDetailInfo", 
-                    "nestedtypelist": [
-                        {
-                            "enumlist": [], 
-                            "fieldlist": [
-                                {
-                                    "label": 2, 
-                                    "name": "entityid", 
-                                    "number": 1, 
-                                    "type": 4
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "baseid", 
-                                    "number": 2, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "count", 
-                                    "number": 3, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "place", 
-                                    "number": 4, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "quality", 
-                                    "number": 5, 
-                                    "type": 13
-                                }
-                            ], 
-                            "name": "ItemBase", 
-                            "nestedtypelist": []
-                        }, 
-                        {
-                            "enumlist": [], 
-                            "fieldlist": [
-                                {
-                                    "label": 2, 
-                                    "name": "level", 
-                                    "number": 1, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "heroid", 
-                                    "number": 3, 
-                                    "type": 13
-                                }
-                            ], 
-                            "name": "EquipData", 
-                            "nestedtypelist": []
-                        }
-                    ]
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }
-                    ], 
-                    "name": "MessageItemDetailInfosRequest", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 3, 
-                            "name": "items", 
-                            "number": 2, 
-                            "type": 11
-                        }
-                    ], 
-                    "name": "MessageItemDetailInfosResponse", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 3, 
-                            "name": "addlist", 
-                            "number": 2, 
-                            "type": 11
-                        }, 
-                        {
-                            "label": 3, 
-                            "name": "deletelist", 
-                            "number": 3, 
-                            "type": 4
-                        }, 
-                        {
-                            "label": 3, 
-                            "name": "modifylist", 
-                            "number": 4, 
-                            "type": 11
-                        }
-                    ], 
-                    "name": "MessageBagChangeList", 
-                    "nestedtypelist": [
-                        {
-                            "enumlist": [], 
-                            "fieldlist": [
-                                {
-                                    "label": 2, 
-                                    "name": "entityid", 
-                                    "number": 1, 
-                                    "type": 4
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "count", 
-                                    "number": 2, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "place", 
-                                    "number": 3, 
-                                    "type": 13
-                                }
-                            ], 
-                            "name": "Change", 
-                            "nestedtypelist": []
-                        }
-                    ]
-                }
-            ], 
-            "package": "msg.item"
-        }, 
-        {
-            "enumlist": [
-                {
+                    "desc": "", 
                     "name": "MessageRole", 
-                    "valuelist": []
-                }, 
-                {
-                    "name": "ErrorcodeRole", 
+                    "path": [
+                        5, 
+                        0
+                    ], 
                     "valuelist": []
                 }
             ], 
             "messagelist": [
                 {
+                    "desc": "", 
                     "enumlist": [], 
                     "fieldlist": [
                         {
-                            "label": 1, 
+                            "desc": "", 
+                            "label": 2, 
                             "name": "id", 
                             "number": 1, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                0
+                            ], 
                             "type": 14
                         }, 
                         {
+                            "desc": "", 
                             "label": 2, 
-                            "name": "account", 
+                            "name": "name", 
                             "number": 2, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                1
+                            ], 
                             "type": 9
                         }, 
                         {
+                            "desc": "邮件地址\n", 
                             "label": 1, 
-                            "name": "zoneindex", 
+                            "name": "email", 
                             "number": 3, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "token", 
-                            "number": 4, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "clienthost", 
-                            "number": 5, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                2
+                            ], 
                             "type": 9
                         }
                     ], 
-                    "name": "MessageVerifyRequest", 
-                    "nestedtypelist": []
+                    "name": "Person", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        0
+                    ]
                 }, 
                 {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "gatehost", 
-                            "number": 2, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "gateport", 
-                            "number": 3, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "token", 
-                            "number": 4, 
-                            "type": 9
-                        }
-                    ], 
-                    "name": "MessageVerifyResponse", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "account", 
-                            "number": 2, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "zoneindex", 
-                            "number": 3, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "token", 
-                            "number": 4, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "clienthost", 
-                            "number": 5, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "appversion", 
-                            "number": 6, 
-                            "type": 9
-                        }
-                    ], 
-                    "name": "MessageRoleLogin", 
-                    "nestedtypelist": []
-                }, 
-                {
+                    "desc": "", 
                     "enumlist": [
                         {
-                            "name": "Reason", 
+                            "desc": "", 
+                            "name": "PHONE_TYPE", 
+                            "path": [
+                                4, 
+                                1, 
+                                4, 
+                                0
+                            ], 
                             "valuelist": [
                                 {
-                                    "name": "Logout", 
-                                    "number": 1
+                                    "desc": "电话\n", 
+                                    "name": "MOBILE", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        1, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ]
                                 }, 
                                 {
-                                    "name": "Kickoff", 
-                                    "number": 2
-                                }, 
-                                {
-                                    "name": "BadChecksum", 
-                                    "number": 3
-                                }, 
-                                {
-                                    "name": "BannedAccount", 
-                                    "number": 4
-                                }, 
-                                {
-                                    "name": "Shutdown", 
-                                    "number": 5
-                                }, 
-                                {
-                                    "name": "Maintain", 
-                                    "number": 6
+                                    "desc": "", 
+                                    "name": "HOME", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        1, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ]
                                 }
                             ]
                         }
                     ], 
                     "fieldlist": [
                         {
-                            "label": 1, 
+                            "desc": "", 
+                            "label": 2, 
                             "name": "id", 
                             "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "roleid", 
-                            "number": 2, 
-                            "type": 4
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "reason", 
-                            "number": 3, 
-                            "type": 14
-                        }
-                    ], 
-                    "name": "MessageRoleLogout", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 3, 
-                            "name": "rolelist", 
-                            "number": 2, 
-                            "type": 11
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "opversion", 
-                            "number": 3, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "baseversion", 
-                            "number": 4, 
-                            "type": 9
-                        }
-                    ], 
-                    "name": "MessageRoleList", 
-                    "nestedtypelist": [
-                        {
-                            "enumlist": [], 
-                            "fieldlist": [
-                                {
-                                    "label": 2, 
-                                    "name": "roleid", 
-                                    "number": 1, 
-                                    "type": 4
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "avatar", 
-                                    "number": 2, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "level", 
-                                    "number": 3, 
-                                    "type": 13
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "rolename", 
-                                    "number": 4, 
-                                    "type": 9
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "lastlogintime", 
-                                    "number": 5, 
-                                    "type": 4
-                                }
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                0
                             ], 
-                            "name": "RoleInfo", 
-                            "nestedtypelist": []
-                        }
-                    ]
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
                             "type": 14
                         }, 
                         {
-                            "label": 2, 
-                            "name": "account", 
+                            "desc": "", 
+                            "label": 1, 
+                            "name": "num", 
                             "number": 2, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "zoneindex", 
-                            "number": 3, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "rolename", 
-                            "number": 4, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "heroid", 
-                            "number": 5, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "device", 
-                            "number": 6, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "version", 
-                            "number": 7, 
-                            "type": 9
-                        }
-                    ], 
-                    "name": "MessageNewbornRequest", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "roleid", 
-                            "number": 2, 
-                            "type": 4
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "rolename", 
-                            "number": 3, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "heroid", 
-                            "number": 4, 
-                            "type": 13
-                        }
-                    ], 
-                    "name": "MessageNewbornResponse", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "roleid", 
-                            "number": 2, 
-                            "type": 4
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "clienthost", 
-                            "number": 3, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "clientport", 
-                            "number": 4, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "device", 
-                            "number": 5, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "version", 
-                            "number": 6, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "suggest", 
-                            "number": 7, 
-                            "type": 13
-                        }
-                    ], 
-                    "name": "MessageRoleEnterGame", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "role", 
-                            "number": 2, 
-                            "type": 11
-                        }
-                    ], 
-                    "name": "MessageRoleDetail", 
-                    "nestedtypelist": [
-                        {
-                            "enumlist": [], 
-                            "fieldlist": [
-                                {
-                                    "label": 2, 
-                                    "name": "roleid", 
-                                    "number": 1, 
-                                    "type": 4
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "rolename", 
-                                    "number": 2, 
-                                    "type": 9
-                                }, 
-                                {
-                                    "label": 2, 
-                                    "name": "exp", 
-                                    "number": 3, 
-                                    "type": 4
-                                }
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                1
                             ], 
-                            "name": "RoleInfo", 
-                            "nestedtypelist": []
-                        }
-                    ]
-                }, 
-                {
-                    "enumlist": [
-                        {
-                            "name": "Channel", 
-                            "valuelist": [
-                                {
-                                    "name": "eChannel_System", 
-                                    "number": 1
-                                }, 
-                                {
-                                    "name": "eChannel_World", 
-                                    "number": 2
-                                }, 
-                                {
-                                    "name": "eChannel_Guild", 
-                                    "number": 3
-                                }, 
-                                {
-                                    "name": "eChannel_Team", 
-                                    "number": 4
-                                }, 
-                                {
-                                    "name": "eChannel_Whisper", 
-                                    "number": 5
-                                }
-                            ]
-                        }
-                    ], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
+                            "type": 9
                         }, 
                         {
-                            "label": 2, 
-                            "name": "channel", 
-                            "number": 2, 
-                            "type": 14
-                        }, 
-                        {
+                            "desc": "", 
                             "label": 1, 
-                            "name": "sender", 
+                            "name": "type", 
                             "number": 3, 
-                            "type": 4
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "sendername", 
-                            "number": 4, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "avatar", 
-                            "number": 5, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "level", 
-                            "number": 6, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "receiver", 
-                            "number": 7, 
-                            "type": 4
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "receivername", 
-                            "number": 8, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "content", 
-                            "number": 9, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "streammedia", 
-                            "number": 10, 
-                            "type": 12
-                        }
-                    ], 
-                    "name": "MessageRoleChat", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 1, 
-                            "name": "code", 
-                            "number": 2, 
-                            "type": 9
-                        }
-                    ], 
-                    "name": "MessageUseGiftCodeRequest", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                2
+                            ], 
                             "type": 14
                         }
                     ], 
-                    "name": "MessageUseGiftCodeResponse", 
-                    "nestedtypelist": []
+                    "name": "Phone", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        1
+                    ]
                 }
             ], 
             "package": "msg.role"
-        }, 
-        {
-            "enumlist": [
-                {
-                    "name": "MessageUtils", 
-                    "valuelist": []
-                }, 
-                {
-                    "name": "ErrorcodeUtils", 
-                    "valuelist": []
-                }
-            ], 
-            "messagelist": [
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "cmd", 
-                            "number": 2, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "result", 
-                            "number": 3, 
-                            "type": 13
-                        }
-                    ], 
-                    "name": "MessageErrorcode", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "timestamp", 
-                            "number": 2, 
-                            "type": 4
-                        }
-                    ], 
-                    "name": "MessageUtilsPing", 
-                    "nestedtypelist": []
-                }, 
-                {
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "label": 1, 
-                            "name": "id", 
-                            "number": 1, 
-                            "type": 14
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "version", 
-                            "number": 2, 
-                            "type": 9
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "method", 
-                            "number": 3, 
-                            "type": 13
-                        }, 
-                        {
-                            "label": 2, 
-                            "name": "opversion", 
-                            "number": 4, 
-                            "type": 9
-                        }
-                    ], 
-                    "name": "MessageVersionNotify", 
-                    "nestedtypelist": []
-                }
-            ], 
-            "package": "msg.utils"
         }
     ]
 }
