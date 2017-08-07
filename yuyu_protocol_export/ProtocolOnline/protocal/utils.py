@@ -89,4 +89,29 @@ def copytree(src, dst, symlinks=False):
     if errors:  
         raise Error(errors)  
 
+def is_sub_string(SubStrList,Str):  
+    flag=True  
+    for substr in SubStrList:
+        if not(substr in Str):
+            flag=False  
+  
+    return flag  
 
+def get_file_list(FindPath,FlagStr=[]):  
+    import os  
+    FileList=[]  
+    FileNames=os.listdir(FindPath)  
+    if (len(FileNames)>0):  
+       for fn in FileNames:  
+           if (len(FlagStr)>0):  
+               if (is_sub_string(FlagStr,fn)):  
+                   fullfilename=os.path.join(FindPath,fn)
+                   FileList.append(fullfilename)  
+           else:  
+               fullfilename=os.path.join(FindPath,fn)  
+               FileList.append(fullfilename)  
+  
+    if (len(FileList)>0):  
+        FileList.sort()
+  
+    return FileList  

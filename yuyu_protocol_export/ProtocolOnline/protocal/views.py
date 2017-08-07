@@ -17,7 +17,7 @@ from datetime import datetime
 from string import strip
 
 from protocal.models import *
-from protocal import export_utils, utils
+from protocal import export_utils, utils, sync_proto
 from protocal.utils import try_parse_int
 
 cur_edit_project = None
@@ -140,7 +140,8 @@ def project_export(request,project_id):
         export_setting = ExporterSetting.objects.first()
         try:
             export_setting.export_clean = export_clean
-            export_utils.do_export(cur_project, export_version,export_setting)
+            #export_utils.do_export(cur_project, export_version,export_setting)
+            sync_proto.doSync(cur_project)
             project_export.status = 2
             project_export.save(update_fields=['status'])
         except Exception,e:
