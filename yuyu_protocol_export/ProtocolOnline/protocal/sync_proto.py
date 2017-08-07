@@ -3,6 +3,7 @@ import traceback, sys
 from protocal.utils import cmd_call
 from protocal.utils import get_file_list
 
+import json
 from protocal.models import *
 
 
@@ -24,13 +25,13 @@ def parse_proto_files(context):
 
     cmd = cmdHead
     for f in l:
-    	print f
     	cmd += f
     	cmd += ' '
     cmd_call(cmd)
 
 def doSync(project):
-    context = cls_context()    
+    context = cls_context()
+    context.namespace = project.namespace
     context.proto_sync_path = 'E:/workspace/Love2DCrowdTest/SyncProto';
     bin_path = os.path.dirname(__file__)
     context.bin_path = os.path.join(bin_path, 'export_bin/' )
@@ -41,3 +42,7 @@ def doSync(project):
     #step 4: for update edit sql
 
     parse_proto_files(context)
+    with open(proto_parse_plugin_outputpath+'/'+'parse.json','r') as load_f:
+    	load_dict = json.load(load_f);
+    	for m in load_dict['modulelist']:
+    		print m['package']
