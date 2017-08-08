@@ -14,6 +14,74 @@ proto_parse_plugin_path = 'proto_parse_plugin'
 proto_parse_plugin_exe = 'runparse.bat'
 proto_parse_plugin_outputpath = 'protocal/proto_parse_output'
 
+#// 0 is reserved for errors.
+#// Order is weird for historical reasons.
+#TYPE_DOUBLE         = 1;
+#TYPE_FLOAT          = 2;
+#// Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
+#// negative values are likely.
+#TYPE_INT64          = 3;
+#TYPE_UINT64         = 4;
+#// Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
+#// negative values are likely.
+#TYPE_INT32          = 5;
+#TYPE_FIXED64        = 6;
+#TYPE_FIXED32        = 7;
+#TYPE_BOOL           = 8;
+#TYPE_STRING         = 9;
+#TYPE_GROUP          = 10;  // Tag-delimited aggregate.
+#TYPE_MESSAGE        = 11;  // Length-delimited aggregate.
+
+# New in version 2.
+#TYPE_BYTES          = 12;
+#TYPE_UINT32         = 13;
+#TYPE_ENUM           = 14;
+#TYPE_SFIXED32       = 15;
+#TYPE_SFIXED64       = 16;
+#TYPE_SINT32         = 17;  // Uses ZigZag encoding.
+#TYPE_SINT64         = 18;  // Uses ZigZag encoding.
+
+class FieldType:
+    TYPE_DOUBLE         = 1
+    TYPE_FLOAT          = 2
+    TYPE_INT64          = 3
+    TYPE_UINT64         = 4
+    TYPE_INT32          = 5
+    TYPE_FIXED64        = 6
+    TYPE_FIXED32        = 7
+    TYPE_BOOL           = 8
+    TYPE_STRING         = 9
+    TYPE_GROUP          = 10
+    TYPE_MESSAGE        = 11
+    TYPE_BYTES          = 12
+    TYPE_UINT32         = 13
+    TYPE_ENUM           = 14
+    TYPE_SFIXED32       = 15
+    TYPE_SFIXED64       = 16
+    TYPE_SINT32         = 17
+    TYPE_SINT64         = 18
+
+FName = {
+    FieldType.TYPE_DOUBLE   : 'double',
+    FieldType.TYPE_FLOAT    : 'float',
+    FieldType.TYPE_INT64    : 'int64',
+    FieldType.TYPE_UINT64   : 'uint64',
+    FieldType.TYPE_INT32    : 'int32',
+    FieldType.TYPE_FIXED64  : 'fixed64',
+    FieldType.TYPE_FIXED32  : 'fixed32',
+    FieldType.TYPE_BOOL     : 'bool',
+    FieldType.TYPE_STRING   : 'string',
+    FieldType.TYPE_GROUP    : '',
+    FieldType.TYPE_MESSAGE  : '',
+    FieldType.TYPE_BYTES    : 'bytes',
+    FieldType.TYPE_UINT32   : 'uint32',
+    FieldType.TYPE_ENUM     : '',
+    FieldType.TYPE_SFIXED32 : 'sfixed32',
+    FieldType.TYPE_SFIXED64 : 'sfixed64',
+    FieldType.TYPE_SINT32   : 'sint32',
+    FieldType.TYPE_SINT64   : 'sint64',
+}
+
 class cls_context:
     project = None
     setting = None
@@ -32,23 +100,268 @@ def parse_proto_files(context):
     cmd_call(cmd)
 
 def doSyncEnumValue(context, module, enum, enumvalue_dict):
-    pass
+    segment_name = enumvalue_dict['name']
+    segment_desc = enumvalue_dict['desc']
+    segment_namespace = enumvalue_dict['fullname']
+    segment_value = enumvalue_dict['number']
 
-def doSyncEnum(context, module, message, enum_dict):
-    pass
+    try:
+        enum_segment = EnmuSegment.objects.filter(namespace = segment_namespace)[0]
+    except IndexError:
+        enum_segment = None
+
+    if enum_segment:
+        enum_segment.update( name = strip(segment_name),
+                            value = segment_value,
+                            desc = segment_desc,
+                            belong = enum,
+                            )
+    else:
+        enum_segment = EnmuSegment(  name = strip(segment_name),
+                                    value = segment_value,
+                                    desc = segment_desc,
+                                    belong = enum,
+                                    )
+
+        enum_segment.save()
+
+
+#inner_type 0:global 1:protocal 2:customtype
+def doSyncEnum(context, module, message, enum_dict, inner_type = 0):
+    cur_project = context.cur_project
+    enum_name = enum_dict['name']
+    enum_desc = enum_dict['desc']
+    enum_namespace = enum_dict['fullname']
+    inner_protocal = None;
+    inner_customtype = None;
+    if inner_type == 1:
+        inner_protocal = message;
+    elif inner_type == 2:
+        inner_customtype = message;
+
+    try:
+        enum = Enum.objects.filter(namespace = segment_namespace)[0]
+    except IndexError:
+        enum = None
+
+    if enum == None:   
+        enum = Enum(name = strip(enum_name),
+                    desc = enum_desc,
+                    module = module,
+                    namespace = enum_namespace,
+                    belong = inner_protocal,
+                    belong_ct = inner_customtype,
+                    )
+        enum.save()
+
+        segment_type = SegmentType(name = strip(enum_name),
+                                   desc = enum_desc,
+                                   module = module,
+                                   protocal = inner_protocal,
+                                   is_basic = False,
+                                   project = cur_project,
+                                   provider_type = 1,
+                                   )
+        segment_type.save()
+        Enum.objects.filter(id=enum.id).update(type = segment_type)
+    else:
+        Enum.objects.filter(pk=enum_id).update(name = strip(enum_name),
+                                                desc = enum_desc,
+                                                module = module,
+                                                namespace = enum_namespace,
+                                                belong = inner_protocal,
+                                                belong_ct = inner_customtype,
+                                                )
+
+        segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
+        if segment_type:
+            segment_type.update(name = strip(enum_name),desc = enum_desc)
+
+
+    valuelist = enum_dict['valuelist']
+    for value in valuelist:
+        doSyncEnumValue(context, module, enum, value)
+
+
+def doSyncCustomTypeField(context, module, message, field_dict):
+    customtype_segment_name = field_dict['name']
+    customtype_segment_desc = field_dict['desc']
+    customtype_segment_namespace = field_dict['fullname']
+    customtype_segment_protocal_type_id = field_dict['label']
+
+    customtype_segment_type = None
+    customtype_segment_default_enum_segment = None
+    if segment_type_type == FieldType.TYPE_ENUM:
+        segment_type_name = field_dict['type_name'][1:]
+        customtype_segment_type = get_object_or_404(Enum, namespace=segment_type_name).type
+        if field_dict.has_key('default_value'):
+            default_value_namespace = segment_type_name + '.' + field_dict['default_value']
+            customtype_segment_default_enum_segment = get_object_or_404(EnmuSegment, namespace=default_value_namespace)
+    elif segment_type_type == FieldType.TYPE_MESSAGE:
+        segment_type_name = field_dict['type_name']
+        customtype_segment_type = get_object_or_404(CustomType, namespace=segment_type_name).type
+    else:
+        customtype_segment_type = get_object_or_404(SegmentType, name=FName[segment_type_type])
+
+
+    customtype_segment_protocal_type = get_object_or_404(SegmentProtoType, pk=customtype_segment_protocal_type_id) 
+
+    try:
+        customtype_segment = CustomTypeSegment.objects.filter(namespace = customtype_segment_namespace)[0]
+    except IndexError:
+        customtype_segment = None
+            
+    if customtype_segment:
+        customtype_segment.update(name = strip(customtype_segment_name),
+                            namespace = customtype_segment_namespace,
+                            desc = customtype_segment_desc,
+                            belong = message,
+                            protocal_type = customtype_segment_protocal_type,
+                            type = customtype_segment_type,
+                            defaultEnum = customtype_segment_default_enum_segment
+                            )
+    else:
+        customtype_segment = CustomTypeSegment(name = strip(customtype_segment_name),
+                            namespace = customtype_segment_namespace,
+                            desc = customtype_segment_desc,
+                            belong = message,
+                            protocal_type = customtype_segment_protocal_type,
+                            type = customtype_segment_type,
+                            defaultEnum = customtype_segment_default_enum_segment
+                            )
+
+        customtype_segment.save()
+
+def doSyncCustomType(context, module, message, message_dict, inner_type = 0):
+    cur_project = context.cur_project
+    customtype_name = message_dict['name']
+    customtype_desc = message_dict['desc']
+    customtype_namespace = message_dict['fullname']
+    inner_protocal = None;
+    inner_customtype = None;
+    if inner_type == 1:
+        inner_protocal = message;
+    elif inner_type == 2:
+        inner_customtype = message;
+
+    try:
+        customtype = CustomType.objects.filter(namespace = segment_namespace)[0]
+    except IndexError:
+        customtype = None
+
+    if cur_customtype:          
+        CustomType.objects.filter(pk=customtype_id).update(name = strip(customtype_name),
+                                                            desc = customtype_desc,
+                                                            module = module,
+                                                            namespace = customtype_namespace,
+                                                            belong = inner_protocal,
+                                                            belong_ct = inner_customtype,
+                                                            )
+
+        segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
+        if segment_type:
+            segment_type.update(name = strip(customtype_name),desc = customtype_desc)
+    else:
+        customtype = CustomType(name = strip(customtype_name),
+                    desc = customtype_desc,
+                    module = module,
+                    namespace = customtype_namespace,
+                    belong = inner_protocal,
+                    belong_ct = inner_customtype,
+                    )
+
+        customtype.save()
+
+        segment_type = SegmentType(name = strip(customtype_name),
+                                   desc = customtype_desc,
+                                   module = module,
+                                   protocal = inner_protocal,
+                                   is_basic = False,
+                                   project = cur_project,
+                                   provider_type = 2,
+                                   )
+        segment_type.save()
+        CustomType.objects.filter(id=customtype.id).update(type = segment_type)
+
+    enumlist = message_dict['enumlist'];
+    for e in enumlist:
+        doSyncEnum(context, module, customtype, e, 2);
+
+    nestedtypelist = message_dict['nestedtypelist'];
+    for n in nestedtypelist:
+        doSyncCustomType(context, module, customtype, n, 2)
+
+    fieldlist = message_dict['fieldlist'];
+    for field in fieldlist:
+        doSyncCustomTypeField(context, module, customtype, field)
+
 
 def doSyncMessageField(context, module, message, field_dict):
-    pass
+    segment_name = field_dict['name']
+    segment_desc = field_dict['desc']
+    segment_type_type = field_dict['type']
 
-def doSyncCustomType(context, module, message, message_dict):
-    pass
+    segment_protocal_type_id = field_dict['label']
+    segment_namespace = message.namespace + '.' + segment_name
+
+    segment_type = None
+    segment_default_enum_segment = None
+    if segment_type_type == FieldType.TYPE_ENUM:
+        segment_type_name = field_dict['type_name'][1:]
+        segment_type = get_object_or_404(Enum, namespace=segment_type_name).type
+        if field_dict.has_key('default_value'):
+            default_value_namespace = segment_type_name + '.' + field_dict['default_value']
+            segment_default_enum_segment = get_object_or_404(EnmuSegment, namespace=default_value_namespace)
+    elif segment_type_type == FieldType.TYPE_MESSAGE:
+        segment_type_name = field_dict['type_name']
+        segment_type = get_object_or_404(CustomType, namespace=segment_type_name).type
+    else:
+        customtype_segment_type = get_object_or_404(SegmentType, name=FName[segment_type_type])
+
+    segment_extra_type1 = None
+    segment_extra_type2 = None
+    segment_protocal_type = get_object_or_404(SegmentProtoType, pk=segment_protocal_type_id) 
+
+    try:
+        segment = Segment.objects.filter(namespace = segment_namespace)[0]
+    except IndexError:
+        segment = None
+
+    if segment == None:
+        segment = Segment(name = strip(segment_name),
+                            desc = segment_desc,
+                            protocal = message,
+                            protocal_type = segment_protocal_type,
+                            type = segment_type,
+                            extra_type1 = segment_extra_type1,
+                            extra_type2 = segment_extra_type2,
+                            namespace = strip(segment_namespace),
+                            defaultEnum = segment_default_enum_segment
+                            )
+
+        segment.save()
+    else:
+        cur_segment.update(name = strip(segment_name),
+                            desc = segment_desc,
+                            protocal = message,
+                            protocal_type = segment_protocal_type,
+                            type = segment_type,
+                            extra_type1 = segment_extra_type1,
+                            extra_type2 = segment_extra_type2,
+                            namespace = strip(segment_namespace),
+                            defaultEnum = segment_default_enum_segment
+                            )
+
 
 def doSyncMessage(context, module, message_dict):
     cur_project = context.cur_project
     protocal_name = message_dict['name'];
-    protocal_desc = '';
+    protocal_desc = message_dict['desc'];
     protocal_namespace = module.namespace + '.' + protocal_name
-    protocal_protocal_id = 0;
+    if not message_dict.has_key('id'):
+        return doSyncCustomType(context, module, None, message_dict)
+
+    protocal_protocal_id = message_dict['id'];
     protocal_protocal_unique_id = cur_project.id + protocal_protocal_id
     protocal_type = get_object_or_404(ProtocalType, pk=1) 
 
@@ -56,6 +369,7 @@ def doSyncMessage(context, module, message_dict):
         message = Protocal.objects.filter(namespace = protocal_namespace)[0]
     except IndexError:
         message = None
+
     if message == None:
         message = Protocal(name = strip(protocal_name),
                             desc = protocal_desc,
@@ -80,15 +394,16 @@ def doSyncMessage(context, module, message_dict):
 
     enumlist = message_dict['enumlist'];
     for e in enumlist:
-        doSyncEnum(context, module, message, e);
+        doSyncEnum(context, module, message, e, 1);
+
+    nestedtypelist = message_dict['nestedtypelist'];
+    for n in nestedtypelist:
+        doSyncCustomType(context, module, message, n, 1)
 
     fieldlist = message_dict['fieldlist'];
     for field in fieldlist:
         doSyncMessageField(context, module, message, field)
 
-    nestedtypelist = message_dict['nestedtypelist'];
-    for n in nestedtypelist:
-        doSyncCustomType(context, module, message, n)
 
 def doSyncModule(context, module_dict):
     namespace = context.namespace;

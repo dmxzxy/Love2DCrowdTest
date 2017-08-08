@@ -1,49 +1,136 @@
 {
     "modulelist": [
         {
-            "enumlist": [], 
-            "messagelist": [
-                {
-                    "desc": "", 
-                    "enumlist": [], 
-                    "fieldlist": [
-                        {
-                            "desc": "", 
-                            "fullname": "msg.BaseType.basetype", 
-                            "label": 2, 
-                            "name": "basetype", 
-                            "number": 1, 
-                            "path": [
-                                4, 
-                                0, 
-                                2, 
-                                0
-                            ], 
-                            "type": 5
-                        }
-                    ], 
-                    "fullname": "msg.BaseType", 
-                    "name": "BaseType", 
-                    "nestedtypelist": [], 
-                    "path": [
-                        4, 
-                        0
-                    ]
-                }
-            ], 
-            "package": "msg"
-        }, 
-        {
             "enumlist": [
                 {
                     "desc": "", 
-                    "fullname": "msg.role.MessageRole", 
-                    "name": "MessageRole", 
+                    "fullname": "msg.battle.MessageBattle", 
+                    "name": "MessageBattle", 
                     "path": [
                         5, 
                         0
                     ], 
-                    "valuelist": []
+                    "valuelist": [
+                        {
+                            "desc": "请求匹配请求", 
+                            "fullname": "msg.battle.MessageBattle.BattleMatch_C", 
+                            "name": "BattleMatch_C", 
+                            "number": 8193, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                0
+                            ]
+                        }, 
+                        {
+                            "desc": "请求匹配回应", 
+                            "fullname": "msg.battle.MessageBattle.BattleMatch_S", 
+                            "name": "BattleMatch_S", 
+                            "number": 8194, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                1
+                            ]
+                        }, 
+                        {
+                            "desc": "战斗准备就绪请求", 
+                            "fullname": "msg.battle.MessageBattle.BattleReady_C", 
+                            "name": "BattleReady_C", 
+                            "number": 8195, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                2
+                            ]
+                        }, 
+                        {
+                            "desc": "同步客户端开始战斗", 
+                            "fullname": "msg.battle.MessageBattle.BattleStartNotify_S", 
+                            "name": "BattleStartNotify_S", 
+                            "number": 8196, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                3
+                            ]
+                        }, 
+                        {
+                            "desc": "上报操作指令", 
+                            "fullname": "msg.battle.MessageBattle.BattleReportCmd_C", 
+                            "name": "BattleReportCmd_C", 
+                            "number": 8197, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                4
+                            ]
+                        }, 
+                        {
+                            "desc": "同步操作指令", 
+                            "fullname": "msg.battle.MessageBattle.BattleSyncCmdNotify_S", 
+                            "name": "BattleSyncCmdNotify_S", 
+                            "number": 8198, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                5
+                            ]
+                        }, 
+                        {
+                            "desc": "战斗结束", 
+                            "fullname": "msg.battle.MessageBattle.BattleStop_C", 
+                            "name": "BattleStop_C", 
+                            "number": 8199, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                6
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "desc": "错误码", 
+                    "fullname": "msg.battle.ErrorcodeRole", 
+                    "name": "ErrorcodeRole", 
+                    "path": [
+                        5, 
+                        1
+                    ], 
+                    "valuelist": [
+                        {
+                            "desc": "成功", 
+                            "fullname": "msg.battle.ErrorcodeRole.Success", 
+                            "name": "Success", 
+                            "number": 0, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                0
+                            ]
+                        }, 
+                        {
+                            "desc": "已经在匹配队列", 
+                            "fullname": "msg.battle.ErrorcodeRole.HasInMatchPool", 
+                            "name": "HasInMatchPool", 
+                            "number": 2097408, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                1
+                            ]
+                        }
+                    ]
                 }
             ], 
             "messagelist": [
@@ -52,11 +139,10 @@
                     "enumlist": [], 
                     "fieldlist": [
                         {
-                            "default_value": "Person_C", 
-                            "desc": "", 
-                            "fullname": "msg.role.Person.id", 
+                            "desc": "角色ID", 
+                            "fullname": "msg.battle.CombatGroup.roleid", 
                             "label": 2, 
-                            "name": "id", 
+                            "name": "roleid", 
                             "number": 1, 
                             "path": [
                                 4, 
@@ -64,14 +150,13 @@
                                 2, 
                                 0
                             ], 
-                            "type": 14, 
-                            "type_name": ".msg.role.MessageRole"
+                            "type": 4
                         }, 
                         {
-                            "desc": "", 
-                            "fullname": "msg.role.Person.name", 
+                            "desc": "角色名", 
+                            "fullname": "msg.battle.CombatGroup.rolename", 
                             "label": 2, 
-                            "name": "name", 
+                            "name": "rolename", 
                             "number": 2, 
                             "path": [
                                 4, 
@@ -82,10 +167,10 @@
                             "type": 9
                         }, 
                         {
-                            "desc": "邮件地址", 
-                            "fullname": "msg.role.Person.email", 
-                            "label": 1, 
-                            "name": "email", 
+                            "desc": "战士列表", 
+                            "fullname": "msg.battle.CombatGroup.soldiers", 
+                            "label": 3, 
+                            "name": "soldiers", 
                             "number": 3, 
                             "path": [
                                 4, 
@@ -93,11 +178,566 @@
                                 2, 
                                 2
                             ], 
-                            "type": 9
+                            "type": 11, 
+                            "type_name": ".msg.battle.CombatGroup.Soldier"
                         }
                     ], 
-                    "fullname": "msg.role.Person", 
-                    "name": "Person", 
+                    "fullname": "msg.battle.CombatGroup", 
+                    "name": "CombatGroup", 
+                    "nestedtypelist": [
+                        {
+                            "desc": "战士信息", 
+                            "enumlist": [], 
+                            "fieldlist": [
+                                {
+                                    "desc": "伙伴ID", 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.id", 
+                                    "label": 2, 
+                                    "name": "id", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "等级", 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.level", 
+                                    "label": 2, 
+                                    "name": "level", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "站位", 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.position", 
+                                    "label": 2, 
+                                    "name": "position", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        2
+                                    ], 
+                                    "type": 11, 
+                                    "type_name": ".msg.battle.CombatGroup.Soldier.Position"
+                                }, 
+                                {
+                                    "desc": "", 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.scale", 
+                                    "label": 2, 
+                                    "name": "scale", 
+                                    "number": 4, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        3
+                                    ], 
+                                    "type": 11, 
+                                    "type_name": ".msg.battle.CombatGroup.Soldier.Scale"
+                                }, 
+                                {
+                                    "desc": "角色属性", 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.factor", 
+                                    "label": 2, 
+                                    "name": "factor", 
+                                    "number": 5, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        4
+                                    ], 
+                                    "type": 11, 
+                                    "type_name": ".msg.battle.CombatGroup.Soldier.Attribute"
+                                }, 
+                                {
+                                    "desc": "技能列表", 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.Spells", 
+                                    "label": 3, 
+                                    "name": "Spells", 
+                                    "number": 6, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        5
+                                    ], 
+                                    "type": 11, 
+                                    "type_name": ".msg.battle.CombatGroup.Soldier.Spell"
+                                }
+                            ], 
+                            "fullname": "msg.battle.CombatGroup.Soldier", 
+                            "name": "Soldier", 
+                            "nestedtypelist": [
+                                {
+                                    "desc": "技能", 
+                                    "enumlist": [], 
+                                    "fieldlist": [
+                                        {
+                                            "desc": "技能ID", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Spell.id", 
+                                            "label": 2, 
+                                            "name": "id", 
+                                            "number": 1, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                2, 
+                                                0
+                                            ], 
+                                            "type": 13
+                                        }, 
+                                        {
+                                            "desc": "等级", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Spell.level", 
+                                            "label": 2, 
+                                            "name": "level", 
+                                            "number": 2, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                2, 
+                                                1
+                                            ], 
+                                            "type": 13
+                                        }, 
+                                        {
+                                            "desc": "", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Spell.roleindex", 
+                                            "label": 2, 
+                                            "name": "roleindex", 
+                                            "number": 3, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                2, 
+                                                2
+                                            ], 
+                                            "type": 13
+                                        }, 
+                                        {
+                                            "desc": "", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Spell.cost", 
+                                            "label": 2, 
+                                            "name": "cost", 
+                                            "number": 4, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                2, 
+                                                3
+                                            ], 
+                                            "type": 13
+                                        }
+                                    ], 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.Spell", 
+                                    "name": "Spell", 
+                                    "nestedtypelist": [], 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        3, 
+                                        0
+                                    ]
+                                }, 
+                                {
+                                    "desc": "", 
+                                    "enumlist": [], 
+                                    "fieldlist": [
+                                        {
+                                            "desc": "", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Position.x", 
+                                            "label": 2, 
+                                            "name": "x", 
+                                            "number": 1, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                1, 
+                                                2, 
+                                                0
+                                            ], 
+                                            "type": 5
+                                        }, 
+                                        {
+                                            "desc": "", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Position.y", 
+                                            "label": 2, 
+                                            "name": "y", 
+                                            "number": 2, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                1, 
+                                                2, 
+                                                1
+                                            ], 
+                                            "type": 5
+                                        }, 
+                                        {
+                                            "desc": "", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Position.z", 
+                                            "label": 2, 
+                                            "name": "z", 
+                                            "number": 3, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                1, 
+                                                2, 
+                                                2
+                                            ], 
+                                            "type": 5
+                                        }
+                                    ], 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.Position", 
+                                    "name": "Position", 
+                                    "nestedtypelist": [], 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        3, 
+                                        1
+                                    ]
+                                }, 
+                                {
+                                    "desc": "", 
+                                    "enumlist": [], 
+                                    "fieldlist": [
+                                        {
+                                            "desc": "", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Scale.x", 
+                                            "label": 2, 
+                                            "name": "x", 
+                                            "number": 1, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                2, 
+                                                2, 
+                                                0
+                                            ], 
+                                            "type": 2
+                                        }, 
+                                        {
+                                            "desc": "", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Scale.y", 
+                                            "label": 2, 
+                                            "name": "y", 
+                                            "number": 2, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                2, 
+                                                2, 
+                                                1
+                                            ], 
+                                            "type": 2
+                                        }, 
+                                        {
+                                            "desc": "", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Scale.z", 
+                                            "label": 2, 
+                                            "name": "z", 
+                                            "number": 3, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                2, 
+                                                2, 
+                                                2
+                                            ], 
+                                            "type": 2
+                                        }
+                                    ], 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.Scale", 
+                                    "name": "Scale", 
+                                    "nestedtypelist": [], 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        3, 
+                                        2
+                                    ]
+                                }, 
+                                {
+                                    "desc": "", 
+                                    "enumlist": [], 
+                                    "fieldlist": [
+                                        {
+                                            "desc": "攻击距离", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Attribute.fd", 
+                                            "label": 2, 
+                                            "name": "fd", 
+                                            "number": 1, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                3, 
+                                                2, 
+                                                0
+                                            ], 
+                                            "type": 13
+                                        }, 
+                                        {
+                                            "desc": "当前血量", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Attribute.hp", 
+                                            "label": 2, 
+                                            "name": "hp", 
+                                            "number": 2, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                3, 
+                                                2, 
+                                                1
+                                            ], 
+                                            "type": 13
+                                        }, 
+                                        {
+                                            "desc": "最大血量", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Attribute.maxhp", 
+                                            "label": 2, 
+                                            "name": "maxhp", 
+                                            "number": 3, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                3, 
+                                                2, 
+                                                2
+                                            ], 
+                                            "type": 13
+                                        }, 
+                                        {
+                                            "desc": "攻击", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Attribute.attack", 
+                                            "label": 2, 
+                                            "name": "attack", 
+                                            "number": 4, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                3, 
+                                                2, 
+                                                3
+                                            ], 
+                                            "type": 13
+                                        }, 
+                                        {
+                                            "desc": "防御", 
+                                            "fullname": "msg.battle.CombatGroup.Soldier.Attribute.defend", 
+                                            "label": 2, 
+                                            "name": "defend", 
+                                            "number": 5, 
+                                            "path": [
+                                                4, 
+                                                0, 
+                                                3, 
+                                                0, 
+                                                3, 
+                                                3, 
+                                                2, 
+                                                4
+                                            ], 
+                                            "type": 13
+                                        }
+                                    ], 
+                                    "fullname": "msg.battle.CombatGroup.Soldier.Attribute", 
+                                    "name": "Attribute", 
+                                    "nestedtypelist": [], 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        3, 
+                                        3
+                                    ]
+                                }
+                            ], 
+                            "path": [
+                                4, 
+                                0, 
+                                3, 
+                                0
+                            ]
+                        }
+                    ], 
+                    "path": [
+                        4, 
+                        0
+                    ]
+                }, 
+                {
+                    "desc": "战斗指令", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "desc": "伙伴流水id", 
+                            "fullname": "msg.battle.BattleCmd.heroid", 
+                            "label": 2, 
+                            "name": "heroid", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                0
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "行为", 
+                            "fullname": "msg.battle.BattleCmd.action", 
+                            "label": 2, 
+                            "name": "action", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                1
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "行为触发帧数", 
+                            "fullname": "msg.battle.BattleCmd.actionframe", 
+                            "label": 2, 
+                            "name": "actionframe", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                2
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "行为参数", 
+                            "fullname": "msg.battle.BattleCmd.parameters", 
+                            "label": 3, 
+                            "name": "parameters", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                3
+                            ], 
+                            "type": 5
+                        }
+                    ], 
+                    "fullname": "msg.battle.BattleCmd", 
+                    "name": "BattleCmd", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        1
+                    ]
+                }, 
+                {
+                    "desc": "pvp匹配", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "BattleMatch_C", 
+                            "desc": "", 
+                            "fullname": "msg.battle.MessageMatchRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.battle.MessageBattle"
+                        }
+                    ], 
+                    "fullname": "msg.battle.MessageMatchRequest", 
+                    "id": 8193, 
+                    "name": "MessageMatchRequest", 
                     "nestedtypelist": [], 
                     "path": [
                         4, 
@@ -106,55 +746,13 @@
                 }, 
                 {
                     "desc": "", 
-                    "enumlist": [
-                        {
-                            "desc": "", 
-                            "fullname": "msg.role.Phone.PHONE_TYPE", 
-                            "name": "PHONE_TYPE", 
-                            "path": [
-                                4, 
-                                1, 
-                                4, 
-                                0
-                            ], 
-                            "valuelist": [
-                                {
-                                    "desc": "电话", 
-                                    "fullname": "msg.role.Phone.PHONE_TYPE.MOBILE", 
-                                    "name": "MOBILE", 
-                                    "number": 1, 
-                                    "path": [
-                                        4, 
-                                        1, 
-                                        4, 
-                                        0, 
-                                        2, 
-                                        0
-                                    ]
-                                }, 
-                                {
-                                    "desc": "", 
-                                    "fullname": "msg.role.Phone.PHONE_TYPE.HOME", 
-                                    "name": "HOME", 
-                                    "number": 2, 
-                                    "path": [
-                                        4, 
-                                        1, 
-                                        4, 
-                                        0, 
-                                        2, 
-                                        1
-                                    ]
-                                }
-                            ]
-                        }
-                    ], 
+                    "enumlist": [], 
                     "fieldlist": [
                         {
-                            "default_value": "Phone_C", 
+                            "default_value": "BattleMatch_S", 
                             "desc": "", 
-                            "fullname": "msg.role.Phone.id", 
-                            "label": 2, 
+                            "fullname": "msg.battle.MessageMatchResponse.id", 
+                            "label": 1, 
                             "name": "id", 
                             "number": 1, 
                             "path": [
@@ -164,13 +762,13 @@
                                 0
                             ], 
                             "type": 14, 
-                            "type_name": ".msg.role.MessageRole"
+                            "type_name": ".msg.battle.MessageBattle"
                         }, 
                         {
-                            "desc": "", 
-                            "fullname": "msg.role.Phone.num", 
-                            "label": 1, 
-                            "name": "num", 
+                            "desc": "转发服务器地址", 
+                            "fullname": "msg.battle.MessageMatchResponse.host", 
+                            "label": 2, 
+                            "name": "host", 
                             "number": 2, 
                             "path": [
                                 4, 
@@ -181,10 +779,10 @@
                             "type": 9
                         }, 
                         {
-                            "desc": "", 
-                            "fullname": "msg.role.Phone.type", 
-                            "label": 1, 
-                            "name": "type", 
+                            "desc": "转发服务器端口", 
+                            "fullname": "msg.battle.MessageMatchResponse.port", 
+                            "label": 2, 
+                            "name": "port", 
                             "number": 3, 
                             "path": [
                                 4, 
@@ -192,20 +790,314 @@
                                 2, 
                                 2
                             ], 
-                            "type": 14, 
-                            "type_name": ".msg.role.Phone.PHONE_TYPE"
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "随机种子", 
+                            "fullname": "msg.battle.MessageMatchResponse.seed", 
+                            "label": 2, 
+                            "name": "seed", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                3
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "token", 
+                            "fullname": "msg.battle.MessageMatchResponse.token", 
+                            "label": 2, 
+                            "name": "token", 
+                            "number": 5, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                4
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "攻击者信息", 
+                            "fullname": "msg.battle.MessageMatchResponse.attacker", 
+                            "label": 2, 
+                            "name": "attacker", 
+                            "number": 6, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                5
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.battle.CombatGroup"
+                        }, 
+                        {
+                            "desc": "防御者信息", 
+                            "fullname": "msg.battle.MessageMatchResponse.defender", 
+                            "label": 2, 
+                            "name": "defender", 
+                            "number": 7, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                6
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.battle.CombatGroup"
                         }
                     ], 
-                    "fullname": "msg.role.Phone", 
-                    "name": "Phone", 
+                    "fullname": "msg.battle.MessageMatchResponse", 
+                    "id": 8194, 
+                    "name": "MessageMatchResponse", 
                     "nestedtypelist": [], 
                     "path": [
                         4, 
                         1
                     ]
+                }, 
+                {
+                    "desc": "战斗准备就绪", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "BattleReady_C", 
+                            "desc": "", 
+                            "fullname": "msg.battle.MessageReadyRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.battle.MessageBattle"
+                        }, 
+                        {
+                            "desc": "角色id", 
+                            "fullname": "msg.battle.MessageReadyRequest.roleid", 
+                            "label": 2, 
+                            "name": "roleid", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                1
+                            ], 
+                            "type": 4
+                        }, 
+                        {
+                            "desc": "token", 
+                            "fullname": "msg.battle.MessageReadyRequest.token", 
+                            "label": 2, 
+                            "name": "token", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                2
+                            ], 
+                            "type": 9
+                        }
+                    ], 
+                    "fullname": "msg.battle.MessageReadyRequest", 
+                    "id": 8195, 
+                    "name": "MessageReadyRequest", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        2
+                    ]
+                }, 
+                {
+                    "desc": "战斗开始", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "BattleStartNotify_S", 
+                            "desc": "", 
+                            "fullname": "msg.battle.MessageStartNotify.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                3, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.battle.MessageBattle"
+                        }
+                    ], 
+                    "fullname": "msg.battle.MessageStartNotify", 
+                    "id": 8196, 
+                    "name": "MessageStartNotify", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        3
+                    ]
+                }, 
+                {
+                    "desc": "上报操作指令", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "BattleReportCmd_C", 
+                            "desc": "", 
+                            "fullname": "msg.battle.MessageReportCmdRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                4, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.battle.MessageBattle"
+                        }, 
+                        {
+                            "desc": "战斗指令", 
+                            "fullname": "msg.battle.MessageReportCmdRequest.cmd", 
+                            "label": 2, 
+                            "name": "cmd", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                4, 
+                                2, 
+                                1
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.battle.BattleCmd"
+                        }
+                    ], 
+                    "fullname": "msg.battle.MessageReportCmdRequest", 
+                    "id": 8197, 
+                    "name": "MessageReportCmdRequest", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        4
+                    ]
+                }, 
+                {
+                    "desc": "同步战斗命令", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "BattleSyncCmdNotify_S", 
+                            "desc": "", 
+                            "fullname": "msg.battle.MessageSyncCmdNotify.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.battle.MessageBattle"
+                        }, 
+                        {
+                            "desc": "第几帧", 
+                            "fullname": "msg.battle.MessageSyncCmdNotify.frame", 
+                            "label": 2, 
+                            "name": "frame", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                1
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "指令集", 
+                            "fullname": "msg.battle.MessageSyncCmdNotify.cmds", 
+                            "label": 3, 
+                            "name": "cmds", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                2
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.battle.BattleCmd"
+                        }
+                    ], 
+                    "fullname": "msg.battle.MessageSyncCmdNotify", 
+                    "id": 8198, 
+                    "name": "MessageSyncCmdNotify", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        5
+                    ]
+                }, 
+                {
+                    "desc": "战斗结束", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "BattleStop_C", 
+                            "desc": "", 
+                            "fullname": "msg.battle.MessageStopRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                6, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.battle.MessageBattle"
+                        }, 
+                        {
+                            "desc": "战斗结果1:胜2负3平局", 
+                            "fullname": "msg.battle.MessageStopRequest.result", 
+                            "label": 2, 
+                            "name": "result", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                6, 
+                                2, 
+                                1
+                            ], 
+                            "type": 13
+                        }
+                    ], 
+                    "fullname": "msg.battle.MessageStopRequest", 
+                    "id": 8199, 
+                    "name": "MessageStopRequest", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        6
+                    ]
                 }
             ], 
-            "package": "msg.role"
+            "package": "msg.battle"
         }
     ]
 }

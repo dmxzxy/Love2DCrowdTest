@@ -107,6 +107,7 @@ class Enum(models.Model):
 
 class EnmuSegment(models.Model):
     name = models.CharField(max_length = 100,blank = False)
+    namespace = models.CharField(max_length = 100,blank = False,unique = True)
     desc = models.CharField(max_length = 150,blank = False)
     value = models.IntegerField()
     belong = models.ForeignKey(Enum,on_delete=models.CASCADE)
@@ -130,6 +131,7 @@ class Segment(models.Model):
 
 class CustomTypeSegment(models.Model):
     name = models.CharField(max_length = 100,blank = False)
+    namespace = models.CharField(max_length = 100,blank = False,unique = True)
     desc = models.CharField(max_length = 150,blank = False)
     type = models.ForeignKey(SegmentType)
     protocal_type = models.ForeignKey(SegmentProtoType)

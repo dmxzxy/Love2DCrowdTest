@@ -43,6 +43,21 @@ class Message:
 		self.path = []
 		self.desc = ''
 
+	def searchId(self, proto_file, module):
+		for field in self.fieldlist:
+			if field['name'] == 'id' and field['type'] == FDP.TYPE_ENUM:
+				for enum in module['enumlist']:
+					if '.'+enum['fullname'] == field['type_name']:
+						for evalue in enum['valuelist']:
+							if evalue['name'] == field['default_value']:
+								return evalue['number']
+				for enum in self.enumlist:
+					if '.'+enum['fullname'] == field['type_name']:
+						for evalue in enum['valuelist']:
+							if evalue['name'] == field['default_value']:
+								return evalue['number']
+		return None
+
 class Enum:
 	def __init__(self):
 		self.name = ''
@@ -136,21 +151,6 @@ def export_message(proto_file, msg, msg_desc):
 		msg.enumlist.append(enum.__dict__)
 		enum_index += 1;
 
-def searchId(proto_file, module, msg):
-	for field in msg.fieldlist:
-		if field['name'] == 'id' and field['type'] == FDP.TYPE_ENUM:
-			for enum in module['enumlist']:
-				if '.'+enum['fullname'] == field['type_name']:
-					for evalue in enum['valuelist']:
-						if evalue['name'] == field['default_value']:
-							return evalue['number']
-			for enum in msg.enumlist:
-				if '.'+enum['fullname'] == field['type_name']:
-					for evalue in enum['valuelist']:
-						if evalue['name'] == field['default_value']:
-							return evalue['number']
-	return None
-
 
 
 def main():
@@ -175,6 +175,17 @@ def main():
 			enum.fullname = module['package'] + '.' + enum_desc.name
 			enum.path = [5, enum_index]
 			enum.desc = get_path_comments(proto_file, enum.path)
+			enumvalue_index = 0
+			for enumvalue_desc in enum_desc.value:
+				enumvalue = EnumValue(enumvalue_desc)
+				enumvalue.fullname = enum.fullname + '.' + enumvalue.name
+				for p in enum.path:
+					enumvalue.path.append(p);
+				enumvalue.path.append(2);
+				enumvalue.path.append(enumvalue_index);
+				enumvalue.desc = get_path_comments(proto_file, enumvalue.path)
+				enum.valuelist.append(enumvalue.__dict__)
+				enumvalue_index += 1
 			module['enumlist'].append(enum.__dict__)
 			enum_index += 1;
 
@@ -186,22 +197,21 @@ def main():
 			msg.path = [4, msg_index]
 			msg.desc = get_path_comments(proto_file, msg.path)
 			export_message(proto_file, msg, msg_desc)
-			_id = searchId(proto_file, module, msg);
-			content += str(_id) + '\n'
+			_id = msg.searchId(proto_file, module);
 			if not _id == None:
 				msg.id = _id
 			module['messagelist'].append(msg.__dict__)
 			msg_index += 1;
 
-		for sc in proto_file.source_code_info.location:
-			if len(sc.trailing_comments):
-				content += str(sc.path)
-				content += (sc.trailing_comments)
-				content += '\n'
-			if len(sc.leading_comments):
-				content += str(sc.path)
-				content += (sc.leading_comments)
-				content += '\n'
+		#for sc in proto_file.source_code_info.location:
+			#if len(sc.trailing_comments):
+				#content += str(sc.path)
+				#content += strip(sc.trailing_comments)
+				#content += '\n'
+			#if len(sc.leading_comments):
+				#content += str(sc.path)
+				#content += strip(sc.leading_comments)
+				#content += '\n'
 
 
 	content += '\n\n\n\n\n' 
