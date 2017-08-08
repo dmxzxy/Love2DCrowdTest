@@ -327,12 +327,14 @@ def enum_create(request,module_id,enum_id = 0):
                     inner_protocal = None
                 else:
                     inner_protocal = get_object_or_404(Protocal, pk=enum_inner_protocal_id) 
+                    enum_namespace = inner_protocal.namespace + '.' + enum_name
 
             if try_parse_int(enum_inner_type) == 2:
                 if (not enum_inner_protocal_id) or (try_parse_int(enum_inner_protocal_id) == 0):
                     inner_customtype = None
                 else:
                     inner_customtype = get_object_or_404(CustomType, pk=enum_inner_protocal_id) 
+                    enum_namespace = inner_customtype.namespace + '.' + enum_name
 
             if cur_enum:   
                 Enum.objects.filter(pk=enum_id).update(name = strip(enum_name),
@@ -346,7 +348,7 @@ def enum_create(request,module_id,enum_id = 0):
 
                 segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
                 if segment_type:
-                    segment_type.update(name = strip(enum_name),desc = enum_desc)
+                    segment_type.update(name = strip(enum_namespace),desc = enum_desc)
             else:
                 enum = Enum(name = strip(enum_name),
                             desc = enum_desc,
@@ -357,7 +359,7 @@ def enum_create(request,module_id,enum_id = 0):
                             )
                 enum.save()
 
-                segment_type = SegmentType(name = strip(enum_name),
+                segment_type = SegmentType(name = strip(enum_namespace),
                                            desc = enum_desc,
                                            module = cur_module,
                                            protocal = inner_protocal,
@@ -449,6 +451,7 @@ def enum_segment_create(request,enum_id,segment_id = 0):
         segment_name = request.POST['segment_name']
         segment_value = request.POST['segment_value']  
         segment_desc = request.POST['segment_desc'] 
+        segment_namespace = cur_enum.namespace + '.' + segment_name
         
         if not segment_name:
             raise ValidationError("segment_name should not be null.");
@@ -459,17 +462,19 @@ def enum_segment_create(request,enum_id,segment_id = 0):
         else:
             if cur_segment:
                 cur_segment.update( name = strip(segment_name),
+                                    namespace = segment_namespace,
                                     value = segment_value,
                                     desc = segment_desc,
                                     belong = cur_enum,
                                     )
             else:
                 segment = EnmuSegment(  name = strip(segment_name),
-                                    value = segment_value,
-                                    desc = segment_desc,
-                                    belong = cur_enum,
-                                    )
-    
+                                        namespace = segment_namespace,
+                                        value = segment_value,
+                                        desc = segment_desc,
+                                        belong = cur_enum,
+                                        )
+        
                 segment.save()
         return HttpResponse("<h1>Created successfully .</h1>")  
     else:
@@ -542,12 +547,14 @@ def customtype_create(request,module_id,customtype_id = 0):
                     inner_protocal = None
                 else:
                     inner_protocal = get_object_or_404(Protocal, pk=customtype_inner_protocal_id) 
+                    customtype_namespace = inner_protocal.namespace + '.' + customtype_name
 
             if try_parse_int(customtype_inner_type) == 2:
                 if (not customtype_inner_protocal_id) or (try_parse_int(customtype_inner_protocal_id) == 0):
                     inner_customtype = None
                 else:
                     inner_customtype = get_object_or_404(CustomType, pk=customtype_inner_protocal_id) 
+                    customtype_namespace = inner_customtype.namespace + '.' + customtype_name
 
 
             if cur_customtype:          
@@ -561,7 +568,7 @@ def customtype_create(request,module_id,customtype_id = 0):
 
                 segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
                 if segment_type:
-                    segment_type.update(name = strip(customtype_name),desc = customtype_desc)
+                    segment_type.update(name = strip(customtype_namespace),desc = customtype_desc)
             else:
                 customtype = CustomType(name = strip(customtype_name),
                             desc = customtype_desc,
@@ -573,7 +580,7 @@ def customtype_create(request,module_id,customtype_id = 0):
     
                 customtype.save()
 
-                segment_type = SegmentType(name = strip(customtype_name),
+                segment_type = SegmentType(name = strip(customtype_namespace),
                                            desc = customtype_desc,
                                            module = cur_module,
                                            protocal = inner_protocal,
@@ -673,6 +680,7 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
         segment_extra_type2_id = request.POST['segment_extra_type2_id'] 
         customtype_segment_protocal_type_id = request.POST['segment_protocal_type_id'] 
         segment_default_value = request.POST['segment_default_value']
+        customtype_segment_namespace = cur_customtype.namespace + '.' + customtype_segment_name
         
         if not customtype_segment_name:
             raise ValidationError("custom_type_segment_name should not be null.");
@@ -694,6 +702,7 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
             
             if cur_customtype_segment:
                 cur_customtype_segment.update(name = strip(customtype_segment_name),
+                                    namespace = customtype_segment_namespace,
                                     desc = customtype_segment_desc,
                                     belong = cur_customtype,
                                     protocal_type = customtype_segment_protocal_type,
@@ -702,6 +711,7 @@ def customtype_segment_create(request,customtype_id,segment_id = 0):
                                     )
             else:
                 customtype_segment = CustomTypeSegment(name = strip(customtype_segment_name),
+                                    namespace = customtype_segment_namespace,
                                     desc = customtype_segment_desc,
                                     belong = cur_customtype,
                                     protocal_type = customtype_segment_protocal_type,
