@@ -1,0 +1,27 @@
+package msg.item;
+
+// 物品
+message ItemDetailInfo
+{
+	// 基础信息
+	message ItemBase
+	{
+		required uint64		entityid 	= 1;					// 实体ID
+		required uint32 	baseid		= 2;					// 基础ID
+		required uint32 	count 		= 3;					// 个数
+		required uint32 	place 		= 4;					// 存储位置
+		required uint32 	quality		= 5;					// 品质
+	};
+
+	// 装备
+	message EquipData
+	{
+		required uint32 	level 		= 1;					// 强化等级
+		required uint32		heroid		= 3;					// 装备到哪个英雄身上
+	};
+
+	required ItemBase 		base		= 1;
+	optional EquipData		equip		= 2;
+	optional int64 			lifetime	= 5;					// 物品生命
+};
+

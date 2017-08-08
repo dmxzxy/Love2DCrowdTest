@@ -1,0 +1,18 @@
+package msg;
+
+// 资源信息
+message Resource
+{
+	enum Type
+	{
+		eResourceType_Pack 		= 1;	// 包
+		eResourceType_Props		= 2;	// 属性
+		eResourceType_Item 		= 3;	// 物品
+		eResourceType_Hero 		= 4;	// 英雄
+	};
+
+	required Type 		type 	= 1;	// 资源类型
+	required uint32 	object 	= 2;	// 资源对象ID
+	required uint32 	count 	= 3;	// 资源的数量
+};
+

@@ -1,0 +1,207 @@
+package msg.role;
+
+import "base.proto";
+
+//
+// 命令字定义
+//
+enum MessageRole
+{
+	Verify_C 					= 0x1001;	// 登录验证
+	Verify_S 					= 0x1002;	// 验证结果
+	Login_C						= 0x1003;	// 玩家登陆
+	Logout_CS 					= 0x1004;	// 玩家登出
+	RoleList_S 					= 0x1005;	// 玩家的角色列表
+	Newborn_C					= 0x1006;	// 创建角色
+	Newborn_S 					= 0x1007;	// 创建角色返回
+	EnterGame_C					= 0x1008;	// 选择角色进入游戏
+	RoleDetail_S 				= 0x1009;	// 角色详细信息
+	NotifyList_S 				= 0x100A;	// 通知列表(小红点)
+	UseGiftCode_C 				= 0x100B; 	// 领取礼包码
+	UseGiftCode_S 				= 0x100C; 	// 领取礼包码返回
+
+	Chat_CS 					= 0x1020;	// 聊天
+};
+
+//
+// 错误码
+//
+enum ErrorcodeRole
+{
+	Success 					= 0x000000;	// 成功
+
+	InBlackList 				= 0x100101;	// 在黑名单中
+	NotInWhiteList 				= 0x100102;	// 不在白名单中
+	GatewayBusy 				= 0x100103;	// 服务器繁忙
+	VerifyFailed 				= 0x100104;	// 验证失败
+
+	Unverified					= 0x100301;	// 未验证通过的连接
+	SystemMaintain				= 0x100302;	// 服务器维护
+	LoginSystemBusy				= 0x100303;	// 服务器繁忙
+	ClientVersionTooOld 		= 0x100304;	// 版本号太旧
+
+	InvalidRolename				= 0x100601;	// 角色名有非法字符
+	DuplicationOfname			= 0x100602;	// 角色名重复
+	NewbornSystemBusy			= 0x100603;	// 创角系统繁忙
+	InvalidZoneID				= 0x100604;	// 非法的区服ID
+
+    RoleNotExist                = 0x100801; // 角色ID不存在
+    SystemIsBusy                = 0x100802; // 系统繁忙
+	InvalidRoleID 				= 0x100803;	// 非法的角色id
+	NewRoleFailed 				= 0x100804;	// 新建角色失败
+	LoadFromDBFailed 			= 0x100805;	// 从数据库加载失败
+	DBLoading 					= 0x100806;	// 正在数据加载中
+	RoleIsBanned				= 0x100807;	// 玩家被封号
+};
+
+//
+// 消息定义
+//
+
+// 玩家验证
+message MessageVerifyRequest
+{
+	optional MessageRole 		id 				= 1 [ default = Verify_C ];
+	required string 			account 		= 2;	// 账号
+	optional uint32 			zoneindex		= 3;	// 区服编号
+	required string 			token 			= 4;	// 令牌
+	optional string 			clienthost 		= 5;	// 客户端IP地址
+};
+message MessageVerifyResponse
+{
+	optional MessageRole 		id 				= 1 [ default = Verify_S ];
+	required string 			gatehost 		= 2;	// 网关服务器地址
+	required uint32 			gateport 		= 3;	// 网关服务器端口
+	required string 			token 			= 4;	// 服务器token
+};
+
+// 玩家登录
+message MessageRoleLogin
+{
+	optional MessageRole 		id 				= 1 [ default = Login_C ];
+	required string 			account 		= 2;	// 账号
+	optional uint32 			zoneindex		= 3;	// 区服编号
+	required string 			token 			= 4;	// 令牌
+	optional string 			clienthost 		= 5;	// 客户端IP地址
+	required string 			appversion 		= 6;	// 客户端版本号
+};
+
+// 玩家登出
+message MessageRoleLogout
+{
+	enum Reason
+	{
+		Logout 									= 1;	// 正常登出
+		Kickoff 								= 2;	// 被提出
+		BadChecksum 							= 3;	// 非法的数据包
+		BannedAccount 							= 4;	// 被封号
+		Shutdown 								= 5;	// 正常关服
+		Maintain 								= 6;	// 服务器维护中
+	};
+
+	optional MessageRole 		id 				= 1 [ default = Logout_CS ];
+	required uint64 			roleid 			= 2;	// 角色ID
+	optional Reason 			reason 			= 3;	// 原因
+};
+
+// 角色列表
+message MessageRoleList
+{
+	message RoleInfo
+	{
+		required uint64 		roleid 			= 1;	// 角色ID
+		required uint32 		avatar 			= 2;	// AVATAR
+		required uint32 		level 			= 3;	// 等级
+		required string 		rolename 		= 4;	// 角色名
+		required uint64 		lastlogintime 	= 5;	// 最近一次登录时间
+	};
+
+	optional MessageRole 		id 				= 1 [ default = RoleList_S ];
+	repeated RoleInfo 			rolelist 		= 2;	// 角色列表
+	required string 			opversion 		= 3;	// 运营活动版本号
+	required string 			baseversion 	= 4;	// 基础配置版本号
+};
+
+// 创建角色
+message MessageNewbornRequest
+{
+	optional MessageRole 		id 			 	= 1 [ default = Newborn_C ];
+	required string 			account 		= 2;	// 账号
+	required uint32 			zoneindex 		= 3;	// 区服编号
+	required string  			rolename 	 	= 4;	// 角色名
+	optional uint32 			heroid 			= 5;	// 选取的角色ID
+	required string  			device 			= 6;	// 客户端设备
+	required string 			version  		= 7; 	// 客户端版本号
+};
+
+// 新角色返回
+message MessageNewbornResponse
+{
+	optional MessageRole 		id 				= 1 [ default = Newborn_S ];
+	required uint64 			roleid 			= 2;	// 角色ID
+	required string 			rolename 		= 3;	// 角色名
+	optional uint32 			heroid 			= 4;	// 英雄ID
+};
+
+// 角色进入游戏
+message MessageRoleEnterGame
+{
+	optional MessageRole 		id 			 	= 1 [ default = EnterGame_C ];
+	required uint64 			roleid 			= 2;	// 角色ID
+	optional string 			clienthost 		= 3;	// 客户端IP地址
+	optional uint32 			clientport 		= 4;	// 客户端端口号
+	required string 			device 			= 5;	// 客户端设备号
+	required string  			version 		= 6;	// 客户端版本号
+	optional uint32 			suggest 		= 7;	// 客户端建议进入的场景
+};
+
+// 角色详细信息
+message MessageRoleDetail
+{
+	// 角色详细信息定义
+	message RoleInfo
+	{
+		required uint64 		roleid 		= 1;	// 角色ID
+		required string 		rolename  	= 2;	// 角色名
+		required uint64 		exp 		= 3;	// 角色经验
+	};
+
+	optional MessageRole 		id 				= 1 [ default = RoleDetail_S ];
+	required RoleInfo 			role 			= 2;
+}
+
+// 聊天
+message MessageRoleChat
+{
+	// 频道定义
+	enum Channel
+	{
+		eChannel_System 		= 1;	// 系统频道
+		eChannel_World 			= 2;	// 世界频道
+		eChannel_Guild 			= 3;	// 公会
+		eChannel_Team 			= 4;	// 组队
+		eChannel_Whisper 		= 5;	// 私聊
+	};
+
+	optional MessageRole 		id 				= 1 [ default = Chat_CS ];
+	required Channel 			channel 		= 2;	// 频道
+	optional uint64 			sender 			= 3;	// 发送方ID
+	optional string 			sendername 	 	= 4;	// 发送方名字
+	optional uint32 			avatar 			= 5;	// 头像
+	optional uint32 			level 			= 6;	// 等级
+	optional uint64 			receiver 		= 7;	// 接收方ID
+	optional string 			receivername 	= 8;	// 接收方名字
+	required string 			content 		= 9;	// 消息内容
+	optional bytes 				streammedia 	= 10;	// 流媒体
+};
+
+message MessageUseGiftCodeRequest
+{
+optional MessageRole 			id 				= 1 [default = UseGiftCode_C];
+optional string 				code 			= 2;	// 礼包码
+};
+
+message MessageUseGiftCodeResponse
+{
+optional MessageRole 			id 				= 1 [default = UseGiftCode_S];
+};

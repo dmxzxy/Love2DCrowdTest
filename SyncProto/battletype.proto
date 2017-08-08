@@ -1,0 +1,61 @@
+package msg.battle;
+
+message CombatGroup
+{
+	// 战士信息
+	message Soldier
+	{
+		// 技能
+		message Spell
+		{
+			required uint32 	id 		= 1;	// 技能ID
+			required uint32 	level 	= 2;	// 等级
+			required uint32 	roleindex = 3;
+			required uint32 	cost 	= 4;
+		};
+
+		message Position
+		{
+			required int32 		x 		= 1;
+			required int32 		y 		= 2;
+			required int32 		z 		= 3;
+		};
+
+		message Scale
+		{
+			required float 		x 		= 1;
+			required float 		y 		= 2;
+			required float 		z 		= 3;
+		};
+
+		message Attribute
+		{
+			required uint32 	fd 		= 1;	// 攻击距离
+			required uint32 	hp 		= 2;	// 当前血量
+			required uint32 	maxhp 	= 3;	// 最大血量
+			required uint32 	attack  = 4;	// 攻击
+			required uint32 	defend  = 5;	// 防御
+		};
+
+		required uint32 	id 			= 1;	// 伙伴ID
+		required uint32 	level 		= 2;	// 等级
+		required Position 	position	= 3;	// 站位
+		required Scale 		scale 		= 4;
+		required Attribute 	factor 		= 5;	// 角色属性
+		repeated Spell 		Spells 		= 6;	// 技能列表
+	};
+
+	required uint64 	roleid 			= 1;	// 角色ID
+	required string 	rolename 		= 2;	// 角色名
+	repeated Soldier 	soldiers		= 3;	// 战士列表
+};
+
+// 战斗指令
+message BattleCmd
+{
+	required uint32 				heroid 		= 1;	// 伙伴流水id
+	required uint32 				action  	= 2;	// 行为
+	required uint32 				actionframe = 3;	// 行为触发帧数
+	repeated int32 					parameters	= 4;	// 行为参数
+};
+

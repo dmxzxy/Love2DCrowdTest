@@ -1,0 +1,77 @@
+package msg.battle;
+
+import "battletype.proto";
+
+enum MessageBattle
+{
+	BattleMatch_C		    			= 0x2001;		// 请求匹配请求
+	BattleMatch_S		    			= 0x2002;		// 请求匹配回应
+	BattleReady_C						= 0x2003;		// 战斗准备就绪请求
+	BattleStartNotify_S 				= 0x2004;		// 同步客户端开始战斗
+	BattleReportCmd_C 					= 0x2005;		// 上报操作指令
+	BattleSyncCmdNotify_S				= 0x2006;		// 同步操作指令
+	BattleStop_C 						= 0x2007;		// 战斗结束
+};
+
+//
+// 错误码
+//
+enum ErrorcodeRole
+{
+	Success 							= 0x000000;	// 成功
+	
+	HasInMatchPool 						= 0x200100;	// 已经在匹配队列
+};
+
+// pvp匹配
+message MessageMatchRequest
+{
+	optional MessageBattle 			id 		= 1 [ default = BattleMatch_C ];
+};
+message MessageMatchResponse
+{
+	optional MessageBattle 			id 		= 1 [ default = BattleMatch_S ];
+	required string 				host 	= 2;	// 转发服务器地址
+	required uint32 				port 	= 3;	// 转发服务器端口
+	required uint32 				seed 	= 4;	// 随机种子
+	required string 				token 	= 5;	// token
+	required CombatGroup 			attacker= 6;	// 攻击者信息
+	required CombatGroup 			defender= 7;	// 防御者信息
+};
+
+// 战斗准备就绪
+message MessageReadyRequest
+{
+	optional MessageBattle 			id 		= 1 [ default = BattleReady_C ];
+	required uint64 				roleid 	= 2;	// 角色id
+	required string 				token 	= 3;	// token
+};
+
+// 战斗开始
+message MessageStartNotify
+{
+	optional MessageBattle          id      = 1 [ default = BattleStartNotify_S ];
+};
+
+// 上报操作指令
+message MessageReportCmdRequest
+{
+	optional MessageBattle          id      	= 1 [ default = BattleReportCmd_C ];
+	required BattleCmd 				cmd 		= 2;	// 战斗指令
+};
+
+// 同步战斗命令
+message MessageSyncCmdNotify
+{
+	optional MessageBattle          id          = 1 [ default = BattleSyncCmdNotify_S ];
+	required uint32 				frame 		= 2;	// 第几帧
+	repeated BattleCmd 				cmds		= 3;	// 指令集	
+};
+
+// 战斗结束
+message MessageStopRequest
+{
+	optional MessageBattle          id          = 1 [ default = BattleStop_C ];
+	required uint32 				result 		= 2;	// 战斗结果1:胜2负3平局
+};
+

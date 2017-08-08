@@ -1,0 +1,49 @@
+package msg.utils;
+
+import "base.proto";
+
+//
+// 命令字定义
+//
+enum MessageUtils
+{
+	Errorcode_S							= 0x0101;		// 错误码
+	Ping_CS								= 0x0102;		// 心跳包
+	Version_S 							= 0x0103;		// 版本号
+};
+
+//
+// 错误码定义
+//
+enum ErrorcodeUtils
+{
+	Success 							= 0x000000;		// 成功
+};
+
+//
+// 消息定义
+//
+
+// 错误码
+message MessageErrorcode
+{
+	optional MessageUtils 			id 			= 1 [ default = Errorcode_S ];
+	required uint32 				cmd 		= 2;	// 命令字
+	required uint32 				result 		= 3;	// 错误码
+};
+
+// PING
+message MessageUtilsPing
+{
+	optional MessageUtils 			id 			= 1 [ default = Ping_CS ];
+	required uint64 				timestamp 	= 2;	// 服务器当前时间
+};
+
+// 版本号
+message MessageVersionNotify
+{
+	optional MessageUtils 			id 			= 1 [ default = Version_S ];
+	required string 				version 	= 2;	// 静态版本号
+	required uint32 				method 		= 3;	// 是否强制0-非强制; 1-强制
+	required string 				opversion 	= 4;	// 运营活动版本号
+};
