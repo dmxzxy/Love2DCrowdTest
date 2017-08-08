@@ -1,6 +1,7 @@
 {
     "modulelist": [
         {
+            "desc": "", 
             "enumlist": [], 
             "messagelist": [
                 {
@@ -130,9 +131,13 @@
                     ]
                 }
             ], 
-            "package": "msg"
+            "package": "msg", 
+            "path": [
+                2
+            ]
         }, 
         {
+            "desc": "", 
             "enumlist": [
                 {
                     "desc": "", 
@@ -225,6 +230,30 @@
                                 0, 
                                 2, 
                                 6
+                            ]
+                        }, 
+                        {
+                            "desc": "同步客户端战斗结果", 
+                            "fullname": "msg.battle.MessageBattle.BattleResult_S", 
+                            "name": "BattleResult_S", 
+                            "number": 8200, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                7
+                            ]
+                        }, 
+                        {
+                            "desc": "观战", 
+                            "fullname": "msg.battle.MessageBattle.BattleWatch_C", 
+                            "name": "BattleWatch_C", 
+                            "number": 8201, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                8
                             ]
                         }
                     ]
@@ -1146,10 +1175,10 @@
                             "type_name": ".msg.battle.MessageBattle"
                         }, 
                         {
-                            "desc": "第几帧", 
-                            "fullname": "msg.battle.MessageSyncCmdNotify.frame", 
-                            "label": 2, 
-                            "name": "frame", 
+                            "desc": "所有帧指令", 
+                            "fullname": "msg.battle.MessageSyncCmdNotify.cmds", 
+                            "label": 3, 
+                            "name": "cmds", 
                             "number": 2, 
                             "path": [
                                 4, 
@@ -1157,28 +1186,63 @@
                                 2, 
                                 1
                             ], 
-                            "type": 13
-                        }, 
-                        {
-                            "desc": "指令集", 
-                            "fullname": "msg.battle.MessageSyncCmdNotify.cmds", 
-                            "label": 3, 
-                            "name": "cmds", 
-                            "number": 3, 
-                            "path": [
-                                4, 
-                                5, 
-                                2, 
-                                2
-                            ], 
                             "type": 11, 
-                            "type_name": ".msg.battle.BattleCmd"
+                            "type_name": ".msg.battle.MessageSyncCmdNotify.Cmd"
                         }
                     ], 
                     "fullname": "msg.battle.MessageSyncCmdNotify", 
                     "id": 8198, 
                     "name": "MessageSyncCmdNotify", 
-                    "nestedtypelist": [], 
+                    "nestedtypelist": [
+                        {
+                            "desc": "", 
+                            "enumlist": [], 
+                            "fieldlist": [
+                                {
+                                    "desc": "帧数", 
+                                    "fullname": "msg.battle.MessageSyncCmdNotify.Cmd.frame", 
+                                    "label": 2, 
+                                    "name": "frame", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        5, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "帧内的指令集", 
+                                    "fullname": "msg.battle.MessageSyncCmdNotify.Cmd.cmds", 
+                                    "label": 3, 
+                                    "name": "cmds", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        5, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ], 
+                                    "type": 11, 
+                                    "type_name": ".msg.battle.BattleCmd"
+                                }
+                            ], 
+                            "fullname": "msg.battle.MessageSyncCmdNotify.Cmd", 
+                            "name": "Cmd", 
+                            "nestedtypelist": [], 
+                            "path": [
+                                4, 
+                                5, 
+                                3, 
+                                0
+                            ]
+                        }
+                    ], 
                     "path": [
                         4, 
                         5
@@ -1205,7 +1269,7 @@
                             "type_name": ".msg.battle.MessageBattle"
                         }, 
                         {
-                            "desc": "战斗结果1:胜2负3平局", 
+                            "desc": "战斗结果1:攻方赢2守方赢3平局", 
                             "fullname": "msg.battle.MessageStopRequest.result", 
                             "label": 2, 
                             "name": "result", 
@@ -1227,11 +1291,103 @@
                         4, 
                         6
                     ]
+                }, 
+                {
+                    "desc": "战斗结果", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "BattleResult_S", 
+                            "desc": "", 
+                            "fullname": "msg.battle.MessageBattleResultNotify.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.battle.MessageBattle"
+                        }, 
+                        {
+                            "desc": "战斗结果:0:平局，1:获胜，2：失败", 
+                            "fullname": "msg.battle.MessageBattleResultNotify.result", 
+                            "label": 2, 
+                            "name": "result", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                1
+                            ], 
+                            "type": 13
+                        }
+                    ], 
+                    "fullname": "msg.battle.MessageBattleResultNotify", 
+                    "id": 8200, 
+                    "name": "MessageBattleResultNotify", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        7
+                    ]
+                }, 
+                {
+                    "desc": "观战", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "BattleWatch_C", 
+                            "desc": "", 
+                            "fullname": "msg.battle.MessageWatchRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                8, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.battle.MessageBattle"
+                        }, 
+                        {
+                            "desc": "副本id", 
+                            "fullname": "msg.battle.MessageWatchRequest.combatid", 
+                            "label": 2, 
+                            "name": "combatid", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                8, 
+                                2, 
+                                1
+                            ], 
+                            "type": 4
+                        }
+                    ], 
+                    "fullname": "msg.battle.MessageWatchRequest", 
+                    "id": 8201, 
+                    "name": "MessageWatchRequest", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        8
+                    ]
                 }
             ], 
-            "package": "msg.battle"
+            "package": "msg.battle", 
+            "path": [
+                2
+            ]
         }, 
         {
+            "desc": "", 
             "enumlist": [
                 {
                     "desc": "命令字定义", 
@@ -1719,9 +1875,13 @@
                     ]
                 }
             ], 
-            "package": "msg.item"
+            "package": "msg.item", 
+            "path": [
+                2
+            ]
         }, 
         {
+            "desc": "", 
             "enumlist": [
                 {
                     "desc": "命令字定义", 
@@ -3452,9 +3612,13 @@
                     ]
                 }
             ], 
-            "package": "msg.role"
+            "package": "msg.role", 
+            "path": [
+                2
+            ]
         }, 
         {
+            "desc": "", 
             "enumlist": [
                 {
                     "desc": "命令字定义", 
@@ -3703,7 +3867,10 @@
                     ]
                 }
             ], 
-            "package": "msg.utils"
+            "package": "msg.utils", 
+            "path": [
+                2
+            ]
         }
     ]
 }

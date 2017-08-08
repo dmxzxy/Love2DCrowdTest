@@ -32,6 +32,7 @@ class Module:
 		self.package = ''
 		self.messagelist = []
 		self.enumlist = []
+		self.path = []
 
 class Message:
 	def __init__(self):
@@ -169,6 +170,10 @@ def main():
 			newmodule.package = proto_file.package
 			module = newmodule.__dict__
 			proj.modulelist.append(module)
+
+		path = [2]
+		module['path'] = path
+		module['desc'] = get_path_comments(proto_file, path)
 
 		enum_index = 0
 		for enum_desc in proto_file.enum_type:

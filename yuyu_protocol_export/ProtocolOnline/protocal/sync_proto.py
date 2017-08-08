@@ -99,7 +99,7 @@ class cls_context:
         return self.project.title
 
 def parse_proto_files(context):
-    proto_sync_path = context.proto_sync_path
+    proto_sync_path = context.proto_sync_path + 'protocol'
     l = get_file_list(proto_sync_path,['proto'])
     cmdHead = "%s -I=%s --parse_out=%s --plugin=protoc-gen-parse=%s "%(context.bin_path+PROTOC_BIN_NAME, proto_sync_path, proto_parse_plugin_outputpath, context.bin_path+proto_parse_plugin_path+'/'+proto_parse_plugin_exe)
 
@@ -482,13 +482,27 @@ def doSyncModule(context, module_dict):
         for m in messagelist:
             doSyncMessage(context, module, m);
             
+GIT_CMD_PATH = 'D:/Program Files/Git/bin/'
+GIT_SSH_CMD = 'set GIT_SSH_COMMAND=ssh -i "D:/Key/id_rsa" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no '
 
+def do_pull_git(context):
+    proto_sync_path = context.proto_sync_path
+    
+    if not os.path.exists(proto_sync_path):
+        os.mkdir(proto_sync_path) 
+    export_git_foler = os.path.join(proto_sync_path, 'protocol/')
+    if not os.path.exists(export_git_foler):
+        cmd = 'cd "%s" && D: && %s && "%sgit" clone yyh@119.15.139.102:protocol.git' % (proto_sync_path, GIT_SSH_CMD, GIT_CMD_PATH)
+        cmd_call(cmd)
+        
+    cmd = 'cd "%s" && D: && %s && "%sgit" pull origin develop:master' % (export_git_foler, GIT_SSH_CMD, GIT_CMD_PATH)
+    cmd_call(cmd)
 
 def doSync(project):
     context = cls_context()
     context.namespace = project.namespace
     context.cur_project = project
-    context.proto_sync_path = 'E:/workspace/Love2DCrowdTest/SyncProto';
+    context.proto_sync_path = 'D:/workspace/yuyu/protocol/';
     bin_path = os.path.dirname(__file__)
     context.bin_path = os.path.join(bin_path, 'export_bin/' )
     #step 1: git download server proto files
@@ -496,10 +510,11 @@ def doSync(project):
     #step 3: for add edit sql
     #step 4: for del edit sql
     #step 4: for update edit sql
+    do_pull_git(context)
 
     parse_proto_files(context)
     with open(proto_parse_plugin_outputpath+'/'+'parse.json','r') as load_f:
-    	proto_parse_dict = json.load(load_f);
+        proto_parse_dict = json.load(load_f);
         context.proto_parse_dict = proto_parse_dict;
-    	for m in proto_parse_dict['modulelist']:
-    		doSyncModule(context, m)
+        for m in proto_parse_dict['modulelist']:
+            doSyncModule(context, m)

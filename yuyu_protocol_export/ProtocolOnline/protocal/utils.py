@@ -98,7 +98,6 @@ def is_sub_string(SubStrList,Str):
     return flag  
 
 def get_file_list(FindPath,FlagStr=[]):  
-    import os  
     FileList=[]  
     FileNames=os.listdir(FindPath)  
     if (len(FileNames)>0):  
