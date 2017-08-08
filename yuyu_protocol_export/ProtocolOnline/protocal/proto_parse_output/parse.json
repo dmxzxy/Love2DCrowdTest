@@ -9,6 +9,7 @@
                     "fieldlist": [
                         {
                             "desc": "", 
+                            "fullname": "msg.BaseType.basetype", 
                             "label": 2, 
                             "name": "basetype", 
                             "number": 1, 
@@ -21,6 +22,7 @@
                             "type": 5
                         }
                     ], 
+                    "fullname": "msg.BaseType", 
                     "name": "BaseType", 
                     "nestedtypelist": [], 
                     "path": [
@@ -35,6 +37,7 @@
             "enumlist": [
                 {
                     "desc": "", 
+                    "fullname": "msg.role.MessageRole", 
                     "name": "MessageRole", 
                     "path": [
                         5, 
@@ -49,7 +52,9 @@
                     "enumlist": [], 
                     "fieldlist": [
                         {
+                            "default_value": "Person_C", 
                             "desc": "", 
+                            "fullname": "msg.role.Person.id", 
                             "label": 2, 
                             "name": "id", 
                             "number": 1, 
@@ -59,10 +64,12 @@
                                 2, 
                                 0
                             ], 
-                            "type": 14
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
                         }, 
                         {
                             "desc": "", 
+                            "fullname": "msg.role.Person.name", 
                             "label": 2, 
                             "name": "name", 
                             "number": 2, 
@@ -75,7 +82,8 @@
                             "type": 9
                         }, 
                         {
-                            "desc": "邮件地址\n", 
+                            "desc": "邮件地址", 
+                            "fullname": "msg.role.Person.email", 
                             "label": 1, 
                             "name": "email", 
                             "number": 3, 
@@ -88,6 +96,7 @@
                             "type": 9
                         }
                     ], 
+                    "fullname": "msg.role.Person", 
                     "name": "Person", 
                     "nestedtypelist": [], 
                     "path": [
@@ -100,6 +109,7 @@
                     "enumlist": [
                         {
                             "desc": "", 
+                            "fullname": "msg.role.Phone.PHONE_TYPE", 
                             "name": "PHONE_TYPE", 
                             "path": [
                                 4, 
@@ -109,7 +119,8 @@
                             ], 
                             "valuelist": [
                                 {
-                                    "desc": "电话\n", 
+                                    "desc": "电话", 
+                                    "fullname": "msg.role.Phone.PHONE_TYPE.MOBILE", 
                                     "name": "MOBILE", 
                                     "number": 1, 
                                     "path": [
@@ -123,6 +134,7 @@
                                 }, 
                                 {
                                     "desc": "", 
+                                    "fullname": "msg.role.Phone.PHONE_TYPE.HOME", 
                                     "name": "HOME", 
                                     "number": 2, 
                                     "path": [
@@ -139,7 +151,9 @@
                     ], 
                     "fieldlist": [
                         {
+                            "default_value": "Phone_C", 
                             "desc": "", 
+                            "fullname": "msg.role.Phone.id", 
                             "label": 2, 
                             "name": "id", 
                             "number": 1, 
@@ -149,10 +163,12 @@
                                 2, 
                                 0
                             ], 
-                            "type": 14
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
                         }, 
                         {
                             "desc": "", 
+                            "fullname": "msg.role.Phone.num", 
                             "label": 1, 
                             "name": "num", 
                             "number": 2, 
@@ -166,6 +182,7 @@
                         }, 
                         {
                             "desc": "", 
+                            "fullname": "msg.role.Phone.type", 
                             "label": 1, 
                             "name": "type", 
                             "number": 3, 
@@ -175,9 +192,11 @@
                                 2, 
                                 2
                             ], 
-                            "type": 14
+                            "type": 14, 
+                            "type_name": ".msg.role.Phone.PHONE_TYPE"
                         }
                     ], 
+                    "fullname": "msg.role.Phone", 
                     "name": "Phone", 
                     "nestedtypelist": [], 
                     "path": [

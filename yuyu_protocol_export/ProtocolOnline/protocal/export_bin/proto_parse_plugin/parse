@@ -36,6 +36,7 @@ class Module:
 class Message:
 	def __init__(self):
 		self.name = ''
+		self.fullname = ''
 		self.fieldlist = []
 		self.enumlist = []
 		self.nestedtypelist = []
@@ -45,6 +46,7 @@ class Message:
 class Enum:
 	def __init__(self):
 		self.name = ''
+		self.fullname = ''
 		self.valuelist = []
 		self.path = []
 		self.desc = ''
@@ -52,6 +54,7 @@ class Enum:
 class EnumValue:
 	def __init__(self, enumvalue_desc):
 		self.name = enumvalue_desc.name
+		self.fullname = ''
 		self.number = enumvalue_desc.number
 		self.path = []
 		self.desc = ''
@@ -59,24 +62,33 @@ class EnumValue:
 class Field:
 	def __init__(self, field_desc):
 		self.name = field_desc.name
+		self.fullname = ''
 		self.number = field_desc.number
 		self.label = field_desc.label
 		self.type = field_desc.type
 		self.path = []
 		self.desc = ''
+		if field_desc.HasField("default_value"):
+			value = field_desc.default_value
+			self.default_value = value
+		if field_desc.HasField("type_name"):
+			self.type_name = field_desc.type_name
+
 
 
 def get_path_comments(proto_file, path):
 	for location in proto_file.source_code_info.location:
 		locationPathStr = str(location.path);
 		if str(path) == locationPathStr:
-			return location.trailing_comments
+			comments = strip(location.leading_comments+' '+location.trailing_comments)
+			return comments
 
 
 def export_message(proto_file, msg, msg_desc):
 
 	for field_desc in msg_desc.field:
 		field = Field(field_desc)
+		field.fullname = msg.fullname + '.' + field.name
 		for p in msg.path:
 			field.path.append(p);
 		field.path.append(2);
@@ -89,6 +101,7 @@ def export_message(proto_file, msg, msg_desc):
 	for msg_nested_desc in msg_desc.nested_type:
 		nested_msg = Message()
 		nested_msg.name = msg_nested_desc.name
+		nested_msg.fullname = msg.fullname + '.' + nested_msg.name
 		for p in msg.path:
 			nested_msg.path.append(p);
 		nested_msg.path.append(3);
@@ -102,6 +115,7 @@ def export_message(proto_file, msg, msg_desc):
 	for msg_enum_desc in msg_desc.enum_type:
 		enum = Enum()
 		enum.name = msg_enum_desc.name
+		enum.fullname = msg.fullname + '.' + enum.name
 		for p in msg.path:
 			enum.path.append(p);
 		enum.path.append(4);
@@ -110,6 +124,7 @@ def export_message(proto_file, msg, msg_desc):
 		enumvalue_index = 0
 		for enumvalue_desc in msg_enum_desc.value:
 			enumvalue = EnumValue(enumvalue_desc)
+			enumvalue.fullname = enum.fullname + '.' + enumvalue.name
 			for p in enum.path:
 				enumvalue.path.append(p);
 			enumvalue.path.append(2);
@@ -120,6 +135,22 @@ def export_message(proto_file, msg, msg_desc):
 
 		msg.enumlist.append(enum.__dict__)
 		enum_index += 1;
+
+def searchId(proto_file, module, msg):
+	for field in msg.fieldlist:
+		if field['name'] == 'id' and field['type'] == FDP.TYPE_ENUM:
+			for enum in module['enumlist']:
+				if '.'+enum['fullname'] == field['type_name']:
+					for evalue in enum['valuelist']:
+						if evalue['name'] == field['default_value']:
+							return evalue['number']
+			for enum in msg.enumlist:
+				if '.'+enum['fullname'] == field['type_name']:
+					for evalue in enum['valuelist']:
+						if evalue['name'] == field['default_value']:
+							return evalue['number']
+	return None
+
 
 
 def main():
@@ -141,6 +172,7 @@ def main():
 		for enum_desc in proto_file.enum_type:
 			enum = Enum()
 			enum.name = enum_desc.name
+			enum.fullname = module['package'] + '.' + enum_desc.name
 			enum.path = [5, enum_index]
 			enum.desc = get_path_comments(proto_file, enum.path)
 			module['enumlist'].append(enum.__dict__)
@@ -150,9 +182,14 @@ def main():
 		for msg_desc in proto_file.message_type:
 			msg = Message()	
 			msg.name = msg_desc.name
+			msg.fullname = module['package'] + '.' + msg_desc.name
 			msg.path = [4, msg_index]
 			msg.desc = get_path_comments(proto_file, msg.path)
 			export_message(proto_file, msg, msg_desc)
+			_id = searchId(proto_file, module, msg);
+			content += str(_id) + '\n'
+			if not _id == None:
+				msg.id = _id
 			module['messagelist'].append(msg.__dict__)
 			msg_index += 1;
 
