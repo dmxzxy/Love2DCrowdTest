@@ -3,8 +3,406 @@
 
 
 
+file_to_generate: "base.proto"
 file_to_generate: "battle.proto"
 file_to_generate: "battletype.proto"
+file_to_generate: "item.proto"
+file_to_generate: "itemtype.proto"
+file_to_generate: "role.proto"
+file_to_generate: "utils.proto"
+proto_file {
+  name: "base.proto"
+  package: "msg"
+  message_type {
+    name: "Resource"
+    field {
+      name: "type"
+      number: 1
+      label: LABEL_REQUIRED
+      type: TYPE_ENUM
+      type_name: ".msg.Resource.Type"
+      json_name: "type"
+    }
+    field {
+      name: "object"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_UINT32
+      json_name: "object"
+    }
+    field {
+      name: "count"
+      number: 3
+      label: LABEL_REQUIRED
+      type: TYPE_UINT32
+      json_name: "count"
+    }
+    enum_type {
+      name: "Type"
+      value {
+        name: "eResourceType_Pack"
+        number: 1
+      }
+      value {
+        name: "eResourceType_Props"
+        number: 2
+      }
+      value {
+        name: "eResourceType_Item"
+        number: 3
+      }
+      value {
+        name: "eResourceType_Hero"
+        number: 4
+      }
+    }
+  }
+  source_code_info {
+    location {
+      span: 0
+      span: 0
+      span: 16
+      span: 2
+    }
+    location {
+      path: 2
+      span: 0
+      span: 8
+      span: 11
+    }
+    location {
+      path: 4
+      path: 0
+      span: 3
+      span: 0
+      span: 16
+      span: 1
+      leading_comments: " \350\265\204\346\272\220\344\277\241\346\201\257\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 1
+      span: 3
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      span: 5
+      span: 8
+      span: 11
+      span: 9
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 1
+      span: 5
+      span: 13
+      span: 17
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      span: 7
+      span: 16
+      span: 52
+      trailing_comments: " \345\214\205\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 7
+      span: 16
+      span: 34
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 2
+      span: 7
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      span: 8
+      span: 16
+      span: 52
+      trailing_comments: " \345\261\236\346\200\247\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 8
+      span: 16
+      span: 35
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 2
+      span: 8
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      span: 9
+      span: 16
+      span: 52
+      trailing_comments: " \347\211\251\345\223\201\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 9
+      span: 16
+      span: 34
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 2
+      span: 9
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      span: 10
+      span: 16
+      span: 52
+      trailing_comments: " \350\213\261\351\233\204\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 1
+      span: 10
+      span: 16
+      span: 34
+    }
+    location {
+      path: 4
+      path: 0
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 2
+      span: 10
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      span: 13
+      span: 8
+      span: 44
+      trailing_comments: " \350\265\204\346\272\220\347\261\273\345\236\213\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 13
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 6
+      span: 13
+      span: 17
+      span: 21
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 13
+      span: 32
+      span: 36
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 13
+      span: 42
+      span: 43
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      span: 14
+      span: 8
+      span: 44
+      trailing_comments: " \350\265\204\346\272\220\345\257\271\350\261\241ID\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 4
+      span: 14
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 5
+      span: 14
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 14
+      span: 32
+      span: 38
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 3
+      span: 14
+      span: 42
+      span: 43
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      span: 15
+      span: 8
+      span: 44
+      trailing_comments: " \350\265\204\346\272\220\347\232\204\346\225\260\351\207\217\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 4
+      span: 15
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 5
+      span: 15
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 15
+      span: 32
+      span: 37
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 3
+      span: 15
+      span: 42
+      span: 43
+    }
+  }
+}
 proto_file {
   name: "battletype.proto"
   package: "msg.battle"
@@ -3886,6 +4284,8495 @@ proto_file {
       path: 1
       path: 3
       span: 74
+      span: 74
+      span: 75
+    }
+  }
+}
+proto_file {
+  name: "itemtype.proto"
+  package: "msg.item"
+  message_type {
+    name: "ItemDetailInfo"
+    field {
+      name: "base"
+      number: 1
+      label: LABEL_REQUIRED
+      type: TYPE_MESSAGE
+      type_name: ".msg.item.ItemDetailInfo.ItemBase"
+      json_name: "base"
+    }
+    field {
+      name: "equip"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_MESSAGE
+      type_name: ".msg.item.ItemDetailInfo.EquipData"
+      json_name: "equip"
+    }
+    field {
+      name: "lifetime"
+      number: 5
+      label: LABEL_OPTIONAL
+      type: TYPE_INT64
+      json_name: "lifetime"
+    }
+    nested_type {
+      name: "ItemBase"
+      field {
+        name: "entityid"
+        number: 1
+        label: LABEL_REQUIRED
+        type: TYPE_UINT64
+        json_name: "entityid"
+      }
+      field {
+        name: "baseid"
+        number: 2
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "baseid"
+      }
+      field {
+        name: "count"
+        number: 3
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "count"
+      }
+      field {
+        name: "place"
+        number: 4
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "place"
+      }
+      field {
+        name: "quality"
+        number: 5
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "quality"
+      }
+    }
+    nested_type {
+      name: "EquipData"
+      field {
+        name: "level"
+        number: 1
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "level"
+      }
+      field {
+        name: "heroid"
+        number: 3
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "heroid"
+      }
+    }
+  }
+  source_code_info {
+    location {
+      span: 0
+      span: 0
+      span: 25
+      span: 2
+    }
+    location {
+      path: 2
+      span: 0
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      span: 3
+      span: 0
+      span: 25
+      span: 1
+      leading_comments: " \347\211\251\345\223\201\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 1
+      span: 3
+      span: 8
+      span: 22
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      span: 6
+      span: 8
+      span: 13
+      span: 9
+      leading_comments: " \345\237\272\347\241\200\344\277\241\346\201\257\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 1
+      span: 6
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      span: 8
+      span: 16
+      span: 60
+      trailing_comments: " \345\256\236\344\275\223ID\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 8
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 5
+      span: 8
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 8
+      span: 40
+      span: 48
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 8
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      span: 9
+      span: 16
+      span: 60
+      trailing_comments: " \345\237\272\347\241\200ID\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 4
+      span: 9
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 5
+      span: 9
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 9
+      span: 40
+      span: 46
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 3
+      span: 9
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      span: 10
+      span: 16
+      span: 60
+      trailing_comments: " \344\270\252\346\225\260\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 4
+      span: 10
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 5
+      span: 10
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 10
+      span: 40
+      span: 45
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 3
+      span: 10
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      span: 11
+      span: 16
+      span: 60
+      trailing_comments: " \345\255\230\345\202\250\344\275\215\347\275\256\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      path: 4
+      span: 11
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      path: 5
+      span: 11
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      path: 1
+      span: 11
+      span: 40
+      span: 45
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      path: 3
+      span: 11
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      span: 12
+      span: 16
+      span: 60
+      trailing_comments: " \345\223\201\350\264\250\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      path: 4
+      span: 12
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      path: 5
+      span: 12
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      path: 1
+      span: 12
+      span: 40
+      span: 47
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      path: 3
+      span: 12
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      span: 16
+      span: 8
+      span: 20
+      span: 9
+      leading_comments: " \350\243\205\345\244\207\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 1
+      span: 16
+      span: 16
+      span: 25
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 0
+      span: 18
+      span: 16
+      span: 60
+      trailing_comments: " \345\274\272\345\214\226\347\255\211\347\272\247\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 0
+      path: 4
+      span: 18
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 0
+      path: 5
+      span: 18
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 0
+      path: 1
+      span: 18
+      span: 40
+      span: 45
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 0
+      path: 3
+      span: 18
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 1
+      span: 19
+      span: 16
+      span: 60
+      trailing_comments: " \350\243\205\345\244\207\345\210\260\345\223\252\344\270\252\350\213\261\351\233\204\350\272\253\344\270\212\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 1
+      path: 4
+      span: 19
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 1
+      path: 5
+      span: 19
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 1
+      path: 1
+      span: 19
+      span: 40
+      span: 46
+    }
+    location {
+      path: 4
+      path: 0
+      path: 3
+      path: 1
+      path: 2
+      path: 1
+      path: 3
+      span: 19
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      span: 22
+      span: 8
+      span: 60
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 22
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 6
+      span: 22
+      span: 17
+      span: 25
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 22
+      span: 40
+      span: 44
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 22
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      span: 23
+      span: 8
+      span: 60
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 4
+      span: 23
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 6
+      span: 23
+      span: 17
+      span: 26
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 23
+      span: 40
+      span: 45
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 3
+      span: 23
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      span: 24
+      span: 8
+      span: 60
+      trailing_comments: " \347\211\251\345\223\201\347\224\237\345\221\275\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 4
+      span: 24
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 5
+      span: 24
+      span: 17
+      span: 22
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 24
+      span: 40
+      span: 48
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 3
+      span: 24
+      span: 58
+      span: 59
+    }
+  }
+}
+proto_file {
+  name: "item.proto"
+  package: "msg.item"
+  dependency: "base.proto"
+  dependency: "itemtype.proto"
+  message_type {
+    name: "MessageItemDetailInfosRequest"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.item.MessageItem"
+      default_value: "ItemDetailInfos_C"
+      json_name: "id"
+    }
+  }
+  message_type {
+    name: "MessageItemDetailInfosResponse"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.item.MessageItem"
+      default_value: "ItemDetailInfos_S"
+      json_name: "id"
+    }
+    field {
+      name: "items"
+      number: 2
+      label: LABEL_REPEATED
+      type: TYPE_MESSAGE
+      type_name: ".msg.item.ItemDetailInfo"
+      json_name: "items"
+    }
+  }
+  message_type {
+    name: "MessageBagChangeList"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.item.MessageItem"
+      default_value: "ItemChangeList_S"
+      json_name: "id"
+    }
+    field {
+      name: "addlist"
+      number: 2
+      label: LABEL_REPEATED
+      type: TYPE_MESSAGE
+      type_name: ".msg.item.ItemDetailInfo"
+      json_name: "addlist"
+    }
+    field {
+      name: "deletelist"
+      number: 3
+      label: LABEL_REPEATED
+      type: TYPE_UINT64
+      options {
+        packed: true
+      }
+      json_name: "deletelist"
+    }
+    field {
+      name: "modifylist"
+      number: 4
+      label: LABEL_REPEATED
+      type: TYPE_MESSAGE
+      type_name: ".msg.item.MessageBagChangeList.Change"
+      json_name: "modifylist"
+    }
+    nested_type {
+      name: "Change"
+      field {
+        name: "entityid"
+        number: 1
+        label: LABEL_REQUIRED
+        type: TYPE_UINT64
+        json_name: "entityid"
+      }
+      field {
+        name: "count"
+        number: 2
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "count"
+      }
+      field {
+        name: "place"
+        number: 3
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "place"
+      }
+    }
+  }
+  enum_type {
+    name: "MessageItem"
+    value {
+      name: "ItemDetailInfos_C"
+      number: 4865
+    }
+    value {
+      name: "ItemDetailInfos_S"
+      number: 4866
+    }
+    value {
+      name: "ItemChangeList_S"
+      number: 4868
+    }
+  }
+  enum_type {
+    name: "ErrorcodeItem"
+    value {
+      name: "Success"
+      number: 0
+    }
+  }
+  source_code_info {
+    location {
+      span: 0
+      span: 0
+      span: 48
+      span: 2
+    }
+    location {
+      path: 2
+      span: 0
+      span: 8
+      span: 16
+    }
+    location {
+      path: 3
+      path: 0
+      span: 2
+      span: 7
+      span: 19
+    }
+    location {
+      path: 3
+      path: 1
+      span: 3
+      span: 7
+      span: 23
+    }
+    location {
+      path: 5
+      path: 0
+      span: 8
+      span: 0
+      span: 13
+      span: 1
+      leading_comments: "\n \345\221\275\344\273\244\345\255\227\345\256\232\344\271\211\n\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 1
+      span: 8
+      span: 5
+      span: 16
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      span: 10
+      span: 8
+      span: 73
+      trailing_comments: " \350\257\267\346\261\202\345\205\250\351\203\250\347\211\251\345\223\201\344\277\241\346\201\257\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 10
+      span: 8
+      span: 25
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      path: 2
+      span: 10
+      span: 66
+      span: 72
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      span: 11
+      span: 8
+      span: 73
+      trailing_comments: " \347\211\251\345\223\201\350\257\246\347\273\206\344\277\241\346\201\257\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 11
+      span: 8
+      span: 25
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      path: 2
+      span: 11
+      span: 66
+      span: 72
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      span: 12
+      span: 8
+      span: 73
+      trailing_comments: " \347\211\251\345\223\201\344\277\241\346\201\257\345\217\230\346\233\264\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 12
+      span: 8
+      span: 24
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      path: 2
+      span: 12
+      span: 66
+      span: 72
+    }
+    location {
+      path: 5
+      path: 1
+      span: 18
+      span: 0
+      span: 21
+      span: 1
+      leading_comments: "\n \351\224\231\350\257\257\347\240\201\345\256\232\344\271\211\n\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 1
+      span: 18
+      span: 5
+      span: 18
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      span: 20
+      span: 8
+      span: 75
+      trailing_comments: " \346\210\220\345\212\237\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      path: 1
+      span: 20
+      span: 8
+      span: 15
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      path: 2
+      span: 20
+      span: 66
+      span: 74
+    }
+    location {
+      path: 4
+      path: 0
+      span: 24
+      span: 0
+      span: 27
+      span: 1
+      leading_comments: " \346\211\200\346\234\211\347\211\251\345\223\201\347\232\204\350\257\246\347\273\206\344\277\241\346\201\257\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 1
+      span: 24
+      span: 8
+      span: 37
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      span: 26
+      span: 8
+      span: 92
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 26
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 6
+      span: 26
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 26
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 26
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 8
+      span: 26
+      span: 60
+      span: 91
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 7
+      span: 26
+      span: 72
+      span: 89
+    }
+    location {
+      path: 4
+      path: 1
+      span: 28
+      span: 0
+      span: 32
+      span: 1
+    }
+    location {
+      path: 4
+      path: 1
+      path: 1
+      span: 28
+      span: 8
+      span: 38
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      span: 30
+      span: 8
+      span: 92
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 4
+      span: 30
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 6
+      span: 30
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 1
+      span: 30
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 3
+      span: 30
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 8
+      span: 30
+      span: 60
+      span: 91
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 7
+      span: 30
+      span: 72
+      span: 89
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      span: 31
+      span: 8
+      span: 52
+      trailing_comments: " \347\211\251\345\223\201\344\277\241\346\201\257\n"
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 4
+      span: 31
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 6
+      span: 31
+      span: 17
+      span: 31
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 1
+      span: 31
+      span: 40
+      span: 45
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 3
+      span: 31
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 2
+      span: 35
+      span: 0
+      span: 48
+      span: 1
+      leading_comments: " \350\203\214\345\214\205\344\277\241\346\201\257\345\217\230\346\233\264\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 1
+      span: 35
+      span: 8
+      span: 28
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      span: 37
+      span: 8
+      span: 42
+      span: 9
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 1
+      span: 37
+      span: 16
+      span: 22
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      span: 39
+      span: 16
+      span: 60
+      trailing_comments: " \345\256\236\344\275\223ID\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 39
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 5
+      span: 39
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 39
+      span: 40
+      span: 48
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 39
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      span: 40
+      span: 16
+      span: 60
+      trailing_comments: " \344\270\252\346\225\260\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 4
+      span: 40
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 5
+      span: 40
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 40
+      span: 40
+      span: 45
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 3
+      span: 40
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      span: 41
+      span: 16
+      span: 60
+      trailing_comments: " \345\255\230\345\202\250\344\275\215\347\275\256\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 4
+      span: 41
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 5
+      span: 41
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 41
+      span: 40
+      span: 45
+    }
+    location {
+      path: 4
+      path: 2
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 3
+      span: 41
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      span: 44
+      span: 8
+      span: 91
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 4
+      span: 44
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 6
+      span: 44
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 1
+      span: 44
+      span: 32
+      span: 34
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 3
+      span: 44
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 8
+      span: 44
+      span: 60
+      span: 90
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 7
+      span: 44
+      span: 72
+      span: 88
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      span: 45
+      span: 8
+      span: 52
+      trailing_comments: " \346\267\273\345\212\240\345\210\227\350\241\250\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 4
+      span: 45
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 6
+      span: 45
+      span: 17
+      span: 31
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 1
+      span: 45
+      span: 32
+      span: 39
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 3
+      span: 45
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      span: 46
+      span: 8
+      span: 78
+      trailing_comments: " \345\210\240\351\231\244\345\210\227\350\241\250\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 4
+      span: 46
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 5
+      span: 46
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 1
+      span: 46
+      span: 40
+      span: 50
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 3
+      span: 46
+      span: 58
+      span: 59
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 8
+      span: 46
+      span: 60
+      span: 77
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 8
+      path: 999
+      path: 0
+      span: 46
+      span: 62
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 8
+      path: 999
+      path: 0
+      path: 2
+      span: 46
+      span: 62
+      span: 68
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 8
+      path: 999
+      path: 0
+      path: 2
+      path: 0
+      span: 46
+      span: 62
+      span: 68
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 8
+      path: 999
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 46
+      span: 62
+      span: 68
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 8
+      path: 999
+      path: 0
+      path: 3
+      span: 46
+      span: 71
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      span: 47
+      span: 8
+      span: 60
+      trailing_comments: " \346\224\271\345\217\230\345\210\227\350\241\250\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 4
+      span: 47
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 6
+      span: 47
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 1
+      span: 47
+      span: 40
+      span: 50
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 3
+      span: 47
+      span: 58
+      span: 59
+    }
+  }
+}
+proto_file {
+  name: "role.proto"
+  package: "msg.role"
+  dependency: "base.proto"
+  message_type {
+    name: "MessageVerifyRequest"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "Verify_C"
+      json_name: "id"
+    }
+    field {
+      name: "account"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "account"
+    }
+    field {
+      name: "zoneindex"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT32
+      json_name: "zoneindex"
+    }
+    field {
+      name: "token"
+      number: 4
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "token"
+    }
+    field {
+      name: "clienthost"
+      number: 5
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "clienthost"
+    }
+  }
+  message_type {
+    name: "MessageVerifyResponse"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "Verify_S"
+      json_name: "id"
+    }
+    field {
+      name: "gatehost"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "gatehost"
+    }
+    field {
+      name: "gateport"
+      number: 3
+      label: LABEL_REQUIRED
+      type: TYPE_UINT32
+      json_name: "gateport"
+    }
+    field {
+      name: "token"
+      number: 4
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "token"
+    }
+  }
+  message_type {
+    name: "MessageRoleLogin"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "Login_C"
+      json_name: "id"
+    }
+    field {
+      name: "account"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "account"
+    }
+    field {
+      name: "zoneindex"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT32
+      json_name: "zoneindex"
+    }
+    field {
+      name: "token"
+      number: 4
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "token"
+    }
+    field {
+      name: "clienthost"
+      number: 5
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "clienthost"
+    }
+    field {
+      name: "appversion"
+      number: 6
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "appversion"
+    }
+  }
+  message_type {
+    name: "MessageRoleLogout"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "Logout_CS"
+      json_name: "id"
+    }
+    field {
+      name: "roleid"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_UINT64
+      json_name: "roleid"
+    }
+    field {
+      name: "reason"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRoleLogout.Reason"
+      json_name: "reason"
+    }
+    enum_type {
+      name: "Reason"
+      value {
+        name: "Logout"
+        number: 1
+      }
+      value {
+        name: "Kickoff"
+        number: 2
+      }
+      value {
+        name: "BadChecksum"
+        number: 3
+      }
+      value {
+        name: "BannedAccount"
+        number: 4
+      }
+      value {
+        name: "Shutdown"
+        number: 5
+      }
+      value {
+        name: "Maintain"
+        number: 6
+      }
+    }
+  }
+  message_type {
+    name: "MessageRoleList"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "RoleList_S"
+      json_name: "id"
+    }
+    field {
+      name: "rolelist"
+      number: 2
+      label: LABEL_REPEATED
+      type: TYPE_MESSAGE
+      type_name: ".msg.role.MessageRoleList.RoleInfo"
+      json_name: "rolelist"
+    }
+    field {
+      name: "opversion"
+      number: 3
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "opversion"
+    }
+    field {
+      name: "baseversion"
+      number: 4
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "baseversion"
+    }
+    nested_type {
+      name: "RoleInfo"
+      field {
+        name: "roleid"
+        number: 1
+        label: LABEL_REQUIRED
+        type: TYPE_UINT64
+        json_name: "roleid"
+      }
+      field {
+        name: "avatar"
+        number: 2
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "avatar"
+      }
+      field {
+        name: "level"
+        number: 3
+        label: LABEL_REQUIRED
+        type: TYPE_UINT32
+        json_name: "level"
+      }
+      field {
+        name: "rolename"
+        number: 4
+        label: LABEL_REQUIRED
+        type: TYPE_STRING
+        json_name: "rolename"
+      }
+      field {
+        name: "lastlogintime"
+        number: 5
+        label: LABEL_REQUIRED
+        type: TYPE_UINT64
+        json_name: "lastlogintime"
+      }
+    }
+  }
+  message_type {
+    name: "MessageNewbornRequest"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "Newborn_C"
+      json_name: "id"
+    }
+    field {
+      name: "account"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "account"
+    }
+    field {
+      name: "zoneindex"
+      number: 3
+      label: LABEL_REQUIRED
+      type: TYPE_UINT32
+      json_name: "zoneindex"
+    }
+    field {
+      name: "rolename"
+      number: 4
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "rolename"
+    }
+    field {
+      name: "heroid"
+      number: 5
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT32
+      json_name: "heroid"
+    }
+    field {
+      name: "device"
+      number: 6
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "device"
+    }
+    field {
+      name: "version"
+      number: 7
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "version"
+    }
+  }
+  message_type {
+    name: "MessageNewbornResponse"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "Newborn_S"
+      json_name: "id"
+    }
+    field {
+      name: "roleid"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_UINT64
+      json_name: "roleid"
+    }
+    field {
+      name: "rolename"
+      number: 3
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "rolename"
+    }
+    field {
+      name: "heroid"
+      number: 4
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT32
+      json_name: "heroid"
+    }
+  }
+  message_type {
+    name: "MessageRoleEnterGame"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "EnterGame_C"
+      json_name: "id"
+    }
+    field {
+      name: "roleid"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_UINT64
+      json_name: "roleid"
+    }
+    field {
+      name: "clienthost"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "clienthost"
+    }
+    field {
+      name: "clientport"
+      number: 4
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT32
+      json_name: "clientport"
+    }
+    field {
+      name: "device"
+      number: 5
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "device"
+    }
+    field {
+      name: "version"
+      number: 6
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "version"
+    }
+    field {
+      name: "suggest"
+      number: 7
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT32
+      json_name: "suggest"
+    }
+  }
+  message_type {
+    name: "MessageRoleDetail"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "RoleDetail_S"
+      json_name: "id"
+    }
+    field {
+      name: "role"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_MESSAGE
+      type_name: ".msg.role.MessageRoleDetail.RoleInfo"
+      json_name: "role"
+    }
+    nested_type {
+      name: "RoleInfo"
+      field {
+        name: "roleid"
+        number: 1
+        label: LABEL_REQUIRED
+        type: TYPE_UINT64
+        json_name: "roleid"
+      }
+      field {
+        name: "rolename"
+        number: 2
+        label: LABEL_REQUIRED
+        type: TYPE_STRING
+        json_name: "rolename"
+      }
+      field {
+        name: "exp"
+        number: 3
+        label: LABEL_REQUIRED
+        type: TYPE_UINT64
+        json_name: "exp"
+      }
+    }
+  }
+  message_type {
+    name: "MessageRoleChat"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "Chat_CS"
+      json_name: "id"
+    }
+    field {
+      name: "channel"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRoleChat.Channel"
+      json_name: "channel"
+    }
+    field {
+      name: "sender"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT64
+      json_name: "sender"
+    }
+    field {
+      name: "sendername"
+      number: 4
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "sendername"
+    }
+    field {
+      name: "avatar"
+      number: 5
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT32
+      json_name: "avatar"
+    }
+    field {
+      name: "level"
+      number: 6
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT32
+      json_name: "level"
+    }
+    field {
+      name: "receiver"
+      number: 7
+      label: LABEL_OPTIONAL
+      type: TYPE_UINT64
+      json_name: "receiver"
+    }
+    field {
+      name: "receivername"
+      number: 8
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "receivername"
+    }
+    field {
+      name: "content"
+      number: 9
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "content"
+    }
+    field {
+      name: "streammedia"
+      number: 10
+      label: LABEL_OPTIONAL
+      type: TYPE_BYTES
+      json_name: "streammedia"
+    }
+    enum_type {
+      name: "Channel"
+      value {
+        name: "eChannel_System"
+        number: 1
+      }
+      value {
+        name: "eChannel_World"
+        number: 2
+      }
+      value {
+        name: "eChannel_Guild"
+        number: 3
+      }
+      value {
+        name: "eChannel_Team"
+        number: 4
+      }
+      value {
+        name: "eChannel_Whisper"
+        number: 5
+      }
+    }
+  }
+  message_type {
+    name: "MessageUseGiftCodeRequest"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "UseGiftCode_C"
+      json_name: "id"
+    }
+    field {
+      name: "code"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "code"
+    }
+  }
+  message_type {
+    name: "MessageUseGiftCodeResponse"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.role.MessageRole"
+      default_value: "UseGiftCode_S"
+      json_name: "id"
+    }
+  }
+  enum_type {
+    name: "MessageRole"
+    value {
+      name: "Verify_C"
+      number: 4097
+    }
+    value {
+      name: "Verify_S"
+      number: 4098
+    }
+    value {
+      name: "Login_C"
+      number: 4099
+    }
+    value {
+      name: "Logout_CS"
+      number: 4100
+    }
+    value {
+      name: "RoleList_S"
+      number: 4101
+    }
+    value {
+      name: "Newborn_C"
+      number: 4102
+    }
+    value {
+      name: "Newborn_S"
+      number: 4103
+    }
+    value {
+      name: "EnterGame_C"
+      number: 4104
+    }
+    value {
+      name: "RoleDetail_S"
+      number: 4105
+    }
+    value {
+      name: "NotifyList_S"
+      number: 4106
+    }
+    value {
+      name: "UseGiftCode_C"
+      number: 4107
+    }
+    value {
+      name: "UseGiftCode_S"
+      number: 4108
+    }
+    value {
+      name: "Chat_CS"
+      number: 4128
+    }
+  }
+  enum_type {
+    name: "ErrorcodeRole"
+    value {
+      name: "Success"
+      number: 0
+    }
+    value {
+      name: "InBlackList"
+      number: 1048833
+    }
+    value {
+      name: "NotInWhiteList"
+      number: 1048834
+    }
+    value {
+      name: "GatewayBusy"
+      number: 1048835
+    }
+    value {
+      name: "VerifyFailed"
+      number: 1048836
+    }
+    value {
+      name: "Unverified"
+      number: 1049345
+    }
+    value {
+      name: "SystemMaintain"
+      number: 1049346
+    }
+    value {
+      name: "LoginSystemBusy"
+      number: 1049347
+    }
+    value {
+      name: "ClientVersionTooOld"
+      number: 1049348
+    }
+    value {
+      name: "InvalidRolename"
+      number: 1050113
+    }
+    value {
+      name: "DuplicationOfname"
+      number: 1050114
+    }
+    value {
+      name: "NewbornSystemBusy"
+      number: 1050115
+    }
+    value {
+      name: "InvalidZoneID"
+      number: 1050116
+    }
+    value {
+      name: "RoleNotExist"
+      number: 1050625
+    }
+    value {
+      name: "SystemIsBusy"
+      number: 1050626
+    }
+    value {
+      name: "InvalidRoleID"
+      number: 1050627
+    }
+    value {
+      name: "NewRoleFailed"
+      number: 1050628
+    }
+    value {
+      name: "LoadFromDBFailed"
+      number: 1050629
+    }
+    value {
+      name: "DBLoading"
+      number: 1050630
+    }
+    value {
+      name: "RoleIsBanned"
+      number: 1050631
+    }
+  }
+  source_code_info {
+    location {
+      span: 0
+      span: 0
+      span: 206
+      span: 2
+    }
+    location {
+      path: 2
+      span: 0
+      span: 8
+      span: 16
+    }
+    location {
+      path: 3
+      path: 0
+      span: 2
+      span: 7
+      span: 19
+    }
+    location {
+      path: 5
+      path: 0
+      span: 7
+      span: 0
+      span: 23
+      span: 1
+      leading_comments: "\n \345\221\275\344\273\244\345\255\227\345\256\232\344\271\211\n\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 1
+      span: 7
+      span: 5
+      span: 16
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      span: 9
+      span: 8
+      span: 65
+      trailing_comments: " \347\231\273\345\275\225\351\252\214\350\257\201\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 9
+      span: 8
+      span: 16
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      path: 2
+      span: 9
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      span: 10
+      span: 8
+      span: 65
+      trailing_comments: " \351\252\214\350\257\201\347\273\223\346\236\234\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 10
+      span: 8
+      span: 16
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      path: 2
+      span: 10
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      span: 11
+      span: 8
+      span: 65
+      trailing_comments: " \347\216\251\345\256\266\347\231\273\351\231\206\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 11
+      span: 8
+      span: 15
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      path: 2
+      span: 11
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 3
+      span: 12
+      span: 8
+      span: 65
+      trailing_comments: " \347\216\251\345\256\266\347\231\273\345\207\272\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 3
+      path: 1
+      span: 12
+      span: 8
+      span: 17
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 3
+      path: 2
+      span: 12
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 4
+      span: 13
+      span: 8
+      span: 65
+      trailing_comments: " \347\216\251\345\256\266\347\232\204\350\247\222\350\211\262\345\210\227\350\241\250\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 4
+      path: 1
+      span: 13
+      span: 8
+      span: 18
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 4
+      path: 2
+      span: 13
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 5
+      span: 14
+      span: 8
+      span: 65
+      trailing_comments: " \345\210\233\345\273\272\350\247\222\350\211\262\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 5
+      path: 1
+      span: 14
+      span: 8
+      span: 17
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 5
+      path: 2
+      span: 14
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 6
+      span: 15
+      span: 8
+      span: 65
+      trailing_comments: " \345\210\233\345\273\272\350\247\222\350\211\262\350\277\224\345\233\236\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 6
+      path: 1
+      span: 15
+      span: 8
+      span: 17
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 6
+      path: 2
+      span: 15
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 7
+      span: 16
+      span: 8
+      span: 65
+      trailing_comments: " \351\200\211\346\213\251\350\247\222\350\211\262\350\277\233\345\205\245\346\270\270\346\210\217\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 7
+      path: 1
+      span: 16
+      span: 8
+      span: 19
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 7
+      path: 2
+      span: 16
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 8
+      span: 17
+      span: 8
+      span: 57
+      trailing_comments: " \350\247\222\350\211\262\350\257\246\347\273\206\344\277\241\346\201\257\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 8
+      path: 1
+      span: 17
+      span: 8
+      span: 20
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 8
+      path: 2
+      span: 17
+      span: 50
+      span: 56
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 9
+      span: 18
+      span: 8
+      span: 57
+      trailing_comments: " \351\200\232\347\237\245\345\210\227\350\241\250(\345\260\217\347\272\242\347\202\271)\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 9
+      path: 1
+      span: 18
+      span: 8
+      span: 20
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 9
+      path: 2
+      span: 18
+      span: 50
+      span: 56
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 10
+      span: 19
+      span: 8
+      span: 57
+      trailing_comments: " \351\242\206\345\217\226\347\244\274\345\214\205\347\240\201\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 10
+      path: 1
+      span: 19
+      span: 8
+      span: 21
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 10
+      path: 2
+      span: 19
+      span: 50
+      span: 56
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 11
+      span: 20
+      span: 8
+      span: 57
+      trailing_comments: " \351\242\206\345\217\226\347\244\274\345\214\205\347\240\201\350\277\224\345\233\236\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 11
+      path: 1
+      span: 20
+      span: 8
+      span: 21
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 11
+      path: 2
+      span: 20
+      span: 50
+      span: 56
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 12
+      span: 22
+      span: 8
+      span: 65
+      trailing_comments: " \350\201\212\345\244\251\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 12
+      path: 1
+      span: 22
+      span: 8
+      span: 15
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 12
+      path: 2
+      span: 22
+      span: 58
+      span: 64
+    }
+    location {
+      path: 5
+      path: 1
+      span: 28
+      span: 0
+      span: 54
+      span: 1
+      leading_comments: "\n \351\224\231\350\257\257\347\240\201\n\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 1
+      span: 28
+      span: 5
+      span: 18
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      span: 30
+      span: 8
+      span: 67
+      trailing_comments: " \346\210\220\345\212\237\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      path: 1
+      span: 30
+      span: 8
+      span: 15
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      path: 2
+      span: 30
+      span: 58
+      span: 66
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 1
+      span: 32
+      span: 8
+      span: 59
+      trailing_comments: " \345\234\250\351\273\221\345\220\215\345\215\225\344\270\255\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 1
+      path: 1
+      span: 32
+      span: 8
+      span: 19
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 1
+      path: 2
+      span: 32
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 2
+      span: 33
+      span: 8
+      span: 59
+      trailing_comments: " \344\270\215\345\234\250\347\231\275\345\220\215\345\215\225\344\270\255\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 2
+      path: 1
+      span: 33
+      span: 8
+      span: 22
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 2
+      path: 2
+      span: 33
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 3
+      span: 34
+      span: 8
+      span: 59
+      trailing_comments: " \346\234\215\345\212\241\345\231\250\347\271\201\345\277\231\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 3
+      path: 1
+      span: 34
+      span: 8
+      span: 19
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 3
+      path: 2
+      span: 34
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 4
+      span: 35
+      span: 8
+      span: 59
+      trailing_comments: " \351\252\214\350\257\201\345\244\261\350\264\245\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 4
+      path: 1
+      span: 35
+      span: 8
+      span: 20
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 4
+      path: 2
+      span: 35
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 5
+      span: 37
+      span: 8
+      span: 67
+      trailing_comments: " \346\234\252\351\252\214\350\257\201\351\200\232\350\277\207\347\232\204\350\277\236\346\216\245\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 5
+      path: 1
+      span: 37
+      span: 8
+      span: 18
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 5
+      path: 2
+      span: 37
+      span: 58
+      span: 66
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 6
+      span: 38
+      span: 8
+      span: 59
+      trailing_comments: " \346\234\215\345\212\241\345\231\250\347\273\264\346\212\244\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 6
+      path: 1
+      span: 38
+      span: 8
+      span: 22
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 6
+      path: 2
+      span: 38
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 7
+      span: 39
+      span: 8
+      span: 59
+      trailing_comments: " \346\234\215\345\212\241\345\231\250\347\271\201\345\277\231\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 7
+      path: 1
+      span: 39
+      span: 8
+      span: 23
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 7
+      path: 2
+      span: 39
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 8
+      span: 40
+      span: 8
+      span: 51
+      trailing_comments: " \347\211\210\346\234\254\345\217\267\345\244\252\346\227\247\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 8
+      path: 1
+      span: 40
+      span: 8
+      span: 27
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 8
+      path: 2
+      span: 40
+      span: 42
+      span: 50
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 9
+      span: 42
+      span: 8
+      span: 59
+      trailing_comments: " \350\247\222\350\211\262\345\220\215\346\234\211\351\235\236\346\263\225\345\255\227\347\254\246\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 9
+      path: 1
+      span: 42
+      span: 8
+      span: 23
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 9
+      path: 2
+      span: 42
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 10
+      span: 43
+      span: 8
+      span: 59
+      trailing_comments: " \350\247\222\350\211\262\345\220\215\351\207\215\345\244\215\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 10
+      path: 1
+      span: 43
+      span: 8
+      span: 25
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 10
+      path: 2
+      span: 43
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 11
+      span: 44
+      span: 8
+      span: 59
+      trailing_comments: " \345\210\233\350\247\222\347\263\273\347\273\237\347\271\201\345\277\231\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 11
+      path: 1
+      span: 44
+      span: 8
+      span: 25
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 11
+      path: 2
+      span: 44
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 12
+      span: 45
+      span: 8
+      span: 59
+      trailing_comments: " \351\235\236\346\263\225\347\232\204\345\214\272\346\234\215ID\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 12
+      path: 1
+      span: 45
+      span: 8
+      span: 21
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 12
+      path: 2
+      span: 45
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 13
+      span: 47
+      span: 4
+      span: 43
+      trailing_comments: " \350\247\222\350\211\262ID\344\270\215\345\255\230\345\234\250\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 13
+      path: 1
+      span: 47
+      span: 4
+      span: 16
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 13
+      path: 2
+      span: 47
+      span: 34
+      span: 42
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 14
+      span: 48
+      span: 4
+      span: 43
+      trailing_comments: " \347\263\273\347\273\237\347\271\201\345\277\231\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 14
+      path: 1
+      span: 48
+      span: 4
+      span: 16
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 14
+      path: 2
+      span: 48
+      span: 34
+      span: 42
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 15
+      span: 49
+      span: 8
+      span: 59
+      trailing_comments: " \351\235\236\346\263\225\347\232\204\350\247\222\350\211\262id\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 15
+      path: 1
+      span: 49
+      span: 8
+      span: 21
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 15
+      path: 2
+      span: 49
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 16
+      span: 50
+      span: 8
+      span: 59
+      trailing_comments: " \346\226\260\345\273\272\350\247\222\350\211\262\345\244\261\350\264\245\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 16
+      path: 1
+      span: 50
+      span: 8
+      span: 21
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 16
+      path: 2
+      span: 50
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 17
+      span: 51
+      span: 8
+      span: 59
+      trailing_comments: " \344\273\216\346\225\260\346\215\256\345\272\223\345\212\240\350\275\275\345\244\261\350\264\245\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 17
+      path: 1
+      span: 51
+      span: 8
+      span: 24
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 17
+      path: 2
+      span: 51
+      span: 50
+      span: 58
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 18
+      span: 52
+      span: 8
+      span: 67
+      trailing_comments: " \346\255\243\345\234\250\346\225\260\346\215\256\345\212\240\350\275\275\344\270\255\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 18
+      path: 1
+      span: 52
+      span: 8
+      span: 17
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 18
+      path: 2
+      span: 52
+      span: 58
+      span: 66
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 19
+      span: 53
+      span: 8
+      span: 59
+      trailing_comments: " \347\216\251\345\256\266\350\242\253\345\260\201\345\217\267\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 19
+      path: 1
+      span: 53
+      span: 8
+      span: 20
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 19
+      path: 2
+      span: 53
+      span: 50
+      span: 58
+    }
+    location {
+      path: 4
+      path: 0
+      span: 61
+      span: 0
+      span: 68
+      span: 1
+      leading_comments: " \347\216\251\345\256\266\351\252\214\350\257\201\n"
+      leading_detached_comments: "\n \346\266\210\346\201\257\345\256\232\344\271\211\n\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 1
+      span: 61
+      span: 8
+      span: 28
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      span: 63
+      span: 8
+      span: 99
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 63
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 6
+      span: 63
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 63
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 63
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 8
+      span: 63
+      span: 76
+      span: 98
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 7
+      span: 63
+      span: 88
+      span: 96
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      span: 64
+      span: 8
+      span: 76
+      trailing_comments: " \350\264\246\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 4
+      span: 64
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 5
+      span: 64
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 64
+      span: 48
+      span: 55
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 3
+      span: 64
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      span: 65
+      span: 8
+      span: 76
+      trailing_comments: " \345\214\272\346\234\215\347\274\226\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 4
+      span: 65
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 5
+      span: 65
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 65
+      span: 48
+      span: 57
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 3
+      span: 65
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      span: 66
+      span: 8
+      span: 76
+      trailing_comments: " \344\273\244\347\211\214\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 4
+      span: 66
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 5
+      span: 66
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 1
+      span: 66
+      span: 48
+      span: 53
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 3
+      span: 66
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      span: 67
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257IP\345\234\260\345\235\200\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      path: 4
+      span: 67
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      path: 5
+      span: 67
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      path: 1
+      span: 67
+      span: 48
+      span: 58
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      path: 3
+      span: 67
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 1
+      span: 69
+      span: 0
+      span: 75
+      span: 1
+    }
+    location {
+      path: 4
+      path: 1
+      path: 1
+      span: 69
+      span: 8
+      span: 29
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      span: 71
+      span: 8
+      span: 99
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 4
+      span: 71
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 6
+      span: 71
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 1
+      span: 71
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 3
+      span: 71
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 8
+      span: 71
+      span: 76
+      span: 98
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 7
+      span: 71
+      span: 88
+      span: 96
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      span: 72
+      span: 8
+      span: 76
+      trailing_comments: " \347\275\221\345\205\263\346\234\215\345\212\241\345\231\250\345\234\260\345\235\200\n"
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 4
+      span: 72
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 5
+      span: 72
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 1
+      span: 72
+      span: 48
+      span: 56
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 3
+      span: 72
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 2
+      span: 73
+      span: 8
+      span: 76
+      trailing_comments: " \347\275\221\345\205\263\346\234\215\345\212\241\345\231\250\347\253\257\345\217\243\n"
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 2
+      path: 4
+      span: 73
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 2
+      path: 5
+      span: 73
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 2
+      path: 1
+      span: 73
+      span: 48
+      span: 56
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 2
+      path: 3
+      span: 73
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 3
+      span: 74
+      span: 8
+      span: 76
+      trailing_comments: " \346\234\215\345\212\241\345\231\250token\n"
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 3
+      path: 4
+      span: 74
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 3
+      path: 5
+      span: 74
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 3
+      path: 1
+      span: 74
+      span: 48
+      span: 53
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 3
+      path: 3
+      span: 74
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      span: 78
+      span: 0
+      span: 86
+      span: 1
+      leading_comments: " \347\216\251\345\256\266\347\231\273\345\275\225\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 1
+      span: 78
+      span: 8
+      span: 24
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      span: 80
+      span: 8
+      span: 98
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 4
+      span: 80
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 6
+      span: 80
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 1
+      span: 80
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 3
+      span: 80
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 8
+      span: 80
+      span: 76
+      span: 97
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 7
+      span: 80
+      span: 88
+      span: 95
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      span: 81
+      span: 8
+      span: 76
+      trailing_comments: " \350\264\246\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 4
+      span: 81
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 5
+      span: 81
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 1
+      span: 81
+      span: 48
+      span: 55
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 3
+      span: 81
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      span: 82
+      span: 8
+      span: 76
+      trailing_comments: " \345\214\272\346\234\215\347\274\226\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 4
+      span: 82
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 5
+      span: 82
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 1
+      span: 82
+      span: 48
+      span: 57
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 3
+      span: 82
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      span: 83
+      span: 8
+      span: 76
+      trailing_comments: " \344\273\244\347\211\214\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 4
+      span: 83
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 5
+      span: 83
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 1
+      span: 83
+      span: 48
+      span: 53
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 3
+      span: 83
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 4
+      span: 84
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257IP\345\234\260\345\235\200\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 4
+      path: 4
+      span: 84
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 4
+      path: 5
+      span: 84
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 4
+      path: 1
+      span: 84
+      span: 48
+      span: 58
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 4
+      path: 3
+      span: 84
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 5
+      span: 85
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257\347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 5
+      path: 4
+      span: 85
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 5
+      path: 5
+      span: 85
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 5
+      path: 1
+      span: 85
+      span: 48
+      span: 58
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 5
+      path: 3
+      span: 85
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 3
+      span: 89
+      span: 0
+      span: 104
+      span: 1
+      leading_comments: " \347\216\251\345\256\266\347\231\273\345\207\272\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 1
+      span: 89
+      span: 8
+      span: 25
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      span: 91
+      span: 8
+      span: 99
+      span: 9
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 1
+      span: 91
+      span: 13
+      span: 19
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      span: 93
+      span: 16
+      span: 92
+      trailing_comments: " \346\255\243\345\270\270\347\231\273\345\207\272\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 93
+      span: 16
+      span: 22
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 2
+      span: 93
+      span: 90
+      span: 91
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      span: 94
+      span: 16
+      span: 92
+      trailing_comments: " \350\242\253\346\217\220\345\207\272\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 94
+      span: 16
+      span: 23
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 2
+      span: 94
+      span: 90
+      span: 91
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      span: 95
+      span: 16
+      span: 84
+      trailing_comments: " \351\235\236\346\263\225\347\232\204\346\225\260\346\215\256\345\214\205\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 95
+      span: 16
+      span: 27
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 2
+      span: 95
+      span: 82
+      span: 83
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      span: 96
+      span: 16
+      span: 84
+      trailing_comments: " \350\242\253\345\260\201\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 1
+      span: 96
+      span: 16
+      span: 29
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 2
+      span: 96
+      span: 82
+      span: 83
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      span: 97
+      span: 16
+      span: 92
+      trailing_comments: " \346\255\243\345\270\270\345\205\263\346\234\215\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      path: 1
+      span: 97
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      path: 2
+      span: 97
+      span: 90
+      span: 91
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 5
+      span: 98
+      span: 16
+      span: 92
+      trailing_comments: " \346\234\215\345\212\241\345\231\250\347\273\264\346\212\244\344\270\255\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 5
+      path: 1
+      span: 98
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 3
+      path: 4
+      path: 0
+      path: 2
+      path: 5
+      path: 2
+      span: 98
+      span: 90
+      span: 91
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 0
+      span: 101
+      span: 8
+      span: 100
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 0
+      path: 4
+      span: 101
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 0
+      path: 6
+      span: 101
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 0
+      path: 1
+      span: 101
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 0
+      path: 3
+      span: 101
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 0
+      path: 8
+      span: 101
+      span: 76
+      span: 99
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 0
+      path: 7
+      span: 101
+      span: 88
+      span: 97
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 1
+      span: 102
+      span: 8
+      span: 76
+      trailing_comments: " \350\247\222\350\211\262ID\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 1
+      path: 4
+      span: 102
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 1
+      path: 5
+      span: 102
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 1
+      path: 1
+      span: 102
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 1
+      path: 3
+      span: 102
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 2
+      span: 103
+      span: 8
+      span: 76
+      trailing_comments: " \345\216\237\345\233\240\n"
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 2
+      path: 4
+      span: 103
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 2
+      path: 6
+      span: 103
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 2
+      path: 1
+      span: 103
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 3
+      path: 2
+      path: 2
+      path: 3
+      span: 103
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 4
+      span: 107
+      span: 0
+      span: 122
+      span: 1
+      leading_comments: " \350\247\222\350\211\262\345\210\227\350\241\250\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 1
+      span: 107
+      span: 8
+      span: 23
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      span: 109
+      span: 8
+      span: 116
+      span: 9
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 1
+      span: 109
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      span: 111
+      span: 16
+      span: 76
+      trailing_comments: " \350\247\222\350\211\262ID\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 111
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 5
+      span: 111
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 111
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 111
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      span: 112
+      span: 16
+      span: 76
+      trailing_comments: " AVATAR\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 4
+      span: 112
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 5
+      span: 112
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 112
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 3
+      span: 112
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      span: 113
+      span: 16
+      span: 76
+      trailing_comments: " \347\255\211\347\272\247\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 4
+      span: 113
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 5
+      span: 113
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 113
+      span: 48
+      span: 53
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 3
+      span: 113
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      span: 114
+      span: 16
+      span: 76
+      trailing_comments: " \350\247\222\350\211\262\345\220\215\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      path: 4
+      span: 114
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      path: 5
+      span: 114
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      path: 1
+      span: 114
+      span: 48
+      span: 56
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 3
+      path: 3
+      span: 114
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      span: 115
+      span: 16
+      span: 68
+      trailing_comments: " \346\234\200\350\277\221\344\270\200\346\254\241\347\231\273\345\275\225\346\227\266\351\227\264\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      path: 4
+      span: 115
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      path: 5
+      span: 115
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      path: 1
+      span: 115
+      span: 48
+      span: 61
+    }
+    location {
+      path: 4
+      path: 4
+      path: 3
+      path: 0
+      path: 2
+      path: 4
+      path: 3
+      span: 115
+      span: 66
+      span: 67
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 0
+      span: 118
+      span: 8
+      span: 101
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 0
+      path: 4
+      span: 118
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 0
+      path: 6
+      span: 118
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 0
+      path: 1
+      span: 118
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 0
+      path: 3
+      span: 118
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 0
+      path: 8
+      span: 118
+      span: 76
+      span: 100
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 0
+      path: 7
+      span: 118
+      span: 88
+      span: 98
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 1
+      span: 119
+      span: 8
+      span: 76
+      trailing_comments: " \350\247\222\350\211\262\345\210\227\350\241\250\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 1
+      path: 4
+      span: 119
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 1
+      path: 6
+      span: 119
+      span: 17
+      span: 25
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 1
+      path: 1
+      span: 119
+      span: 48
+      span: 56
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 1
+      path: 3
+      span: 119
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 2
+      span: 120
+      span: 8
+      span: 76
+      trailing_comments: " \350\277\220\350\220\245\346\264\273\345\212\250\347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 2
+      path: 4
+      span: 120
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 2
+      path: 5
+      span: 120
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      span: 120
+      span: 48
+      span: 57
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      span: 120
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 3
+      span: 121
+      span: 8
+      span: 68
+      trailing_comments: " \345\237\272\347\241\200\351\205\215\347\275\256\347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 3
+      path: 4
+      span: 121
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 3
+      path: 5
+      span: 121
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 3
+      path: 1
+      span: 121
+      span: 48
+      span: 59
+    }
+    location {
+      path: 4
+      path: 4
+      path: 2
+      path: 3
+      path: 3
+      span: 121
+      span: 66
+      span: 67
+    }
+    location {
+      path: 4
+      path: 5
+      span: 125
+      span: 0
+      span: 134
+      span: 1
+      leading_comments: " \345\210\233\345\273\272\350\247\222\350\211\262\n"
+    }
+    location {
+      path: 4
+      path: 5
+      path: 1
+      span: 125
+      span: 8
+      span: 29
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 0
+      span: 127
+      span: 8
+      span: 100
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 0
+      path: 4
+      span: 127
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 0
+      path: 6
+      span: 127
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 0
+      path: 1
+      span: 127
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 0
+      path: 3
+      span: 127
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 0
+      path: 8
+      span: 127
+      span: 76
+      span: 99
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 0
+      path: 7
+      span: 127
+      span: 88
+      span: 97
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 1
+      span: 128
+      span: 8
+      span: 76
+      trailing_comments: " \350\264\246\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 1
+      path: 4
+      span: 128
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 1
+      path: 5
+      span: 128
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 1
+      path: 1
+      span: 128
+      span: 48
+      span: 55
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 1
+      path: 3
+      span: 128
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 2
+      span: 129
+      span: 8
+      span: 76
+      trailing_comments: " \345\214\272\346\234\215\347\274\226\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 2
+      path: 4
+      span: 129
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 2
+      path: 5
+      span: 129
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 2
+      path: 1
+      span: 129
+      span: 48
+      span: 57
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 2
+      path: 3
+      span: 129
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 3
+      span: 130
+      span: 8
+      span: 76
+      trailing_comments: " \350\247\222\350\211\262\345\220\215\n"
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 3
+      path: 4
+      span: 130
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 3
+      path: 5
+      span: 130
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 3
+      path: 1
+      span: 130
+      span: 48
+      span: 56
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 3
+      path: 3
+      span: 130
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 4
+      span: 131
+      span: 8
+      span: 76
+      trailing_comments: " \351\200\211\345\217\226\347\232\204\350\247\222\350\211\262ID\n"
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 4
+      path: 4
+      span: 131
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 4
+      path: 5
+      span: 131
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 4
+      path: 1
+      span: 131
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 4
+      path: 3
+      span: 131
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 5
+      span: 132
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257\350\256\276\345\244\207\n"
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 5
+      path: 4
+      span: 132
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 5
+      path: 5
+      span: 132
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 5
+      path: 1
+      span: 132
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 5
+      path: 3
+      span: 132
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 6
+      span: 133
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257\347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 6
+      path: 4
+      span: 133
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 6
+      path: 5
+      span: 133
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 6
+      path: 1
+      span: 133
+      span: 48
+      span: 55
+    }
+    location {
+      path: 4
+      path: 5
+      path: 2
+      path: 6
+      path: 3
+      span: 133
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 6
+      span: 137
+      span: 0
+      span: 143
+      span: 1
+      leading_comments: " \346\226\260\350\247\222\350\211\262\350\277\224\345\233\236\n"
+    }
+    location {
+      path: 4
+      path: 6
+      path: 1
+      span: 137
+      span: 8
+      span: 30
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 0
+      span: 139
+      span: 8
+      span: 100
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 0
+      path: 4
+      span: 139
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 0
+      path: 6
+      span: 139
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 0
+      path: 1
+      span: 139
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 0
+      path: 3
+      span: 139
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 0
+      path: 8
+      span: 139
+      span: 76
+      span: 99
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 0
+      path: 7
+      span: 139
+      span: 88
+      span: 97
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 1
+      span: 140
+      span: 8
+      span: 76
+      trailing_comments: " \350\247\222\350\211\262ID\n"
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 1
+      path: 4
+      span: 140
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 1
+      path: 5
+      span: 140
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 1
+      path: 1
+      span: 140
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 1
+      path: 3
+      span: 140
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 2
+      span: 141
+      span: 8
+      span: 76
+      trailing_comments: " \350\247\222\350\211\262\345\220\215\n"
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 2
+      path: 4
+      span: 141
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 2
+      path: 5
+      span: 141
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 2
+      path: 1
+      span: 141
+      span: 48
+      span: 56
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 2
+      path: 3
+      span: 141
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 3
+      span: 142
+      span: 8
+      span: 76
+      trailing_comments: " \350\213\261\351\233\204ID\n"
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 3
+      path: 4
+      span: 142
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 3
+      path: 5
+      span: 142
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 3
+      path: 1
+      span: 142
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 6
+      path: 2
+      path: 3
+      path: 3
+      span: 142
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 7
+      span: 146
+      span: 0
+      span: 155
+      span: 1
+      leading_comments: " \350\247\222\350\211\262\350\277\233\345\205\245\346\270\270\346\210\217\n"
+    }
+    location {
+      path: 4
+      path: 7
+      path: 1
+      span: 146
+      span: 8
+      span: 28
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 0
+      span: 148
+      span: 8
+      span: 102
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 0
+      path: 4
+      span: 148
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 0
+      path: 6
+      span: 148
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 0
+      path: 1
+      span: 148
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 0
+      path: 3
+      span: 148
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 0
+      path: 8
+      span: 148
+      span: 76
+      span: 101
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 0
+      path: 7
+      span: 148
+      span: 88
+      span: 99
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 1
+      span: 149
+      span: 8
+      span: 76
+      trailing_comments: " \350\247\222\350\211\262ID\n"
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 1
+      path: 4
+      span: 149
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 1
+      path: 5
+      span: 149
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 1
+      path: 1
+      span: 149
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 1
+      path: 3
+      span: 149
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 2
+      span: 150
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257IP\345\234\260\345\235\200\n"
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 2
+      path: 4
+      span: 150
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 2
+      path: 5
+      span: 150
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 2
+      path: 1
+      span: 150
+      span: 48
+      span: 58
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 2
+      path: 3
+      span: 150
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 3
+      span: 151
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257\347\253\257\345\217\243\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 3
+      path: 4
+      span: 151
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 3
+      path: 5
+      span: 151
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 3
+      path: 1
+      span: 151
+      span: 48
+      span: 58
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 3
+      path: 3
+      span: 151
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 4
+      span: 152
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257\350\256\276\345\244\207\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 4
+      path: 4
+      span: 152
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 4
+      path: 5
+      span: 152
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 4
+      path: 1
+      span: 152
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 4
+      path: 3
+      span: 152
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 5
+      span: 153
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257\347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 5
+      path: 4
+      span: 153
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 5
+      path: 5
+      span: 153
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 5
+      path: 1
+      span: 153
+      span: 48
+      span: 55
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 5
+      path: 3
+      span: 153
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 6
+      span: 154
+      span: 8
+      span: 76
+      trailing_comments: " \345\256\242\346\210\267\347\253\257\345\273\272\350\256\256\350\277\233\345\205\245\347\232\204\345\234\272\346\231\257\n"
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 6
+      path: 4
+      span: 154
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 6
+      path: 5
+      span: 154
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 6
+      path: 1
+      span: 154
+      span: 48
+      span: 55
+    }
+    location {
+      path: 4
+      path: 7
+      path: 2
+      path: 6
+      path: 3
+      span: 154
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 8
+      span: 158
+      span: 0
+      span: 170
+      span: 1
+      leading_comments: " \350\247\222\350\211\262\350\257\246\347\273\206\344\277\241\346\201\257\n"
+    }
+    location {
+      path: 4
+      path: 8
+      path: 1
+      span: 158
+      span: 8
+      span: 25
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      span: 161
+      span: 8
+      span: 166
+      span: 9
+      leading_comments: " \350\247\222\350\211\262\350\257\246\347\273\206\344\277\241\346\201\257\345\256\232\344\271\211\n"
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 1
+      span: 161
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      span: 163
+      span: 16
+      span: 68
+      trailing_comments: " \350\247\222\350\211\262ID\n"
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 163
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 5
+      span: 163
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 163
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 163
+      span: 66
+      span: 67
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      span: 164
+      span: 16
+      span: 68
+      trailing_comments: " \350\247\222\350\211\262\345\220\215\n"
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 4
+      span: 164
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 5
+      span: 164
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 164
+      span: 48
+      span: 56
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 1
+      path: 3
+      span: 164
+      span: 66
+      span: 67
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      span: 165
+      span: 16
+      span: 68
+      trailing_comments: " \350\247\222\350\211\262\347\273\217\351\252\214\n"
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 4
+      span: 165
+      span: 16
+      span: 24
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 5
+      span: 165
+      span: 25
+      span: 31
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 165
+      span: 48
+      span: 51
+    }
+    location {
+      path: 4
+      path: 8
+      path: 3
+      path: 0
+      path: 2
+      path: 2
+      path: 3
+      span: 165
+      span: 66
+      span: 67
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 0
+      span: 168
+      span: 8
+      span: 103
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 0
+      path: 4
+      span: 168
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 0
+      path: 6
+      span: 168
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 0
+      path: 1
+      span: 168
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 0
+      path: 3
+      span: 168
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 0
+      path: 8
+      span: 168
+      span: 76
+      span: 102
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 0
+      path: 7
+      span: 168
+      span: 88
+      span: 100
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 1
+      span: 169
+      span: 8
+      span: 76
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 1
+      path: 4
+      span: 169
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 1
+      path: 6
+      span: 169
+      span: 17
+      span: 25
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 1
+      path: 1
+      span: 169
+      span: 48
+      span: 52
+    }
+    location {
+      path: 4
+      path: 8
+      path: 2
+      path: 1
+      path: 3
+      span: 169
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      span: 173
+      span: 0
+      span: 195
+      span: 1
+      leading_comments: " \350\201\212\345\244\251\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 1
+      span: 173
+      span: 8
+      span: 23
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      span: 176
+      span: 8
+      span: 183
+      span: 9
+      leading_comments: " \351\242\221\351\201\223\345\256\232\344\271\211\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 1
+      span: 176
+      span: 13
+      span: 20
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      span: 178
+      span: 16
+      span: 52
+      trailing_comments: " \347\263\273\347\273\237\351\242\221\351\201\223\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 178
+      span: 16
+      span: 31
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 2
+      span: 178
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      span: 179
+      span: 16
+      span: 52
+      trailing_comments: " \344\270\226\347\225\214\351\242\221\351\201\223\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 179
+      span: 16
+      span: 30
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 2
+      span: 179
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      span: 180
+      span: 16
+      span: 52
+      trailing_comments: " \345\205\254\344\274\232\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 180
+      span: 16
+      span: 30
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 2
+      span: 180
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      span: 181
+      span: 16
+      span: 52
+      trailing_comments: " \347\273\204\351\230\237\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 1
+      span: 181
+      span: 16
+      span: 29
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 3
+      path: 2
+      span: 181
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      span: 182
+      span: 16
+      span: 52
+      trailing_comments: " \347\247\201\350\201\212\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      path: 1
+      span: 182
+      span: 16
+      span: 32
+    }
+    location {
+      path: 4
+      path: 9
+      path: 4
+      path: 0
+      path: 2
+      path: 4
+      path: 2
+      span: 182
+      span: 50
+      span: 51
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 0
+      span: 185
+      span: 8
+      span: 98
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 0
+      path: 4
+      span: 185
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 0
+      path: 6
+      span: 185
+      span: 17
+      span: 28
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 0
+      path: 1
+      span: 185
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 0
+      path: 3
+      span: 185
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 0
+      path: 8
+      span: 185
+      span: 76
+      span: 97
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 0
+      path: 7
+      span: 185
+      span: 88
+      span: 95
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 1
+      span: 186
+      span: 8
+      span: 76
+      trailing_comments: " \351\242\221\351\201\223\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 1
+      path: 4
+      span: 186
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 1
+      path: 6
+      span: 186
+      span: 17
+      span: 24
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 1
+      path: 1
+      span: 186
+      span: 48
+      span: 55
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 1
+      path: 3
+      span: 186
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 2
+      span: 187
+      span: 8
+      span: 76
+      trailing_comments: " \345\217\221\351\200\201\346\226\271ID\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 2
+      path: 4
+      span: 187
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 2
+      path: 5
+      span: 187
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 2
+      path: 1
+      span: 187
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 2
+      path: 3
+      span: 187
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 3
+      span: 188
+      span: 8
+      span: 76
+      trailing_comments: " \345\217\221\351\200\201\346\226\271\345\220\215\345\255\227\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 3
+      path: 4
+      span: 188
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 3
+      path: 5
+      span: 188
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 3
+      path: 1
+      span: 188
+      span: 48
+      span: 58
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 3
+      path: 3
+      span: 188
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 4
+      span: 189
+      span: 8
+      span: 76
+      trailing_comments: " \345\244\264\345\203\217\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 4
+      path: 4
+      span: 189
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 4
+      path: 5
+      span: 189
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 4
+      path: 1
+      span: 189
+      span: 48
+      span: 54
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 4
+      path: 3
+      span: 189
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 5
+      span: 190
+      span: 8
+      span: 76
+      trailing_comments: " \347\255\211\347\272\247\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 5
+      path: 4
+      span: 190
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 5
+      path: 5
+      span: 190
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 5
+      path: 1
+      span: 190
+      span: 48
+      span: 53
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 5
+      path: 3
+      span: 190
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 6
+      span: 191
+      span: 8
+      span: 76
+      trailing_comments: " \346\216\245\346\224\266\346\226\271ID\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 6
+      path: 4
+      span: 191
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 6
+      path: 5
+      span: 191
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 6
+      path: 1
+      span: 191
+      span: 48
+      span: 56
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 6
+      path: 3
+      span: 191
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 7
+      span: 192
+      span: 8
+      span: 68
+      trailing_comments: " \346\216\245\346\224\266\346\226\271\345\220\215\345\255\227\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 7
+      path: 4
+      span: 192
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 7
+      path: 5
+      span: 192
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 7
+      path: 1
+      span: 192
+      span: 48
+      span: 60
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 7
+      path: 3
+      span: 192
+      span: 66
+      span: 67
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 8
+      span: 193
+      span: 8
+      span: 76
+      trailing_comments: " \346\266\210\346\201\257\345\206\205\345\256\271\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 8
+      path: 4
+      span: 193
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 8
+      path: 5
+      span: 193
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 8
+      path: 1
+      span: 193
+      span: 48
+      span: 55
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 8
+      path: 3
+      span: 193
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 9
+      span: 194
+      span: 8
+      span: 69
+      trailing_comments: " \346\265\201\345\252\222\344\275\223\n"
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 9
+      path: 4
+      span: 194
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 9
+      path: 5
+      span: 194
+      span: 17
+      span: 22
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 9
+      path: 1
+      span: 194
+      span: 48
+      span: 59
+    }
+    location {
+      path: 4
+      path: 9
+      path: 2
+      path: 9
+      path: 3
+      span: 194
+      span: 66
+      span: 68
+    }
+    location {
+      path: 4
+      path: 10
+      span: 197
+      span: 0
+      span: 201
+      span: 1
+    }
+    location {
+      path: 4
+      path: 10
+      path: 1
+      span: 197
+      span: 8
+      span: 33
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 0
+      span: 199
+      span: 0
+      span: 102
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 0
+      path: 4
+      span: 199
+      span: 0
+      span: 8
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 0
+      path: 6
+      span: 199
+      span: 9
+      span: 20
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 0
+      path: 1
+      span: 199
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 0
+      path: 3
+      span: 199
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 0
+      path: 8
+      span: 199
+      span: 76
+      span: 101
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 0
+      path: 7
+      span: 199
+      span: 87
+      span: 100
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 1
+      span: 200
+      span: 0
+      span: 76
+      trailing_comments: " \347\244\274\345\214\205\347\240\201\n"
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 1
+      path: 4
+      span: 200
+      span: 0
+      span: 8
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 1
+      path: 5
+      span: 200
+      span: 9
+      span: 15
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 1
+      path: 1
+      span: 200
+      span: 48
+      span: 52
+    }
+    location {
+      path: 4
+      path: 10
+      path: 2
+      path: 1
+      path: 3
+      span: 200
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 11
+      span: 203
+      span: 0
+      span: 206
+      span: 1
+    }
+    location {
+      path: 4
+      path: 11
+      path: 1
+      span: 203
+      span: 8
+      span: 34
+    }
+    location {
+      path: 4
+      path: 11
+      path: 2
+      path: 0
+      span: 205
+      span: 0
+      span: 102
+    }
+    location {
+      path: 4
+      path: 11
+      path: 2
+      path: 0
+      path: 4
+      span: 205
+      span: 0
+      span: 8
+    }
+    location {
+      path: 4
+      path: 11
+      path: 2
+      path: 0
+      path: 6
+      span: 205
+      span: 9
+      span: 20
+    }
+    location {
+      path: 4
+      path: 11
+      path: 2
+      path: 0
+      path: 1
+      span: 205
+      span: 40
+      span: 42
+    }
+    location {
+      path: 4
+      path: 11
+      path: 2
+      path: 0
+      path: 3
+      span: 205
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 11
+      path: 2
+      path: 0
+      path: 8
+      span: 205
+      span: 76
+      span: 101
+    }
+    location {
+      path: 4
+      path: 11
+      path: 2
+      path: 0
+      path: 7
+      span: 205
+      span: 87
+      span: 100
+    }
+  }
+}
+proto_file {
+  name: "utils.proto"
+  package: "msg.utils"
+  dependency: "base.proto"
+  message_type {
+    name: "MessageErrorcode"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.utils.MessageUtils"
+      default_value: "Errorcode_S"
+      json_name: "id"
+    }
+    field {
+      name: "cmd"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_UINT32
+      json_name: "cmd"
+    }
+    field {
+      name: "result"
+      number: 3
+      label: LABEL_REQUIRED
+      type: TYPE_UINT32
+      json_name: "result"
+    }
+  }
+  message_type {
+    name: "MessageUtilsPing"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.utils.MessageUtils"
+      default_value: "Ping_CS"
+      json_name: "id"
+    }
+    field {
+      name: "timestamp"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_UINT64
+      json_name: "timestamp"
+    }
+  }
+  message_type {
+    name: "MessageVersionNotify"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".msg.utils.MessageUtils"
+      default_value: "Version_S"
+      json_name: "id"
+    }
+    field {
+      name: "version"
+      number: 2
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "version"
+    }
+    field {
+      name: "method"
+      number: 3
+      label: LABEL_REQUIRED
+      type: TYPE_UINT32
+      json_name: "method"
+    }
+    field {
+      name: "opversion"
+      number: 4
+      label: LABEL_REQUIRED
+      type: TYPE_STRING
+      json_name: "opversion"
+    }
+  }
+  enum_type {
+    name: "MessageUtils"
+    value {
+      name: "Errorcode_S"
+      number: 257
+    }
+    value {
+      name: "Ping_CS"
+      number: 258
+    }
+    value {
+      name: "Version_S"
+      number: 259
+    }
+  }
+  enum_type {
+    name: "ErrorcodeUtils"
+    value {
+      name: "Success"
+      number: 0
+    }
+  }
+  source_code_info {
+    location {
+      span: 0
+      span: 0
+      span: 48
+      span: 2
+    }
+    location {
+      path: 2
+      span: 0
+      span: 8
+      span: 17
+    }
+    location {
+      path: 3
+      path: 0
+      span: 2
+      span: 7
+      span: 19
+    }
+    location {
+      path: 5
+      path: 0
+      span: 7
+      span: 0
+      span: 12
+      span: 1
+      leading_comments: "\n \345\221\275\344\273\244\345\255\227\345\256\232\344\271\211\n\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 1
+      span: 7
+      span: 5
+      span: 17
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      span: 9
+      span: 8
+      span: 81
+      trailing_comments: " \351\224\231\350\257\257\347\240\201\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 9
+      span: 8
+      span: 19
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 0
+      path: 2
+      span: 9
+      span: 74
+      span: 80
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      span: 10
+      span: 8
+      span: 81
+      trailing_comments: " \345\277\203\350\267\263\345\214\205\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 10
+      span: 8
+      span: 15
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 1
+      path: 2
+      span: 10
+      span: 74
+      span: 80
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      span: 11
+      span: 8
+      span: 81
+      trailing_comments: " \347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 11
+      span: 8
+      span: 17
+    }
+    location {
+      path: 5
+      path: 0
+      path: 2
+      path: 2
+      path: 2
+      span: 11
+      span: 74
+      span: 80
+    }
+    location {
+      path: 5
+      path: 1
+      span: 17
+      span: 0
+      span: 20
+      span: 1
+      leading_comments: "\n \351\224\231\350\257\257\347\240\201\345\256\232\344\271\211\n\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 1
+      span: 17
+      span: 5
+      span: 19
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      span: 19
+      span: 8
+      span: 83
+      trailing_comments: " \346\210\220\345\212\237\n"
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      path: 1
+      span: 19
+      span: 8
+      span: 15
+    }
+    location {
+      path: 5
+      path: 1
+      path: 2
+      path: 0
+      path: 2
+      span: 19
+      span: 74
+      span: 82
+    }
+    location {
+      path: 4
+      path: 0
+      span: 27
+      span: 0
+      span: 32
+      span: 1
+      leading_comments: " \351\224\231\350\257\257\347\240\201\n"
+      leading_detached_comments: "\n \346\266\210\346\201\257\345\256\232\344\271\211\n\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 1
+      span: 27
+      span: 8
+      span: 24
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      span: 29
+      span: 8
+      span: 102
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 4
+      span: 29
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 6
+      span: 29
+      span: 17
+      span: 29
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 1
+      span: 29
+      span: 48
+      span: 50
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 3
+      span: 29
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 8
+      span: 29
+      span: 76
+      span: 101
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 0
+      path: 7
+      span: 29
+      span: 88
+      span: 99
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      span: 30
+      span: 8
+      span: 76
+      trailing_comments: " \345\221\275\344\273\244\345\255\227\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 4
+      span: 30
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 5
+      span: 30
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 1
+      span: 30
+      span: 56
+      span: 59
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 1
+      path: 3
+      span: 30
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      span: 31
+      span: 8
+      span: 76
+      trailing_comments: " \351\224\231\350\257\257\347\240\201\n"
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 4
+      span: 31
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 5
+      span: 31
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 1
+      span: 31
+      span: 56
+      span: 62
+    }
+    location {
+      path: 4
+      path: 0
+      path: 2
+      path: 2
+      path: 3
+      span: 31
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 1
+      span: 35
+      span: 0
+      span: 39
+      span: 1
+      leading_comments: " PING\n"
+    }
+    location {
+      path: 4
+      path: 1
+      path: 1
+      span: 35
+      span: 8
+      span: 24
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      span: 37
+      span: 8
+      span: 98
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 4
+      span: 37
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 6
+      span: 37
+      span: 17
+      span: 29
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 1
+      span: 37
+      span: 48
+      span: 50
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 3
+      span: 37
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 8
+      span: 37
+      span: 76
+      span: 97
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 0
+      path: 7
+      span: 37
+      span: 88
+      span: 95
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      span: 38
+      span: 8
+      span: 76
+      trailing_comments: " \346\234\215\345\212\241\345\231\250\345\275\223\345\211\215\346\227\266\351\227\264\n"
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 4
+      span: 38
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 5
+      span: 38
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 1
+      span: 38
+      span: 56
+      span: 65
+    }
+    location {
+      path: 4
+      path: 1
+      path: 2
+      path: 1
+      path: 3
+      span: 38
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      span: 42
+      span: 0
+      span: 48
+      span: 1
+      leading_comments: " \347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 1
+      span: 42
+      span: 8
+      span: 28
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      span: 44
+      span: 8
+      span: 100
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 4
+      span: 44
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 6
+      span: 44
+      span: 17
+      span: 29
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 1
+      span: 44
+      span: 48
+      span: 50
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 3
+      span: 44
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 8
+      span: 44
+      span: 76
+      span: 99
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 0
+      path: 7
+      span: 44
+      span: 88
+      span: 97
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      span: 45
+      span: 8
+      span: 76
+      trailing_comments: " \351\235\231\346\200\201\347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 4
+      span: 45
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 5
+      span: 45
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 1
+      span: 45
+      span: 56
+      span: 63
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 1
+      path: 3
+      span: 45
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      span: 46
+      span: 8
+      span: 76
+      trailing_comments: " \346\230\257\345\220\246\345\274\272\345\210\2660-\351\235\236\345\274\272\345\210\266; 1-\345\274\272\345\210\266\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 4
+      span: 46
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 5
+      span: 46
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 1
+      span: 46
+      span: 56
+      span: 62
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 2
+      path: 3
+      span: 46
+      span: 74
+      span: 75
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      span: 47
+      span: 8
+      span: 76
+      trailing_comments: " \350\277\220\350\220\245\346\264\273\345\212\250\347\211\210\346\234\254\345\217\267\n"
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 4
+      span: 47
+      span: 8
+      span: 16
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 5
+      span: 47
+      span: 17
+      span: 23
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 1
+      span: 47
+      span: 56
+      span: 65
+    }
+    location {
+      path: 4
+      path: 2
+      path: 2
+      path: 3
+      path: 3
+      span: 47
       span: 74
       span: 75
     }

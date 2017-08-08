@@ -101,15 +101,17 @@ def get_path_comments(proto_file, path):
 
 def export_message(proto_file, msg, msg_desc):
 
+	field_index=0
 	for field_desc in msg_desc.field:
 		field = Field(field_desc)
 		field.fullname = msg.fullname + '.' + field.name
 		for p in msg.path:
 			field.path.append(p);
 		field.path.append(2);
-		field.path.append(field_desc.number-1);
+		field.path.append(field_index);
 		field.desc = get_path_comments(proto_file, field.path)
 		msg.fieldlist.append(field.__dict__)
+		field_index += 1
 	sorted(msg.fieldlist, key=lambda d:d['number'])
 
 	msg_index = 0

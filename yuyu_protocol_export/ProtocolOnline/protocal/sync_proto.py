@@ -82,6 +82,16 @@ FName = {
     FieldType.TYPE_SINT64   : 'sint64',
 }
 
+class LabelType:
+    LABEL_OPTIONAL      = 1;
+    LABEL_REQUIRED      = 2;
+    LABEL_REPEATED      = 3;
+
+LName = {
+    LabelType.LABEL_OPTIONAL   : 'optional',
+    LabelType.LABEL_REQUIRED   : 'required',
+    LabelType.LABEL_REPEATED   : 'repeated',
+}
 class cls_context:
     project = None
     setting = None
@@ -102,6 +112,8 @@ def parse_proto_files(context):
 def doSyncEnumValue(context, module, enum, enumvalue_dict):
     segment_name = enumvalue_dict['name']
     segment_desc = enumvalue_dict['desc']
+    if len(segment_desc) == 0:
+        segment_desc = segment_name
     segment_namespace = enumvalue_dict['fullname']
     segment_value = enumvalue_dict['number']
 
@@ -133,6 +145,8 @@ def doSyncEnum(context, module, message, enum_dict, inner_type = 0):
     cur_project = context.cur_project
     enum_name = enum_dict['name']
     enum_desc = enum_dict['desc']
+    if len(enum_desc) == 0:
+        enum_desc = enum_name
     enum_namespace = enum_dict['fullname']
     inner_protocal = None;
     inner_customtype = None;
@@ -188,6 +202,8 @@ def doSyncEnum(context, module, message, enum_dict, inner_type = 0):
 def doSyncCustomTypeField(context, module, message, field_dict):
     customtype_segment_name = field_dict['name']
     customtype_segment_desc = field_dict['desc']
+    if len(customtype_segment_desc) == 0:
+        customtype_segment_desc = customtype_segment_name
     customtype_segment_namespace = field_dict['fullname']
     customtype_segment_protocal_type_id = field_dict['label']
     customtype_segment_type_type = field_dict['type']
@@ -207,7 +223,7 @@ def doSyncCustomTypeField(context, module, message, field_dict):
         customtype_segment_type = get_object_or_404(SegmentType, name=FName[customtype_segment_type_type])
 
 
-    customtype_segment_protocal_type = get_object_or_404(SegmentProtoType, pk=customtype_segment_protocal_type_id) 
+    customtype_segment_protocal_type = get_object_or_404(SegmentProtoType, name=LName[customtype_segment_protocal_type_id]) 
 
     try:
         customtype_segment = CustomTypeSegment.objects.filter(namespace = customtype_segment_namespace)[0]
@@ -239,6 +255,8 @@ def doSyncCustomType(context, module, message, message_dict, inner_type = 0):
     cur_project = context.cur_project
     customtype_name = message_dict['name']
     customtype_desc = message_dict['desc']
+    if len(customtype_desc) == 0:
+        customtype_desc = customtype_name
     customtype_namespace = message_dict['fullname']
     inner_protocal = None;
     inner_customtype = None;
@@ -302,6 +320,8 @@ def doSyncCustomType(context, module, message, message_dict, inner_type = 0):
 def doSyncMessageField(context, module, message, field_dict):
     segment_name = field_dict['name']
     segment_desc = field_dict['desc']
+    if len(segment_desc) == 0:
+        segment_desc = segment_name
     segment_type_type = field_dict['type']
 
     segment_protocal_type_id = field_dict['label']
@@ -323,7 +343,7 @@ def doSyncMessageField(context, module, message, field_dict):
 
     segment_extra_type1 = None
     segment_extra_type2 = None
-    segment_protocal_type = get_object_or_404(SegmentProtoType, pk=segment_protocal_type_id) 
+    segment_protocal_type = get_object_or_404(SegmentProtoType, name=LName[segment_protocal_type_id]) 
 
     try:
         segment = Segment.objects.filter(namespace = segment_namespace)[0]
@@ -360,6 +380,8 @@ def doSyncMessage(context, module, message_dict):
     cur_project = context.cur_project
     protocal_name = message_dict['name'];
     protocal_desc = message_dict['desc'];
+    if len(protocal_desc) == 0:
+        protocal_desc = protocal_name
     protocal_namespace = module.namespace + '.' + protocal_name
     if not message_dict.has_key('id'):
         return doSyncCustomType(context, module, None, message_dict)
@@ -409,6 +431,7 @@ def doSyncMessage(context, module, message_dict):
 
 
 def doSyncModule(context, module_dict):
+    cur_project = context.cur_project
     namespace = context.namespace;
     module_namespace = module_dict['package'];
     module_modulename = module_namespace.replace(namespace+'.','');
@@ -416,7 +439,21 @@ def doSyncModule(context, module_dict):
     module_desc = module_modulename
 
     if namespace == module_namespace:
-        pass
+        global_module = Module(
+                        id = 0,
+                        name = 'global',
+                        namedesc = 'global',
+                        desc = '',
+                        project = cur_project,
+                        namespace = cur_project.namespace)
+
+        enumlist = module_dict['enumlist']
+        for e in enumlist:
+            doSyncEnum(context, global_module, None, e);
+            
+        messagelist = module_dict['messagelist']
+        for m in messagelist:
+            doSyncMessage(context, global_module, m);
     else:
         try:
             module = Module.objects.filter(namespace = module_namespace)[0]

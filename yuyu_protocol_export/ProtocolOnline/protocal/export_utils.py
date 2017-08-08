@@ -93,6 +93,26 @@ def calculate_type_level(cur_type_name,candidates,founded,depend_on,looped_type,
 def sort_segments(d):
     return d[1].level
 
+def do_pre_handle_customtype(context, customtype, enums, customtypes, enums_dict, customtypes_dict):
+    if customtypes_dict.has_key(customtype.id):
+        customtype.segments = customtypes_dict[customtype.id]
+    else:
+        customtype.segments = []
+
+    innerenums = enums.filter(belong_ct = customtype);
+    for enum in innerenums:
+        if enums_dict.has_key(enum.id):
+            enum.segments = enums_dict[enum.id]
+        else:
+            enum.segments = []
+    customtype.innerenums = innerenums
+
+    innercustomtypes = customtypes.filter(belong_ct = customtype)
+    for ct_customtype in innercustomtypes:
+        do_pre_handle_customtype(context, ct_customtype, enums, customtypes, enums_dict, customtypes_dict);
+    customtype.innercustomtypes = innercustomtypes
+
+
 def do_pre_handle_module(context, module, null = False):
     enums = Enum.objects.filter(module = module)
     enumsegments = EnmuSegment.objects.filter(belong__in = enums).order_by('belong')
@@ -126,7 +146,6 @@ def do_pre_handle_module(context, module, null = False):
         customtypes_dict = {}
         for customtypesegment in customtypesegments:
             customtype_segments = None
-            print customtypesegment.belong
             if not customtypes_dict.has_key(customtypesegment.belong.id):
                 customtype_segments = []
                 customtypes_dict[customtypesegment.belong.id] = customtype_segments
@@ -135,31 +154,8 @@ def do_pre_handle_module(context, module, null = False):
             customtype_segments.append(customtypesegment)
 
         moduleCustoms = customtypes.filter(Q(belong = None), Q(belong_ct = None))
-        ct_customtypes_dict = {}
         for customtype in moduleCustoms:
-            if ct_customtypes_dict.has_key(customtype.id):
-                customtype.segments = ct_customtypes_dict[customtype.id]
-            else:
-                customtype.segments = []
-
-            innerenums = enums.filter(belong_ct = customtype);
-            for enum in innerenums:
-                if enums_dict.has_key(enum.id):
-                    enum.segments = enums_dict[enum.id]
-                else:
-                    enum.segments = []
-            customtype.innerenums = innerenums
-
-            innercustomtypes = customtypes.filter(belong_ct = customtype)
-            for ct_customtype in innercustomtypes:
-                ct_customtype.innerenums = None;
-                ct_customtype.innercustomtypes = None;
-                if ct_customtypes_dict.has_key(customtype.id):
-                    ct_customtype.segments = ct_customtypes_dict[customtype.id]
-                else:
-                    ct_customtype.segments = []
-
-            customtype.innercustomtypes = innercustomtypes
+            do_pre_handle_customtype(context, customtype, enums, customtypes, enums_dict, customtypes_dict)
 
         module.customtypes = moduleCustoms
 
@@ -191,8 +187,8 @@ def do_pre_handle_module(context, module, null = False):
 
             innercustomtypes = customtypes.filter(belong = protocal)
             for customtype in innercustomtypes:
-                if ct_customtypes_dict.has_key(customtype.id):
-                    customtype.segments = ct_customtypes_dict[customtype.id]
+                if customtypes_dict.has_key(customtype.id):
+                    customtype.segments = customtypes_dict[customtype.id]
                 else:
                     customtype.segments = []
 
@@ -208,8 +204,8 @@ def do_pre_handle_module(context, module, null = False):
                 for ct_customtype in ct_innercustomtypes:
                     ct_customtype.innerenums = None;
                     ct_customtype.innercustomtypes = None;
-                    if ct_customtypes_dict.has_key(ct_customtype.id):
-                        ct_customtype.segments = ct_customtypes_dict[customtype.id]
+                    if customtypes_dict.has_key(ct_customtype.id):
+                        ct_customtype.segments = customtypes_dict[ct_customtype.id]
                     else:
                         ct_customtype.segments = []
                         

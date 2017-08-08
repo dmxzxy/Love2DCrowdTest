@@ -1,6 +1,138 @@
 {
     "modulelist": [
         {
+            "enumlist": [], 
+            "messagelist": [
+                {
+                    "desc": "资源信息", 
+                    "enumlist": [
+                        {
+                            "desc": "", 
+                            "fullname": "msg.Resource.Type", 
+                            "name": "Type", 
+                            "path": [
+                                4, 
+                                0, 
+                                4, 
+                                0
+                            ], 
+                            "valuelist": [
+                                {
+                                    "desc": "包", 
+                                    "fullname": "msg.Resource.Type.eResourceType_Pack", 
+                                    "name": "eResourceType_Pack", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ]
+                                }, 
+                                {
+                                    "desc": "属性", 
+                                    "fullname": "msg.Resource.Type.eResourceType_Props", 
+                                    "name": "eResourceType_Props", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ]
+                                }, 
+                                {
+                                    "desc": "物品", 
+                                    "fullname": "msg.Resource.Type.eResourceType_Item", 
+                                    "name": "eResourceType_Item", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        2
+                                    ]
+                                }, 
+                                {
+                                    "desc": "英雄", 
+                                    "fullname": "msg.Resource.Type.eResourceType_Hero", 
+                                    "name": "eResourceType_Hero", 
+                                    "number": 4, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        3
+                                    ]
+                                }
+                            ]
+                        }
+                    ], 
+                    "fieldlist": [
+                        {
+                            "desc": "资源类型", 
+                            "fullname": "msg.Resource.type", 
+                            "label": 2, 
+                            "name": "type", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.Resource.Type"
+                        }, 
+                        {
+                            "desc": "资源对象ID", 
+                            "fullname": "msg.Resource.object", 
+                            "label": 2, 
+                            "name": "object", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                1
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "资源的数量", 
+                            "fullname": "msg.Resource.count", 
+                            "label": 2, 
+                            "name": "count", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                2
+                            ], 
+                            "type": 13
+                        }
+                    ], 
+                    "fullname": "msg.Resource", 
+                    "name": "Resource", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        0
+                    ]
+                }
+            ], 
+            "package": "msg"
+        }, 
+        {
             "enumlist": [
                 {
                     "desc": "", 
@@ -1098,6 +1230,2480 @@
                 }
             ], 
             "package": "msg.battle"
+        }, 
+        {
+            "enumlist": [
+                {
+                    "desc": "命令字定义", 
+                    "fullname": "msg.item.MessageItem", 
+                    "name": "MessageItem", 
+                    "path": [
+                        5, 
+                        0
+                    ], 
+                    "valuelist": [
+                        {
+                            "desc": "请求全部物品信息", 
+                            "fullname": "msg.item.MessageItem.ItemDetailInfos_C", 
+                            "name": "ItemDetailInfos_C", 
+                            "number": 4865, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                0
+                            ]
+                        }, 
+                        {
+                            "desc": "物品详细信息", 
+                            "fullname": "msg.item.MessageItem.ItemDetailInfos_S", 
+                            "name": "ItemDetailInfos_S", 
+                            "number": 4866, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                1
+                            ]
+                        }, 
+                        {
+                            "desc": "物品信息变更", 
+                            "fullname": "msg.item.MessageItem.ItemChangeList_S", 
+                            "name": "ItemChangeList_S", 
+                            "number": 4868, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                2
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "desc": "错误码定义", 
+                    "fullname": "msg.item.ErrorcodeItem", 
+                    "name": "ErrorcodeItem", 
+                    "path": [
+                        5, 
+                        1
+                    ], 
+                    "valuelist": [
+                        {
+                            "desc": "成功", 
+                            "fullname": "msg.item.ErrorcodeItem.Success", 
+                            "name": "Success", 
+                            "number": 0, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                0
+                            ]
+                        }
+                    ]
+                }
+            ], 
+            "messagelist": [
+                {
+                    "desc": "物品", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "desc": "", 
+                            "fullname": "msg.item.ItemDetailInfo.base", 
+                            "label": 2, 
+                            "name": "base", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                0
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.item.ItemDetailInfo.ItemBase"
+                        }, 
+                        {
+                            "desc": "", 
+                            "fullname": "msg.item.ItemDetailInfo.equip", 
+                            "label": 1, 
+                            "name": "equip", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                1
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.item.ItemDetailInfo.EquipData"
+                        }, 
+                        {
+                            "desc": "物品生命", 
+                            "fullname": "msg.item.ItemDetailInfo.lifetime", 
+                            "label": 1, 
+                            "name": "lifetime", 
+                            "number": 5, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                2
+                            ], 
+                            "type": 3
+                        }
+                    ], 
+                    "fullname": "msg.item.ItemDetailInfo", 
+                    "name": "ItemDetailInfo", 
+                    "nestedtypelist": [
+                        {
+                            "desc": "基础信息", 
+                            "enumlist": [], 
+                            "fieldlist": [
+                                {
+                                    "desc": "实体ID", 
+                                    "fullname": "msg.item.ItemDetailInfo.ItemBase.entityid", 
+                                    "label": 2, 
+                                    "name": "entityid", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ], 
+                                    "type": 4
+                                }, 
+                                {
+                                    "desc": "基础ID", 
+                                    "fullname": "msg.item.ItemDetailInfo.ItemBase.baseid", 
+                                    "label": 2, 
+                                    "name": "baseid", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "个数", 
+                                    "fullname": "msg.item.ItemDetailInfo.ItemBase.count", 
+                                    "label": 2, 
+                                    "name": "count", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        2
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "存储位置", 
+                                    "fullname": "msg.item.ItemDetailInfo.ItemBase.place", 
+                                    "label": 2, 
+                                    "name": "place", 
+                                    "number": 4, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        3
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "品质", 
+                                    "fullname": "msg.item.ItemDetailInfo.ItemBase.quality", 
+                                    "label": 2, 
+                                    "name": "quality", 
+                                    "number": 5, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        4
+                                    ], 
+                                    "type": 13
+                                }
+                            ], 
+                            "fullname": "msg.item.ItemDetailInfo.ItemBase", 
+                            "name": "ItemBase", 
+                            "nestedtypelist": [], 
+                            "path": [
+                                4, 
+                                0, 
+                                3, 
+                                0
+                            ]
+                        }, 
+                        {
+                            "desc": "装备", 
+                            "enumlist": [], 
+                            "fieldlist": [
+                                {
+                                    "desc": "强化等级", 
+                                    "fullname": "msg.item.ItemDetailInfo.EquipData.level", 
+                                    "label": 2, 
+                                    "name": "level", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        1, 
+                                        2, 
+                                        0
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "装备到哪个英雄身上", 
+                                    "fullname": "msg.item.ItemDetailInfo.EquipData.heroid", 
+                                    "label": 2, 
+                                    "name": "heroid", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        0, 
+                                        3, 
+                                        1, 
+                                        2, 
+                                        1
+                                    ], 
+                                    "type": 13
+                                }
+                            ], 
+                            "fullname": "msg.item.ItemDetailInfo.EquipData", 
+                            "name": "EquipData", 
+                            "nestedtypelist": [], 
+                            "path": [
+                                4, 
+                                0, 
+                                3, 
+                                1
+                            ]
+                        }
+                    ], 
+                    "path": [
+                        4, 
+                        0
+                    ]
+                }, 
+                {
+                    "desc": "所有物品的详细信息", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "ItemDetailInfos_C", 
+                            "desc": "", 
+                            "fullname": "msg.item.MessageItemDetailInfosRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.item.MessageItem"
+                        }
+                    ], 
+                    "fullname": "msg.item.MessageItemDetailInfosRequest", 
+                    "id": 4865, 
+                    "name": "MessageItemDetailInfosRequest", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        0
+                    ]
+                }, 
+                {
+                    "desc": "", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "ItemDetailInfos_S", 
+                            "desc": "", 
+                            "fullname": "msg.item.MessageItemDetailInfosResponse.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.item.MessageItem"
+                        }, 
+                        {
+                            "desc": "物品信息", 
+                            "fullname": "msg.item.MessageItemDetailInfosResponse.items", 
+                            "label": 3, 
+                            "name": "items", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                1
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.item.ItemDetailInfo"
+                        }
+                    ], 
+                    "fullname": "msg.item.MessageItemDetailInfosResponse", 
+                    "id": 4866, 
+                    "name": "MessageItemDetailInfosResponse", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        1
+                    ]
+                }, 
+                {
+                    "desc": "背包信息变更", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "ItemChangeList_S", 
+                            "desc": "", 
+                            "fullname": "msg.item.MessageBagChangeList.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.item.MessageItem"
+                        }, 
+                        {
+                            "desc": "添加列表", 
+                            "fullname": "msg.item.MessageBagChangeList.addlist", 
+                            "label": 3, 
+                            "name": "addlist", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                1
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.item.ItemDetailInfo"
+                        }, 
+                        {
+                            "desc": "删除列表", 
+                            "fullname": "msg.item.MessageBagChangeList.deletelist", 
+                            "label": 3, 
+                            "name": "deletelist", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                2
+                            ], 
+                            "type": 4
+                        }, 
+                        {
+                            "desc": "改变列表", 
+                            "fullname": "msg.item.MessageBagChangeList.modifylist", 
+                            "label": 3, 
+                            "name": "modifylist", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                3
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.item.MessageBagChangeList.Change"
+                        }
+                    ], 
+                    "fullname": "msg.item.MessageBagChangeList", 
+                    "id": 4868, 
+                    "name": "MessageBagChangeList", 
+                    "nestedtypelist": [
+                        {
+                            "desc": "", 
+                            "enumlist": [], 
+                            "fieldlist": [
+                                {
+                                    "desc": "实体ID", 
+                                    "fullname": "msg.item.MessageBagChangeList.Change.entityid", 
+                                    "label": 2, 
+                                    "name": "entityid", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        2, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ], 
+                                    "type": 4
+                                }, 
+                                {
+                                    "desc": "个数", 
+                                    "fullname": "msg.item.MessageBagChangeList.Change.count", 
+                                    "label": 2, 
+                                    "name": "count", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        2, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "存储位置", 
+                                    "fullname": "msg.item.MessageBagChangeList.Change.place", 
+                                    "label": 2, 
+                                    "name": "place", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        2, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        2
+                                    ], 
+                                    "type": 13
+                                }
+                            ], 
+                            "fullname": "msg.item.MessageBagChangeList.Change", 
+                            "name": "Change", 
+                            "nestedtypelist": [], 
+                            "path": [
+                                4, 
+                                2, 
+                                3, 
+                                0
+                            ]
+                        }
+                    ], 
+                    "path": [
+                        4, 
+                        2
+                    ]
+                }
+            ], 
+            "package": "msg.item"
+        }, 
+        {
+            "enumlist": [
+                {
+                    "desc": "命令字定义", 
+                    "fullname": "msg.role.MessageRole", 
+                    "name": "MessageRole", 
+                    "path": [
+                        5, 
+                        0
+                    ], 
+                    "valuelist": [
+                        {
+                            "desc": "登录验证", 
+                            "fullname": "msg.role.MessageRole.Verify_C", 
+                            "name": "Verify_C", 
+                            "number": 4097, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                0
+                            ]
+                        }, 
+                        {
+                            "desc": "验证结果", 
+                            "fullname": "msg.role.MessageRole.Verify_S", 
+                            "name": "Verify_S", 
+                            "number": 4098, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                1
+                            ]
+                        }, 
+                        {
+                            "desc": "玩家登陆", 
+                            "fullname": "msg.role.MessageRole.Login_C", 
+                            "name": "Login_C", 
+                            "number": 4099, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                2
+                            ]
+                        }, 
+                        {
+                            "desc": "玩家登出", 
+                            "fullname": "msg.role.MessageRole.Logout_CS", 
+                            "name": "Logout_CS", 
+                            "number": 4100, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                3
+                            ]
+                        }, 
+                        {
+                            "desc": "玩家的角色列表", 
+                            "fullname": "msg.role.MessageRole.RoleList_S", 
+                            "name": "RoleList_S", 
+                            "number": 4101, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                4
+                            ]
+                        }, 
+                        {
+                            "desc": "创建角色", 
+                            "fullname": "msg.role.MessageRole.Newborn_C", 
+                            "name": "Newborn_C", 
+                            "number": 4102, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                5
+                            ]
+                        }, 
+                        {
+                            "desc": "创建角色返回", 
+                            "fullname": "msg.role.MessageRole.Newborn_S", 
+                            "name": "Newborn_S", 
+                            "number": 4103, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                6
+                            ]
+                        }, 
+                        {
+                            "desc": "选择角色进入游戏", 
+                            "fullname": "msg.role.MessageRole.EnterGame_C", 
+                            "name": "EnterGame_C", 
+                            "number": 4104, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                7
+                            ]
+                        }, 
+                        {
+                            "desc": "角色详细信息", 
+                            "fullname": "msg.role.MessageRole.RoleDetail_S", 
+                            "name": "RoleDetail_S", 
+                            "number": 4105, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                8
+                            ]
+                        }, 
+                        {
+                            "desc": "通知列表(小红点)", 
+                            "fullname": "msg.role.MessageRole.NotifyList_S", 
+                            "name": "NotifyList_S", 
+                            "number": 4106, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                9
+                            ]
+                        }, 
+                        {
+                            "desc": "领取礼包码", 
+                            "fullname": "msg.role.MessageRole.UseGiftCode_C", 
+                            "name": "UseGiftCode_C", 
+                            "number": 4107, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                10
+                            ]
+                        }, 
+                        {
+                            "desc": "领取礼包码返回", 
+                            "fullname": "msg.role.MessageRole.UseGiftCode_S", 
+                            "name": "UseGiftCode_S", 
+                            "number": 4108, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                11
+                            ]
+                        }, 
+                        {
+                            "desc": "聊天", 
+                            "fullname": "msg.role.MessageRole.Chat_CS", 
+                            "name": "Chat_CS", 
+                            "number": 4128, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                12
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "desc": "错误码", 
+                    "fullname": "msg.role.ErrorcodeRole", 
+                    "name": "ErrorcodeRole", 
+                    "path": [
+                        5, 
+                        1
+                    ], 
+                    "valuelist": [
+                        {
+                            "desc": "成功", 
+                            "fullname": "msg.role.ErrorcodeRole.Success", 
+                            "name": "Success", 
+                            "number": 0, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                0
+                            ]
+                        }, 
+                        {
+                            "desc": "在黑名单中", 
+                            "fullname": "msg.role.ErrorcodeRole.InBlackList", 
+                            "name": "InBlackList", 
+                            "number": 1048833, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                1
+                            ]
+                        }, 
+                        {
+                            "desc": "不在白名单中", 
+                            "fullname": "msg.role.ErrorcodeRole.NotInWhiteList", 
+                            "name": "NotInWhiteList", 
+                            "number": 1048834, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                2
+                            ]
+                        }, 
+                        {
+                            "desc": "服务器繁忙", 
+                            "fullname": "msg.role.ErrorcodeRole.GatewayBusy", 
+                            "name": "GatewayBusy", 
+                            "number": 1048835, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                3
+                            ]
+                        }, 
+                        {
+                            "desc": "验证失败", 
+                            "fullname": "msg.role.ErrorcodeRole.VerifyFailed", 
+                            "name": "VerifyFailed", 
+                            "number": 1048836, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                4
+                            ]
+                        }, 
+                        {
+                            "desc": "未验证通过的连接", 
+                            "fullname": "msg.role.ErrorcodeRole.Unverified", 
+                            "name": "Unverified", 
+                            "number": 1049345, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                5
+                            ]
+                        }, 
+                        {
+                            "desc": "服务器维护", 
+                            "fullname": "msg.role.ErrorcodeRole.SystemMaintain", 
+                            "name": "SystemMaintain", 
+                            "number": 1049346, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                6
+                            ]
+                        }, 
+                        {
+                            "desc": "服务器繁忙", 
+                            "fullname": "msg.role.ErrorcodeRole.LoginSystemBusy", 
+                            "name": "LoginSystemBusy", 
+                            "number": 1049347, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                7
+                            ]
+                        }, 
+                        {
+                            "desc": "版本号太旧", 
+                            "fullname": "msg.role.ErrorcodeRole.ClientVersionTooOld", 
+                            "name": "ClientVersionTooOld", 
+                            "number": 1049348, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                8
+                            ]
+                        }, 
+                        {
+                            "desc": "角色名有非法字符", 
+                            "fullname": "msg.role.ErrorcodeRole.InvalidRolename", 
+                            "name": "InvalidRolename", 
+                            "number": 1050113, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                9
+                            ]
+                        }, 
+                        {
+                            "desc": "角色名重复", 
+                            "fullname": "msg.role.ErrorcodeRole.DuplicationOfname", 
+                            "name": "DuplicationOfname", 
+                            "number": 1050114, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                10
+                            ]
+                        }, 
+                        {
+                            "desc": "创角系统繁忙", 
+                            "fullname": "msg.role.ErrorcodeRole.NewbornSystemBusy", 
+                            "name": "NewbornSystemBusy", 
+                            "number": 1050115, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                11
+                            ]
+                        }, 
+                        {
+                            "desc": "非法的区服ID", 
+                            "fullname": "msg.role.ErrorcodeRole.InvalidZoneID", 
+                            "name": "InvalidZoneID", 
+                            "number": 1050116, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                12
+                            ]
+                        }, 
+                        {
+                            "desc": "角色ID不存在", 
+                            "fullname": "msg.role.ErrorcodeRole.RoleNotExist", 
+                            "name": "RoleNotExist", 
+                            "number": 1050625, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                13
+                            ]
+                        }, 
+                        {
+                            "desc": "系统繁忙", 
+                            "fullname": "msg.role.ErrorcodeRole.SystemIsBusy", 
+                            "name": "SystemIsBusy", 
+                            "number": 1050626, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                14
+                            ]
+                        }, 
+                        {
+                            "desc": "非法的角色id", 
+                            "fullname": "msg.role.ErrorcodeRole.InvalidRoleID", 
+                            "name": "InvalidRoleID", 
+                            "number": 1050627, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                15
+                            ]
+                        }, 
+                        {
+                            "desc": "新建角色失败", 
+                            "fullname": "msg.role.ErrorcodeRole.NewRoleFailed", 
+                            "name": "NewRoleFailed", 
+                            "number": 1050628, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                16
+                            ]
+                        }, 
+                        {
+                            "desc": "从数据库加载失败", 
+                            "fullname": "msg.role.ErrorcodeRole.LoadFromDBFailed", 
+                            "name": "LoadFromDBFailed", 
+                            "number": 1050629, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                17
+                            ]
+                        }, 
+                        {
+                            "desc": "正在数据加载中", 
+                            "fullname": "msg.role.ErrorcodeRole.DBLoading", 
+                            "name": "DBLoading", 
+                            "number": 1050630, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                18
+                            ]
+                        }, 
+                        {
+                            "desc": "玩家被封号", 
+                            "fullname": "msg.role.ErrorcodeRole.RoleIsBanned", 
+                            "name": "RoleIsBanned", 
+                            "number": 1050631, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                19
+                            ]
+                        }
+                    ]
+                }
+            ], 
+            "messagelist": [
+                {
+                    "desc": "玩家验证", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Verify_C", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageVerifyRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "账号", 
+                            "fullname": "msg.role.MessageVerifyRequest.account", 
+                            "label": 2, 
+                            "name": "account", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                1
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "区服编号", 
+                            "fullname": "msg.role.MessageVerifyRequest.zoneindex", 
+                            "label": 1, 
+                            "name": "zoneindex", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                2
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "令牌", 
+                            "fullname": "msg.role.MessageVerifyRequest.token", 
+                            "label": 2, 
+                            "name": "token", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                3
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "客户端IP地址", 
+                            "fullname": "msg.role.MessageVerifyRequest.clienthost", 
+                            "label": 1, 
+                            "name": "clienthost", 
+                            "number": 5, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                4
+                            ], 
+                            "type": 9
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageVerifyRequest", 
+                    "id": 4097, 
+                    "name": "MessageVerifyRequest", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        0
+                    ]
+                }, 
+                {
+                    "desc": "", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Verify_S", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageVerifyResponse.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "网关服务器地址", 
+                            "fullname": "msg.role.MessageVerifyResponse.gatehost", 
+                            "label": 2, 
+                            "name": "gatehost", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                1
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "网关服务器端口", 
+                            "fullname": "msg.role.MessageVerifyResponse.gateport", 
+                            "label": 2, 
+                            "name": "gateport", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                2
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "服务器token", 
+                            "fullname": "msg.role.MessageVerifyResponse.token", 
+                            "label": 2, 
+                            "name": "token", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                3
+                            ], 
+                            "type": 9
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageVerifyResponse", 
+                    "id": 4098, 
+                    "name": "MessageVerifyResponse", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        1
+                    ]
+                }, 
+                {
+                    "desc": "玩家登录", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Login_C", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageRoleLogin.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "账号", 
+                            "fullname": "msg.role.MessageRoleLogin.account", 
+                            "label": 2, 
+                            "name": "account", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                1
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "区服编号", 
+                            "fullname": "msg.role.MessageRoleLogin.zoneindex", 
+                            "label": 1, 
+                            "name": "zoneindex", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                2
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "令牌", 
+                            "fullname": "msg.role.MessageRoleLogin.token", 
+                            "label": 2, 
+                            "name": "token", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                3
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "客户端IP地址", 
+                            "fullname": "msg.role.MessageRoleLogin.clienthost", 
+                            "label": 1, 
+                            "name": "clienthost", 
+                            "number": 5, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                4
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "客户端版本号", 
+                            "fullname": "msg.role.MessageRoleLogin.appversion", 
+                            "label": 2, 
+                            "name": "appversion", 
+                            "number": 6, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                5
+                            ], 
+                            "type": 9
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageRoleLogin", 
+                    "id": 4099, 
+                    "name": "MessageRoleLogin", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        2
+                    ]
+                }, 
+                {
+                    "desc": "玩家登出", 
+                    "enumlist": [
+                        {
+                            "desc": "", 
+                            "fullname": "msg.role.MessageRoleLogout.Reason", 
+                            "name": "Reason", 
+                            "path": [
+                                4, 
+                                3, 
+                                4, 
+                                0
+                            ], 
+                            "valuelist": [
+                                {
+                                    "desc": "正常登出", 
+                                    "fullname": "msg.role.MessageRoleLogout.Reason.Logout", 
+                                    "name": "Logout", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        3, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ]
+                                }, 
+                                {
+                                    "desc": "被提出", 
+                                    "fullname": "msg.role.MessageRoleLogout.Reason.Kickoff", 
+                                    "name": "Kickoff", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        3, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ]
+                                }, 
+                                {
+                                    "desc": "非法的数据包", 
+                                    "fullname": "msg.role.MessageRoleLogout.Reason.BadChecksum", 
+                                    "name": "BadChecksum", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        3, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        2
+                                    ]
+                                }, 
+                                {
+                                    "desc": "被封号", 
+                                    "fullname": "msg.role.MessageRoleLogout.Reason.BannedAccount", 
+                                    "name": "BannedAccount", 
+                                    "number": 4, 
+                                    "path": [
+                                        4, 
+                                        3, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        3
+                                    ]
+                                }, 
+                                {
+                                    "desc": "正常关服", 
+                                    "fullname": "msg.role.MessageRoleLogout.Reason.Shutdown", 
+                                    "name": "Shutdown", 
+                                    "number": 5, 
+                                    "path": [
+                                        4, 
+                                        3, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        4
+                                    ]
+                                }, 
+                                {
+                                    "desc": "服务器维护中", 
+                                    "fullname": "msg.role.MessageRoleLogout.Reason.Maintain", 
+                                    "name": "Maintain", 
+                                    "number": 6, 
+                                    "path": [
+                                        4, 
+                                        3, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        5
+                                    ]
+                                }
+                            ]
+                        }
+                    ], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Logout_CS", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageRoleLogout.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                3, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "角色ID", 
+                            "fullname": "msg.role.MessageRoleLogout.roleid", 
+                            "label": 2, 
+                            "name": "roleid", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                3, 
+                                2, 
+                                1
+                            ], 
+                            "type": 4
+                        }, 
+                        {
+                            "desc": "原因", 
+                            "fullname": "msg.role.MessageRoleLogout.reason", 
+                            "label": 1, 
+                            "name": "reason", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                3, 
+                                2, 
+                                2
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRoleLogout.Reason"
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageRoleLogout", 
+                    "id": 4100, 
+                    "name": "MessageRoleLogout", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        3
+                    ]
+                }, 
+                {
+                    "desc": "角色列表", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "RoleList_S", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageRoleList.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                4, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "角色列表", 
+                            "fullname": "msg.role.MessageRoleList.rolelist", 
+                            "label": 3, 
+                            "name": "rolelist", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                4, 
+                                2, 
+                                1
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.role.MessageRoleList.RoleInfo"
+                        }, 
+                        {
+                            "desc": "运营活动版本号", 
+                            "fullname": "msg.role.MessageRoleList.opversion", 
+                            "label": 2, 
+                            "name": "opversion", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                4, 
+                                2, 
+                                2
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "基础配置版本号", 
+                            "fullname": "msg.role.MessageRoleList.baseversion", 
+                            "label": 2, 
+                            "name": "baseversion", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                4, 
+                                2, 
+                                3
+                            ], 
+                            "type": 9
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageRoleList", 
+                    "id": 4101, 
+                    "name": "MessageRoleList", 
+                    "nestedtypelist": [
+                        {
+                            "desc": "", 
+                            "enumlist": [], 
+                            "fieldlist": [
+                                {
+                                    "desc": "角色ID", 
+                                    "fullname": "msg.role.MessageRoleList.RoleInfo.roleid", 
+                                    "label": 2, 
+                                    "name": "roleid", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        4, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ], 
+                                    "type": 4
+                                }, 
+                                {
+                                    "desc": "AVATAR", 
+                                    "fullname": "msg.role.MessageRoleList.RoleInfo.avatar", 
+                                    "label": 2, 
+                                    "name": "avatar", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        4, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "等级", 
+                                    "fullname": "msg.role.MessageRoleList.RoleInfo.level", 
+                                    "label": 2, 
+                                    "name": "level", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        4, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        2
+                                    ], 
+                                    "type": 13
+                                }, 
+                                {
+                                    "desc": "角色名", 
+                                    "fullname": "msg.role.MessageRoleList.RoleInfo.rolename", 
+                                    "label": 2, 
+                                    "name": "rolename", 
+                                    "number": 4, 
+                                    "path": [
+                                        4, 
+                                        4, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        3
+                                    ], 
+                                    "type": 9
+                                }, 
+                                {
+                                    "desc": "最近一次登录时间", 
+                                    "fullname": "msg.role.MessageRoleList.RoleInfo.lastlogintime", 
+                                    "label": 2, 
+                                    "name": "lastlogintime", 
+                                    "number": 5, 
+                                    "path": [
+                                        4, 
+                                        4, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        4
+                                    ], 
+                                    "type": 4
+                                }
+                            ], 
+                            "fullname": "msg.role.MessageRoleList.RoleInfo", 
+                            "name": "RoleInfo", 
+                            "nestedtypelist": [], 
+                            "path": [
+                                4, 
+                                4, 
+                                3, 
+                                0
+                            ]
+                        }
+                    ], 
+                    "path": [
+                        4, 
+                        4
+                    ]
+                }, 
+                {
+                    "desc": "创建角色", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Newborn_C", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageNewbornRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "账号", 
+                            "fullname": "msg.role.MessageNewbornRequest.account", 
+                            "label": 2, 
+                            "name": "account", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                1
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "区服编号", 
+                            "fullname": "msg.role.MessageNewbornRequest.zoneindex", 
+                            "label": 2, 
+                            "name": "zoneindex", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                2
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "角色名", 
+                            "fullname": "msg.role.MessageNewbornRequest.rolename", 
+                            "label": 2, 
+                            "name": "rolename", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                3
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "选取的角色ID", 
+                            "fullname": "msg.role.MessageNewbornRequest.heroid", 
+                            "label": 1, 
+                            "name": "heroid", 
+                            "number": 5, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                4
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "客户端设备", 
+                            "fullname": "msg.role.MessageNewbornRequest.device", 
+                            "label": 2, 
+                            "name": "device", 
+                            "number": 6, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                5
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "客户端版本号", 
+                            "fullname": "msg.role.MessageNewbornRequest.version", 
+                            "label": 2, 
+                            "name": "version", 
+                            "number": 7, 
+                            "path": [
+                                4, 
+                                5, 
+                                2, 
+                                6
+                            ], 
+                            "type": 9
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageNewbornRequest", 
+                    "id": 4102, 
+                    "name": "MessageNewbornRequest", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        5
+                    ]
+                }, 
+                {
+                    "desc": "新角色返回", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Newborn_S", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageNewbornResponse.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                6, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "角色ID", 
+                            "fullname": "msg.role.MessageNewbornResponse.roleid", 
+                            "label": 2, 
+                            "name": "roleid", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                6, 
+                                2, 
+                                1
+                            ], 
+                            "type": 4
+                        }, 
+                        {
+                            "desc": "角色名", 
+                            "fullname": "msg.role.MessageNewbornResponse.rolename", 
+                            "label": 2, 
+                            "name": "rolename", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                6, 
+                                2, 
+                                2
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "英雄ID", 
+                            "fullname": "msg.role.MessageNewbornResponse.heroid", 
+                            "label": 1, 
+                            "name": "heroid", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                6, 
+                                2, 
+                                3
+                            ], 
+                            "type": 13
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageNewbornResponse", 
+                    "id": 4103, 
+                    "name": "MessageNewbornResponse", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        6
+                    ]
+                }, 
+                {
+                    "desc": "角色进入游戏", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "EnterGame_C", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageRoleEnterGame.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "角色ID", 
+                            "fullname": "msg.role.MessageRoleEnterGame.roleid", 
+                            "label": 2, 
+                            "name": "roleid", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                1
+                            ], 
+                            "type": 4
+                        }, 
+                        {
+                            "desc": "客户端IP地址", 
+                            "fullname": "msg.role.MessageRoleEnterGame.clienthost", 
+                            "label": 1, 
+                            "name": "clienthost", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                2
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "客户端端口号", 
+                            "fullname": "msg.role.MessageRoleEnterGame.clientport", 
+                            "label": 1, 
+                            "name": "clientport", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                3
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "客户端设备号", 
+                            "fullname": "msg.role.MessageRoleEnterGame.device", 
+                            "label": 2, 
+                            "name": "device", 
+                            "number": 5, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                4
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "客户端版本号", 
+                            "fullname": "msg.role.MessageRoleEnterGame.version", 
+                            "label": 2, 
+                            "name": "version", 
+                            "number": 6, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                5
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "客户端建议进入的场景", 
+                            "fullname": "msg.role.MessageRoleEnterGame.suggest", 
+                            "label": 1, 
+                            "name": "suggest", 
+                            "number": 7, 
+                            "path": [
+                                4, 
+                                7, 
+                                2, 
+                                6
+                            ], 
+                            "type": 13
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageRoleEnterGame", 
+                    "id": 4104, 
+                    "name": "MessageRoleEnterGame", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        7
+                    ]
+                }, 
+                {
+                    "desc": "角色详细信息", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "RoleDetail_S", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageRoleDetail.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                8, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "", 
+                            "fullname": "msg.role.MessageRoleDetail.role", 
+                            "label": 2, 
+                            "name": "role", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                8, 
+                                2, 
+                                1
+                            ], 
+                            "type": 11, 
+                            "type_name": ".msg.role.MessageRoleDetail.RoleInfo"
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageRoleDetail", 
+                    "id": 4105, 
+                    "name": "MessageRoleDetail", 
+                    "nestedtypelist": [
+                        {
+                            "desc": "角色详细信息定义", 
+                            "enumlist": [], 
+                            "fieldlist": [
+                                {
+                                    "desc": "角色ID", 
+                                    "fullname": "msg.role.MessageRoleDetail.RoleInfo.roleid", 
+                                    "label": 2, 
+                                    "name": "roleid", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        8, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ], 
+                                    "type": 4
+                                }, 
+                                {
+                                    "desc": "角色名", 
+                                    "fullname": "msg.role.MessageRoleDetail.RoleInfo.rolename", 
+                                    "label": 2, 
+                                    "name": "rolename", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        8, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ], 
+                                    "type": 9
+                                }, 
+                                {
+                                    "desc": "角色经验", 
+                                    "fullname": "msg.role.MessageRoleDetail.RoleInfo.exp", 
+                                    "label": 2, 
+                                    "name": "exp", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        8, 
+                                        3, 
+                                        0, 
+                                        2, 
+                                        2
+                                    ], 
+                                    "type": 4
+                                }
+                            ], 
+                            "fullname": "msg.role.MessageRoleDetail.RoleInfo", 
+                            "name": "RoleInfo", 
+                            "nestedtypelist": [], 
+                            "path": [
+                                4, 
+                                8, 
+                                3, 
+                                0
+                            ]
+                        }
+                    ], 
+                    "path": [
+                        4, 
+                        8
+                    ]
+                }, 
+                {
+                    "desc": "聊天", 
+                    "enumlist": [
+                        {
+                            "desc": "频道定义", 
+                            "fullname": "msg.role.MessageRoleChat.Channel", 
+                            "name": "Channel", 
+                            "path": [
+                                4, 
+                                9, 
+                                4, 
+                                0
+                            ], 
+                            "valuelist": [
+                                {
+                                    "desc": "系统频道", 
+                                    "fullname": "msg.role.MessageRoleChat.Channel.eChannel_System", 
+                                    "name": "eChannel_System", 
+                                    "number": 1, 
+                                    "path": [
+                                        4, 
+                                        9, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        0
+                                    ]
+                                }, 
+                                {
+                                    "desc": "世界频道", 
+                                    "fullname": "msg.role.MessageRoleChat.Channel.eChannel_World", 
+                                    "name": "eChannel_World", 
+                                    "number": 2, 
+                                    "path": [
+                                        4, 
+                                        9, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        1
+                                    ]
+                                }, 
+                                {
+                                    "desc": "公会", 
+                                    "fullname": "msg.role.MessageRoleChat.Channel.eChannel_Guild", 
+                                    "name": "eChannel_Guild", 
+                                    "number": 3, 
+                                    "path": [
+                                        4, 
+                                        9, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        2
+                                    ]
+                                }, 
+                                {
+                                    "desc": "组队", 
+                                    "fullname": "msg.role.MessageRoleChat.Channel.eChannel_Team", 
+                                    "name": "eChannel_Team", 
+                                    "number": 4, 
+                                    "path": [
+                                        4, 
+                                        9, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        3
+                                    ]
+                                }, 
+                                {
+                                    "desc": "私聊", 
+                                    "fullname": "msg.role.MessageRoleChat.Channel.eChannel_Whisper", 
+                                    "name": "eChannel_Whisper", 
+                                    "number": 5, 
+                                    "path": [
+                                        4, 
+                                        9, 
+                                        4, 
+                                        0, 
+                                        2, 
+                                        4
+                                    ]
+                                }
+                            ]
+                        }
+                    ], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Chat_CS", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageRoleChat.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "频道", 
+                            "fullname": "msg.role.MessageRoleChat.channel", 
+                            "label": 2, 
+                            "name": "channel", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                1
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRoleChat.Channel"
+                        }, 
+                        {
+                            "desc": "发送方ID", 
+                            "fullname": "msg.role.MessageRoleChat.sender", 
+                            "label": 1, 
+                            "name": "sender", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                2
+                            ], 
+                            "type": 4
+                        }, 
+                        {
+                            "desc": "发送方名字", 
+                            "fullname": "msg.role.MessageRoleChat.sendername", 
+                            "label": 1, 
+                            "name": "sendername", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                3
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "头像", 
+                            "fullname": "msg.role.MessageRoleChat.avatar", 
+                            "label": 1, 
+                            "name": "avatar", 
+                            "number": 5, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                4
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "等级", 
+                            "fullname": "msg.role.MessageRoleChat.level", 
+                            "label": 1, 
+                            "name": "level", 
+                            "number": 6, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                5
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "接收方ID", 
+                            "fullname": "msg.role.MessageRoleChat.receiver", 
+                            "label": 1, 
+                            "name": "receiver", 
+                            "number": 7, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                6
+                            ], 
+                            "type": 4
+                        }, 
+                        {
+                            "desc": "接收方名字", 
+                            "fullname": "msg.role.MessageRoleChat.receivername", 
+                            "label": 1, 
+                            "name": "receivername", 
+                            "number": 8, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                7
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "消息内容", 
+                            "fullname": "msg.role.MessageRoleChat.content", 
+                            "label": 2, 
+                            "name": "content", 
+                            "number": 9, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                8
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "流媒体", 
+                            "fullname": "msg.role.MessageRoleChat.streammedia", 
+                            "label": 1, 
+                            "name": "streammedia", 
+                            "number": 10, 
+                            "path": [
+                                4, 
+                                9, 
+                                2, 
+                                9
+                            ], 
+                            "type": 12
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageRoleChat", 
+                    "id": 4128, 
+                    "name": "MessageRoleChat", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        9
+                    ]
+                }, 
+                {
+                    "desc": "", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "UseGiftCode_C", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageUseGiftCodeRequest.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                10, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }, 
+                        {
+                            "desc": "礼包码", 
+                            "fullname": "msg.role.MessageUseGiftCodeRequest.code", 
+                            "label": 1, 
+                            "name": "code", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                10, 
+                                2, 
+                                1
+                            ], 
+                            "type": 9
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageUseGiftCodeRequest", 
+                    "id": 4107, 
+                    "name": "MessageUseGiftCodeRequest", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        10
+                    ]
+                }, 
+                {
+                    "desc": "", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "UseGiftCode_S", 
+                            "desc": "", 
+                            "fullname": "msg.role.MessageUseGiftCodeResponse.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                11, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.role.MessageRole"
+                        }
+                    ], 
+                    "fullname": "msg.role.MessageUseGiftCodeResponse", 
+                    "id": 4108, 
+                    "name": "MessageUseGiftCodeResponse", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        11
+                    ]
+                }
+            ], 
+            "package": "msg.role"
+        }, 
+        {
+            "enumlist": [
+                {
+                    "desc": "命令字定义", 
+                    "fullname": "msg.utils.MessageUtils", 
+                    "name": "MessageUtils", 
+                    "path": [
+                        5, 
+                        0
+                    ], 
+                    "valuelist": [
+                        {
+                            "desc": "错误码", 
+                            "fullname": "msg.utils.MessageUtils.Errorcode_S", 
+                            "name": "Errorcode_S", 
+                            "number": 257, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                0
+                            ]
+                        }, 
+                        {
+                            "desc": "心跳包", 
+                            "fullname": "msg.utils.MessageUtils.Ping_CS", 
+                            "name": "Ping_CS", 
+                            "number": 258, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                1
+                            ]
+                        }, 
+                        {
+                            "desc": "版本号", 
+                            "fullname": "msg.utils.MessageUtils.Version_S", 
+                            "name": "Version_S", 
+                            "number": 259, 
+                            "path": [
+                                5, 
+                                0, 
+                                2, 
+                                2
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "desc": "错误码定义", 
+                    "fullname": "msg.utils.ErrorcodeUtils", 
+                    "name": "ErrorcodeUtils", 
+                    "path": [
+                        5, 
+                        1
+                    ], 
+                    "valuelist": [
+                        {
+                            "desc": "成功", 
+                            "fullname": "msg.utils.ErrorcodeUtils.Success", 
+                            "name": "Success", 
+                            "number": 0, 
+                            "path": [
+                                5, 
+                                1, 
+                                2, 
+                                0
+                            ]
+                        }
+                    ]
+                }
+            ], 
+            "messagelist": [
+                {
+                    "desc": "错误码", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Errorcode_S", 
+                            "desc": "", 
+                            "fullname": "msg.utils.MessageErrorcode.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.utils.MessageUtils"
+                        }, 
+                        {
+                            "desc": "命令字", 
+                            "fullname": "msg.utils.MessageErrorcode.cmd", 
+                            "label": 2, 
+                            "name": "cmd", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                1
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "错误码", 
+                            "fullname": "msg.utils.MessageErrorcode.result", 
+                            "label": 2, 
+                            "name": "result", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                0, 
+                                2, 
+                                2
+                            ], 
+                            "type": 13
+                        }
+                    ], 
+                    "fullname": "msg.utils.MessageErrorcode", 
+                    "id": 257, 
+                    "name": "MessageErrorcode", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        0
+                    ]
+                }, 
+                {
+                    "desc": "PING", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Ping_CS", 
+                            "desc": "", 
+                            "fullname": "msg.utils.MessageUtilsPing.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.utils.MessageUtils"
+                        }, 
+                        {
+                            "desc": "服务器当前时间", 
+                            "fullname": "msg.utils.MessageUtilsPing.timestamp", 
+                            "label": 2, 
+                            "name": "timestamp", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                1, 
+                                2, 
+                                1
+                            ], 
+                            "type": 4
+                        }
+                    ], 
+                    "fullname": "msg.utils.MessageUtilsPing", 
+                    "id": 258, 
+                    "name": "MessageUtilsPing", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        1
+                    ]
+                }, 
+                {
+                    "desc": "版本号", 
+                    "enumlist": [], 
+                    "fieldlist": [
+                        {
+                            "default_value": "Version_S", 
+                            "desc": "", 
+                            "fullname": "msg.utils.MessageVersionNotify.id", 
+                            "label": 1, 
+                            "name": "id", 
+                            "number": 1, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                0
+                            ], 
+                            "type": 14, 
+                            "type_name": ".msg.utils.MessageUtils"
+                        }, 
+                        {
+                            "desc": "静态版本号", 
+                            "fullname": "msg.utils.MessageVersionNotify.version", 
+                            "label": 2, 
+                            "name": "version", 
+                            "number": 2, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                1
+                            ], 
+                            "type": 9
+                        }, 
+                        {
+                            "desc": "是否强制0-非强制; 1-强制", 
+                            "fullname": "msg.utils.MessageVersionNotify.method", 
+                            "label": 2, 
+                            "name": "method", 
+                            "number": 3, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                2
+                            ], 
+                            "type": 13
+                        }, 
+                        {
+                            "desc": "运营活动版本号", 
+                            "fullname": "msg.utils.MessageVersionNotify.opversion", 
+                            "label": 2, 
+                            "name": "opversion", 
+                            "number": 4, 
+                            "path": [
+                                4, 
+                                2, 
+                                2, 
+                                3
+                            ], 
+                            "type": 9
+                        }
+                    ], 
+                    "fullname": "msg.utils.MessageVersionNotify", 
+                    "id": 259, 
+                    "name": "MessageVersionNotify", 
+                    "nestedtypelist": [], 
+                    "path": [
+                        4, 
+                        2
+                    ]
+                }
+            ], 
+            "package": "msg.utils"
         }
     ]
 }

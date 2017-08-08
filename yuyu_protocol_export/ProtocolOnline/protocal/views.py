@@ -102,9 +102,22 @@ def project_detail(request,project_id):
     cur_edit_project = cur_project
 
     modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
-    protocals = Protocal.objects.filter(Q(module__in = modules) and Q(module_id = 0)).order_by('-timestamp')
-    enums = Enum.objects.filter(Q(module__in = modules) and Q(module_id = 0)).order_by('-timestamp')
-    customtypes = CustomType.objects.filter(Q(module__in = modules) and Q(module_id = 0)).order_by('-timestamp')
+    global_module = Module(
+        id = 0,
+        name = 'global',
+        namedesc = '全局模块',
+        desc = '',
+        project = cur_edit_project,
+        namespace = cur_edit_project.namespace)
+
+    _modules = [];
+    for m in modules:
+        _modules.append(m);
+    _modules.append(global_module)
+
+    protocals = Protocal.objects.filter(Q(module__in = _modules)).order_by('-timestamp')
+    enums = Enum.objects.filter(Q(module__in = _modules)).order_by('-timestamp')
+    customtypes = CustomType.objects.filter(Q(module__in = _modules)).order_by('-timestamp')
     protocal_types = ProtocalType.objects.all()
     return render(request, 'project_detail.html', { 'cur_project':cur_project,
     												'modules':modules,
