@@ -1,0 +1,111 @@
+{% extends "project_base.html" %}
+{% block project_content %}
+	<h1>
+	同步协议-{{ cur_project.title }}
+	</h1>
+	
+	<div id="project_new_dialog" title = "同步协议">
+
+	<form class="form-horizontal">
+	    <fieldset>
+	    <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label padding_4px" for="input01">同步协议</label>
+        </div>
+        
+        <hr/>
+          
+	    <div class="control-group text-center">
+	    	<!-- <span class="col-sm-3"></span> -->
+			
+			<button type="button" class="btn btn-success btn-lg btn_120px" id="do_sync" 
+			data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在同步..">
+			同步
+			</button>
+			
+	    </div>
+		{% csrf_token %} 
+	    </fieldset>
+	  </form>
+	  
+	  
+	  <table id="protocal_lists" class="table table-hover">
+	  	<caption>历史记录</caption>
+		   <thead>
+		      <tr>
+		         <th>时间</th>
+		         <th>项目</th>
+		         <th>版本</th>
+		         <th>状态</th>
+		      </tr>
+		   </thead>
+		   <tbody>
+		   	  {% for exported_project in exported_projects %}
+		      <tr  id="{{ exported_project.id }}" title="{{ exported_project.title }}">
+		         <td>{{ exported_project.timestamp }}</td>
+		         <td>{{ exported_project.project }}</td>
+		         <td>{{ exported_project.version }}</td>
+		         <td>{{ exported_project.get_status_display }}</td>
+		      </tr>
+			  {% endfor %}
+		   </tbody>
+		</table>
+	</div>
+	
+<script>
+$(document).ready(function() {
+	$(".switch").bootstrapSwitch();
+	
+	var btn_export = $("#do_sync")
+	$("#do_sync").click(function(e) {
+		e.preventDefault();
+		
+		$.ajaxSetup({
+		    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+		});
+		
+		// 打包数据
+		var pack_data = {};
+		
+		btn_export.button('loading');
+		
+	    $.post({
+	        url: '{% url 'project_sync_proto' cur_project.id %}',
+	        data: pack_data,
+	        success: function() {
+	        	BootstrapDialog.alert({
+	            	title:'Success',
+	            	message:"同步成功！",
+	            	type: BootstrapDialog.TYPE_SUCCESS,
+	            	callback: function(result) {
+	            		location.reload();
+	                }
+	            });
+	        	
+	        },
+	        error : function(xhr,errmsg,err) {
+	            var resp = xhr.responseText.split("TRACEBACK");
+	            console.log(xhr.status + ": " + resp[1]); 
+	            BootstrapDialog.alert({
+	            	title:'ERROR',
+	            	message:'同步失败，原因：' + resp[0],
+	            	type: BootstrapDialog.TYPE_DANGER,
+	            	callback: function(result) {
+	            		location.reload();
+	                }
+	            });
+	            
+	        }
+	    });
+	    /* .always(function() { btn_export.button('reset'); }); */
+		
+		return false;
+	});
+	
+});
+
+</script>
+
+
+
+{% endblock %}

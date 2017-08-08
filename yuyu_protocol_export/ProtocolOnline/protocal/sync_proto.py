@@ -111,13 +111,15 @@ def doSyncEnumValue(context, module, enum, enumvalue_dict):
         enum_segment = None
 
     if enum_segment:
-        enum_segment.update( name = strip(segment_name),
-                            value = segment_value,
-                            desc = segment_desc,
-                            belong = enum,
-                            )
+        EnmuSegment.objects.filter(pk=enum_segment.id).update( name = strip(segment_name),
+                                                                namespace = segment_namespace,
+                                                                value = segment_value,
+                                                                desc = segment_desc,
+                                                                belong = enum,
+                                                                )
     else:
         enum_segment = EnmuSegment(  name = strip(segment_name),
+                                    namespace = segment_namespace,
                                     value = segment_value,
                                     desc = segment_desc,
                                     belong = enum,
@@ -140,7 +142,7 @@ def doSyncEnum(context, module, message, enum_dict, inner_type = 0):
         inner_customtype = message;
 
     try:
-        enum = Enum.objects.filter(namespace = segment_namespace)[0]
+        enum = Enum.objects.filter(namespace = enum_namespace)[0]
     except IndexError:
         enum = None
 
@@ -154,7 +156,7 @@ def doSyncEnum(context, module, message, enum_dict, inner_type = 0):
                     )
         enum.save()
 
-        segment_type = SegmentType(name = strip(enum_name),
+        segment_type = SegmentType(name = strip(enum_namespace),
                                    desc = enum_desc,
                                    module = module,
                                    protocal = inner_protocal,
@@ -165,7 +167,7 @@ def doSyncEnum(context, module, message, enum_dict, inner_type = 0):
         segment_type.save()
         Enum.objects.filter(id=enum.id).update(type = segment_type)
     else:
-        Enum.objects.filter(pk=enum_id).update(name = strip(enum_name),
+        Enum.objects.filter(pk=enum.id).update(name = strip(enum_name),
                                                 desc = enum_desc,
                                                 module = module,
                                                 namespace = enum_namespace,
@@ -173,9 +175,9 @@ def doSyncEnum(context, module, message, enum_dict, inner_type = 0):
                                                 belong_ct = inner_customtype,
                                                 )
 
-        segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
+        segment_type = SegmentType.objects.filter(id = enum.type.id)
         if segment_type:
-            segment_type.update(name = strip(enum_name),desc = enum_desc)
+            segment_type.update(name = strip(enum_namespace),desc = enum_desc)
 
 
     valuelist = enum_dict['valuelist']
@@ -188,20 +190,21 @@ def doSyncCustomTypeField(context, module, message, field_dict):
     customtype_segment_desc = field_dict['desc']
     customtype_segment_namespace = field_dict['fullname']
     customtype_segment_protocal_type_id = field_dict['label']
+    customtype_segment_type_type = field_dict['type']
 
     customtype_segment_type = None
     customtype_segment_default_enum_segment = None
-    if segment_type_type == FieldType.TYPE_ENUM:
+    if customtype_segment_type_type == FieldType.TYPE_ENUM:
         segment_type_name = field_dict['type_name'][1:]
         customtype_segment_type = get_object_or_404(Enum, namespace=segment_type_name).type
         if field_dict.has_key('default_value'):
             default_value_namespace = segment_type_name + '.' + field_dict['default_value']
             customtype_segment_default_enum_segment = get_object_or_404(EnmuSegment, namespace=default_value_namespace)
-    elif segment_type_type == FieldType.TYPE_MESSAGE:
-        segment_type_name = field_dict['type_name']
+    elif customtype_segment_type_type == FieldType.TYPE_MESSAGE:
+        segment_type_name = field_dict['type_name'][1:]
         customtype_segment_type = get_object_or_404(CustomType, namespace=segment_type_name).type
     else:
-        customtype_segment_type = get_object_or_404(SegmentType, name=FName[segment_type_type])
+        customtype_segment_type = get_object_or_404(SegmentType, name=FName[customtype_segment_type_type])
 
 
     customtype_segment_protocal_type = get_object_or_404(SegmentProtoType, pk=customtype_segment_protocal_type_id) 
@@ -212,14 +215,14 @@ def doSyncCustomTypeField(context, module, message, field_dict):
         customtype_segment = None
             
     if customtype_segment:
-        customtype_segment.update(name = strip(customtype_segment_name),
-                            namespace = customtype_segment_namespace,
-                            desc = customtype_segment_desc,
-                            belong = message,
-                            protocal_type = customtype_segment_protocal_type,
-                            type = customtype_segment_type,
-                            defaultEnum = customtype_segment_default_enum_segment
-                            )
+        CustomTypeSegment.objects.filter(pk=customtype_segment.id).update(name = strip(customtype_segment_name),
+                                                                        namespace = customtype_segment_namespace,
+                                                                        desc = customtype_segment_desc,
+                                                                        belong = message,
+                                                                        protocal_type = customtype_segment_protocal_type,
+                                                                        type = customtype_segment_type,
+                                                                        defaultEnum = customtype_segment_default_enum_segment
+                                                                        )
     else:
         customtype_segment = CustomTypeSegment(name = strip(customtype_segment_name),
                             namespace = customtype_segment_namespace,
@@ -245,12 +248,12 @@ def doSyncCustomType(context, module, message, message_dict, inner_type = 0):
         inner_customtype = message;
 
     try:
-        customtype = CustomType.objects.filter(namespace = segment_namespace)[0]
+        customtype = CustomType.objects.filter(namespace = customtype_namespace)[0]
     except IndexError:
         customtype = None
 
-    if cur_customtype:          
-        CustomType.objects.filter(pk=customtype_id).update(name = strip(customtype_name),
+    if customtype:          
+        CustomType.objects.filter(pk=customtype.id).update(name = strip(customtype_name),
                                                             desc = customtype_desc,
                                                             module = module,
                                                             namespace = customtype_namespace,
@@ -258,9 +261,9 @@ def doSyncCustomType(context, module, message, message_dict, inner_type = 0):
                                                             belong_ct = inner_customtype,
                                                             )
 
-        segment_type = SegmentType.objects.filter(id = cur_enum.type.id)
+        segment_type = SegmentType.objects.filter(id = customtype.type.id)
         if segment_type:
-            segment_type.update(name = strip(customtype_name),desc = customtype_desc)
+            segment_type.update(name = strip(customtype_namespace),desc = customtype_desc)
     else:
         customtype = CustomType(name = strip(customtype_name),
                     desc = customtype_desc,
@@ -272,7 +275,7 @@ def doSyncCustomType(context, module, message, message_dict, inner_type = 0):
 
         customtype.save()
 
-        segment_type = SegmentType(name = strip(customtype_name),
+        segment_type = SegmentType(name = strip(customtype_namespace),
                                    desc = customtype_desc,
                                    module = module,
                                    protocal = inner_protocal,
@@ -313,10 +316,10 @@ def doSyncMessageField(context, module, message, field_dict):
             default_value_namespace = segment_type_name + '.' + field_dict['default_value']
             segment_default_enum_segment = get_object_or_404(EnmuSegment, namespace=default_value_namespace)
     elif segment_type_type == FieldType.TYPE_MESSAGE:
-        segment_type_name = field_dict['type_name']
+        segment_type_name = field_dict['type_name'][1:]
         segment_type = get_object_or_404(CustomType, namespace=segment_type_name).type
     else:
-        customtype_segment_type = get_object_or_404(SegmentType, name=FName[segment_type_type])
+        segment_type = get_object_or_404(SegmentType, name=FName[segment_type_type])
 
     segment_extra_type1 = None
     segment_extra_type2 = None
@@ -341,16 +344,16 @@ def doSyncMessageField(context, module, message, field_dict):
 
         segment.save()
     else:
-        cur_segment.update(name = strip(segment_name),
-                            desc = segment_desc,
-                            protocal = message,
-                            protocal_type = segment_protocal_type,
-                            type = segment_type,
-                            extra_type1 = segment_extra_type1,
-                            extra_type2 = segment_extra_type2,
-                            namespace = strip(segment_namespace),
-                            defaultEnum = segment_default_enum_segment
-                            )
+        Segment.objects.filter(pk=segment.id).update(name = strip(segment_name),
+                                                    desc = segment_desc,
+                                                    protocal = message,
+                                                    protocal_type = segment_protocal_type,
+                                                    type = segment_type,
+                                                    extra_type1 = segment_extra_type1,
+                                                    extra_type2 = segment_extra_type2,
+                                                    namespace = strip(segment_namespace),
+                                                    defaultEnum = segment_default_enum_segment
+                                                    )
 
 
 def doSyncMessage(context, module, message_dict):

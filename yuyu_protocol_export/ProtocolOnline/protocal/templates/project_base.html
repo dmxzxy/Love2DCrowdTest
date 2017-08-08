@@ -54,6 +54,7 @@
 				<li>
                     <button id="create_module" class="btn btn-success btn-large btn-block">新增模块</button>
 					<button id="export_project" class="btn btn-primary btn-large btn-block">导出项目</button>
+                    <button id="sync_proto" class="btn btn-primary btn-large btn-block">同步协议</button>
 					<button id="admin_system" class="btn btn-danger btn-large btn-block">系统管理</button>
                 </li>
                 
@@ -94,6 +95,11 @@
             $("#export_project").click(function(e) {
                 e.preventDefault();
                 location.replace("{% url 'project_export' cur_project.id %}");
+                return false;
+            });
+            $("#sync_proto").click(function(e) {
+                e.preventDefault();
+                location.replace("{% url 'project_sync_proto' cur_project.id %}");
                 return false;
             });
 		});

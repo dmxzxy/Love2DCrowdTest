@@ -114,6 +114,49 @@ def project_detail(request,project_id):
                                                     'customtypes':customtypes,
 													})
 
+def project_sync_proto(request,project_id):
+    cur_project = get_object_or_404(Project, pk=project_id)
+    if request.method == 'POST': 
+
+        cur_project.is_exporting = True
+        cur_project.save(update_fields=['is_exporting'])
+
+        sugget_version = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        project_export = ProjectExport(project = cur_project,
+                                       version = sugget_version,
+                                       status = 1,
+                                       )
+        project_export.save()
+
+        try:
+            sync_proto.doSync(cur_project)
+            project_export.status = 2
+            project_export.save(update_fields=['status'])
+        except Exception,e:
+            project_export.status = 3
+            project_export.save(update_fields=['status'])
+            utils.print_trace()
+            raise e
+        finally:
+            cur_project.is_exporting = False
+            cur_project.save(update_fields=['is_exporting'])
+
+        return HttpResponse("<h1>Export successfully .</h1>")  
+    else:
+        modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
+        protocals = Protocal.objects.filter(module__in = modules).order_by('-timestamp')
+        protocal_types = ProtocalType.objects.all()
+    
+        exported_projects = ProjectExport.objects.filter(project = cur_project).order_by('-timestamp')[:10]
+        return render(request, 'project_sync_proto.html',{'cur_project':cur_project,
+                                                          'modules':modules,
+                                                          'protocals':protocals,
+                                                          'protocal_types':protocal_types,
+                                                          'exported_projects':exported_projects,
+                                                      })
+    
+
+
 def project_export(request,project_id):
     cur_project = get_object_or_404(Project, pk=project_id)
     if request.method == 'POST': 
@@ -140,8 +183,7 @@ def project_export(request,project_id):
         export_setting = ExporterSetting.objects.first()
         try:
             export_setting.export_clean = export_clean
-            #export_utils.do_export(cur_project, export_version,export_setting)
-            sync_proto.doSync(cur_project)
+            export_utils.do_export(cur_project, export_version,export_setting)
             project_export.status = 2
             project_export.save(update_fields=['status'])
         except Exception,e:
