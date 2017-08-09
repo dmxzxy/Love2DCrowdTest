@@ -18,7 +18,7 @@
      <tbody>
         {% for innerEnum in cur_protocal.innerEnums %}
           <tr>
-            <td><a class='show_enum_segment_class_detail' id = {{innerEnum.id}} title={{innerEnum.name}}>{{innerEnum.name}}</a></td>
+            <td><a class='show_enum_segment_class_detail' id = {{innerEnum.type.id}} title={{innerEnum.name}}>{{innerEnum.name}}</a></td>
           </tr>
         {% endfor %}
      </tbody>

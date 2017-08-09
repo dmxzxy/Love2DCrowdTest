@@ -56,6 +56,7 @@ def do_package_lua(context,output_path):
                 prefix = "Protocals.Response"
             elif protocal.type.name == "Notification":
                 prefix = "Protocals.Notification"
+            prefix = "Protocals" #for yuyu project
             file_lua.write('%s.%s = %d;\n'%(prefix,protocal.name,protocal.protocal_id))
     file_lua.write("\n");
     
@@ -73,14 +74,14 @@ def do_package_lua(context,output_path):
     global_module = context.global_module
     if global_module:
         pb_data,pb_len = load_pb_data(output_path, global_module.name)
-        file_lua.write('        ["%s"] = { namespace = %s, data = "%s", len = %d },\n'%(global_module.name, global_module.namespace, pb_data, pb_len))
+        file_lua.write('        ["%s"] = { namespace = "%s", data = "%s", len = %d },\n'%(global_module.name, global_module.namespace, pb_data, pb_len))
     file_lua.write('    },\n')   
 
 
     file_lua.write('    modules = {\n')
     for module in modules:
         pb_data,pb_len = load_pb_data(output_path, module.name)
-        file_lua.write('        ["%s"] = { namespace = %s, data = "%s", len = %d },\n'%(module.name, module.namespace, pb_data, pb_len))
+        file_lua.write('        ["%s"] = { namespace = "%s", data = "%s", len = %d },\n'%(module.name, module.namespace, pb_data, pb_len))
     file_lua.write('    },\n')   
 
     # write protocals
@@ -98,7 +99,23 @@ def do_package_lua(context,output_path):
             file_lua.write('        [%d] = { id = %d, module = "%s", name = "%s", type = %s, ref = %d, full_name = "%s"},\n'%( \
                         int(protocal.protocal_id),int(protocal.protocal_id),module_name,pb_name,"ProtocalTypes."+protocal.type.name,int(protocal_relate_id), pb_fullname))
     file_lua.write('    },\n')   
-    file_lua.write('}\n')        
+    file_lua.write('}\n')   
+
+    for module in modules:
+        protocals = module.protocals
+        for protocal in protocals:
+            prefix = "";
+            if protocal.type.name == "Request":
+                prefix = "Protocals.Request"
+            elif protocal.type.name == "Response":
+                prefix = "Protocals.Response"
+            elif protocal.type.name == "Notification":
+                prefix = "Protocals.Notification"
+            prefix = "Protocals" #for yuyu project
+            file_lua.write('function %s.as%s(msg)\n'%(prefix, protocal.name))
+            file_lua.write('    return msg or { id = %s.%s }\n'%(prefix, protocal.name))
+            file_lua.write('end\n')
+
     file_lua.close()
     
 
