@@ -217,7 +217,7 @@ class xlsExport2Lua() :
             tableHead = indent + "[\"%s\"] = {\n"%key
             tableTail = indent + "},\n"
 
-        fileTo.write(tableHead);
+        fileTo.write(tableHead.encode('utf-8'));
         indent += "  "
 
         for (k,v) in dictSrc.items() :
@@ -251,7 +251,8 @@ class xlsExport2Lua() :
                 if self.getVersionNum(a_version) > self._version_num:
                     continue
 
-                a_id = int(worksheet.cell_value(i, CONST_INFO_COLS))
+                a_id = worksheet.cell_value(i, CONST_INFO_COLS)
+                print a_id
                 a_content = dict()
                 for j in range(CONST_INFO_COLS,num_cols):
                     attr_name = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_NAME_ROW,j)

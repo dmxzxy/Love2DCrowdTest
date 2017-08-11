@@ -24,13 +24,13 @@ def writeTStringByFolder(folder_path):
 	table.write(1,0,'!')
 	table.write(2,0,'#')
 
-	table.write(0,1,'int')
+	table.write(0,1,'lang')
 	table.write(1,1,'id')
 	table.write(2,1,'ID')
 
 	table.write(0,2,'lang')
-	table.write(1,2,'name')
-	table.write(2,2,'NAME')
+	table.write(1,2,'zhcn')
+	table.write(2,2,'zhcn')
 
 	# write body
 	list_dirs = os.walk(folder_path) 
@@ -39,11 +39,11 @@ def writeTStringByFolder(folder_path):
 			lst = getTString(os.path.join(root, f))
 			for s in lst:
 				table.write(CONST_HEAD_ROWS+index,0,'1.1')
-				table.write(CONST_HEAD_ROWS+index,1,index)
+				table.write(CONST_HEAD_ROWS+index,1,s.decode('utf-8'))
 				table.write(CONST_HEAD_ROWS+index,2,s.decode('utf-8'))
 				index += 1
 
-	file.save('multlang.xls')
+	file.save('../xlstolua/xls/multlang.xls')
 
 
 writeTStringByFolder('./');
