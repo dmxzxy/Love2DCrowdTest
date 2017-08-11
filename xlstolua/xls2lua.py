@@ -113,6 +113,8 @@ class XlsDocument() :
             return self.try_fromat_int(info)
         elif typeStr.lower() == "string":
             return self.try_format_string(info)
+        elif typeStr.lower() == "lang":
+            return self.try_format_string(info)
         elif typeStr.lower() == "array":
             return self.try_format_array(info)
 
@@ -123,17 +125,33 @@ class XlsDocument() :
             lst.append(val)
         return lst
 
+    def format_double_mult_value( self, sheet, row, col_s, col_d, step, typeStr, nameStr ):
+        lst = list()
+        dis = col_d - col_s + 1;
+        step = int(step)
+        print dis, step, divmod(dis,step)
+        if not (divmod(dis,step)[1] == 0):
+            print 'error'
+            return lst
 
-
+        for i in range(0, dis/step):
+            lst2 = list();
+            for j in range(0, step):
+                val = self.format_value2(sheet, row, col_s + i * step + j, typeStr, nameStr)
+                lst2.append(val);
+            lst.append(lst2)
+        return lst
 
 
 class xlsExport2Lua() :
     CONST_EXPORT_TO_DIR = 1
     CONST_EXPORT_TO_FILE = 2
-    def __init__( self, xlsfile, dst ) :
+    def __init__( self, xlsfile, dst, ver ) :
         self._xlsfile = xlsfile
         self._xlsdoc = XlsDocument( xlsfile )
         self._dst = dst;
+        self._ver = ver;
+        self._version_num = self.getVersionNum(ver);
         self._exportTo = self.CONST_EXPORT_TO_DIR
         if os.path.isdir(dst):
             self._exportTo = self.CONST_EXPORT_TO_DIR
@@ -141,6 +159,20 @@ class xlsExport2Lua() :
             self._exportTo = self.CONST_EXPORT_TO_FILE
         else:
           print "it's a special file (socket, FIFO, device file)"
+
+    def getVersionNum(self, verStr):
+        sver = verStr.split('.')
+        if len(sver) > 4:
+            print 'error in version str'
+            return 0
+        i = 0
+        version_num = 0
+        t = [100000000, 1000000, 10000, 1];
+        for v in sver:
+            version_num += int(v) * t[i]
+            i += 1
+        return version_num
+
 
     def writeValueToLua(self, fileTo, key, value, indent) :
         if type(value) == type(1):
@@ -211,10 +243,14 @@ class xlsExport2Lua() :
             array_name = ''
             array_type = 'int'
             start_array_index = 0
+            double_step = 0
             is_double_array = False
             
             for i in range(CONST_INFO_ROWS,num_rows):
-                a_version = worksheet.cell_value(i, CONST_VERSION_COLS)
+                a_version = str(worksheet.cell_value(i, CONST_VERSION_COLS))
+                if self.getVersionNum(a_version) > self._version_num:
+                    continue
+
                 a_id = int(worksheet.cell_value(i, CONST_INFO_COLS))
                 a_content = dict()
                 for j in range(CONST_INFO_COLS,num_cols):
@@ -222,21 +258,29 @@ class xlsExport2Lua() :
                     attr_type_str = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_TYPE_ROW,j)
                     if self._xlsdoc.is_skip(attr_type_str):
                         continue
+                    #hard code
                     if start_array_index > 0:
                         if attr_name == ']':
-                            a_content[array_name] = self._xlsdoc.format_mult_value(worksheet,i,start_array_index,j,array_type,array_name)
+                            if not is_double_array:
+                                a_content[array_name] = self._xlsdoc.format_mult_value(worksheet,i,start_array_index,j,array_type,array_name)
+                            else:
+                                a_content[array_name] = self._xlsdoc.format_double_mult_value(worksheet,i,start_array_index,j,double_step,array_type,array_name)
                             start_array_index = 0;
                             continue
                         else:
                             continue
-
                     if attr_name[-2:] == ':[':
                         if attr_name[-4:-3] == ':':
-                            pass
+                            start_array_index = j
+                            array_type = attr_type_str
+                            array_name = attr_name[:-4]
+                            is_double_array = True
+                            double_step = attr_name[-3:-2]
                         else:
                             start_array_index = j
                             array_type = attr_type_str
                             array_name = attr_name[:-2]
+                            is_double_array = False
                         continue
 
                     a_content[attr_name] = self._xlsdoc.format_value2(worksheet,i,j,attr_type_str,attr_name);
@@ -252,5 +296,5 @@ class xlsExport2Lua() :
 
 
 if __name__ == "__main__" :
-    op = xlsExport2Lua( sys.argv[1], sys.argv[2] )
+    op = xlsExport2Lua( sys.argv[1], sys.argv[2] , sys.argv[3] )
     op.export()

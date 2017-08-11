@@ -39,6 +39,7 @@ def generate_all_config_lua(lua_folder,lua_dev_folder_rel):
 def main() :
     xlspath = sys.argv[1]
     luapath = sys.argv[2]
+    ver = sys.argv[3]
     # 检查目录是否存在
     if not os.path.exists( xlspath ) :
         print xlspath, " is not exist !"
@@ -61,7 +62,7 @@ def main() :
     # 遍历xlspath
     for k,v in summary_diff["updated"].iteritems():
         print 'Convert ' + v.path 
-        exportor = xls2lua.xlsExport2Lua( v.path, luapath )
+        exportor = xls2lua.xlsExport2Lua( v.path, luapath, ver )
         luaList = exportor.export()
 
     generate_all_config_lua(luapath, "Config.GameConfig")
