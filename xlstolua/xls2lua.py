@@ -116,6 +116,15 @@ class XlsDocument() :
         elif typeStr.lower() == "array":
             return self.try_format_array(info)
 
+    def format_mult_value( self, sheet, row, col_s, col_d, typeStr, nameStr ):
+        lst = list()
+        for col in range(col_s, col_d+1):
+            val = self.format_value2(sheet, row, col, typeStr, nameStr)
+            lst.append(val)
+        return lst
+
+
+
 
 
 class xlsExport2Lua() :
@@ -199,6 +208,11 @@ class xlsExport2Lua() :
             fileName = worksheet.name;
             sheetDict = dict()
             items = dict();
+            array_name = ''
+            array_type = 'int'
+            start_array_index = 0
+            is_double_array = False
+            
             for i in range(CONST_INFO_ROWS,num_rows):
                 a_version = worksheet.cell_value(i, CONST_VERSION_COLS)
                 a_id = int(worksheet.cell_value(i, CONST_INFO_COLS))
@@ -208,6 +222,23 @@ class xlsExport2Lua() :
                     attr_type_str = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_TYPE_ROW,j)
                     if self._xlsdoc.is_skip(attr_type_str):
                         continue
+                    if start_array_index > 0:
+                        if attr_name == ']':
+                            a_content[array_name] = self._xlsdoc.format_mult_value(worksheet,i,start_array_index,j,array_type,array_name)
+                            start_array_index = 0;
+                            continue
+                        else:
+                            continue
+
+                    if attr_name[-2:] == ':[':
+                        if attr_name[-4:-3] == ':':
+                            pass
+                        else:
+                            start_array_index = j
+                            array_type = attr_type_str
+                            array_name = attr_name[:-2]
+                        continue
+
                     a_content[attr_name] = self._xlsdoc.format_value2(worksheet,i,j,attr_type_str,attr_name);
                 items[a_id] = a_content
             sheetDict["items"] = items;

@@ -2,11 +2,6 @@ local item = {
   ["items"] = {
     ["12101001"] = {
       [""] = 5,
-      ["doubleArray:3:["] = 1,
-      ["newres"] = 3894829,
-      ["logicValue"] = 1,
-      ["res"] = "skdnrkwn",
-      ["value"] = 100,
       ["doubleArray"] = {
         {
           1,
@@ -19,22 +14,25 @@ local item = {
           6,
         },
       },
+      ["newres"] = 3894829,
+      ["logicValue"] = 1,
+      ["res"] = "skdnrkwn",
+      ["singleArray1"] = {
+        1,
+        2,
+        3,
+      },
+      ["value"] = 100,
       ["singleArray"] = {
         1,
         2,
         3,
       },
-      ["singleArray:["] = 1,
       ["]"] = 6,
       ["id"] = 12101001,
     },
     ["12101002"] = {
       [""] = 11,
-      ["doubleArray:3:["] = 7,
-      ["newres"] = 3894829,
-      ["logicValue"] = 0,
-      ["res"] = "skdnrkwn",
-      ["value"] = 100,
       ["doubleArray"] = {
         {
           7,
@@ -47,22 +45,25 @@ local item = {
           12,
         },
       },
+      ["newres"] = 3894829,
+      ["logicValue"] = 0,
+      ["res"] = "skdnrkwn",
+      ["singleArray1"] = {
+        4,
+        5,
+        6,
+      },
+      ["value"] = 100,
       ["singleArray"] = {
         4,
         5,
         6,
       },
-      ["singleArray:["] = 4,
       ["]"] = 12,
       ["id"] = 12101002,
     },
     ["12101003"] = {
       [""] = 23,
-      ["doubleArray:3:["] = 19,
-      ["newres"] = 3894829,
-      ["logicValue"] = 1,
-      ["res"] = "skdnrkwn",
-      ["value"] = 102,
       ["doubleArray"] = {
         {
           19,
@@ -75,22 +76,25 @@ local item = {
           24,
         },
       },
+      ["newres"] = 3894829,
+      ["logicValue"] = 1,
+      ["res"] = "skdnrkwn",
+      ["singleArray1"] = {
+        10,
+        11,
+        12,
+      },
+      ["value"] = 102,
       ["singleArray"] = {
         10,
         11,
         12,
       },
-      ["singleArray:["] = 10,
       ["]"] = 24,
       ["id"] = 12101003,
     },
     ["12101004"] = {
       [""] = 29,
-      ["doubleArray:3:["] = 25,
-      ["newres"] = 3894829,
-      ["logicValue"] = 1,
-      ["res"] = "skdnrkwn",
-      ["value"] = 100,
       ["doubleArray"] = {
         {
           25,
@@ -103,22 +107,25 @@ local item = {
           30,
         },
       },
+      ["newres"] = 3894829,
+      ["logicValue"] = 1,
+      ["res"] = "skdnrkwn",
+      ["singleArray1"] = {
+        13,
+        14,
+        15,
+      },
+      ["value"] = 100,
       ["singleArray"] = {
         13,
         14,
         15,
       },
-      ["singleArray:["] = 13,
       ["]"] = 30,
       ["id"] = 12101004,
     },
     ["12101005"] = {
       [""] = 35,
-      ["doubleArray:3:["] = 31,
-      ["newres"] = 78789,
-      ["logicValue"] = 0,
-      ["res"] = "skdnrkwn",
-      ["value"] = 100,
       ["doubleArray"] = {
         {
           31,
@@ -131,12 +138,20 @@ local item = {
           36,
         },
       },
+      ["newres"] = 78789,
+      ["logicValue"] = 0,
+      ["res"] = "skdnrkwn",
+      ["singleArray1"] = {
+        16,
+        17,
+        18,
+      },
+      ["value"] = 100,
       ["singleArray"] = {
         16,
         17,
         18,
       },
-      ["singleArray:["] = 16,
       ["]"] = 36,
       ["id"] = 12101005,
     },
