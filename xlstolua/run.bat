@@ -1,2 +1,2 @@
-xls2luas.py ./xls ./Config/GameConfig 1.1
+xls2luas.py ./xls ./export 1.1
 pause

@@ -11,9 +11,9 @@ CONST_INFO_COLS = 1
 CONST_VERSION_COLS = 0
 
 class DescriptorFile:
-    def __init__(self):
-        self.name = None
-        self.configs = None
+    def __init__(self,name):
+        self.name = name
+        self.configs = []
 
 class DescriptorData:
     def __init__(self, version, key, content):
@@ -48,15 +48,13 @@ class CodeGenerateRequest():
             self.add_file(f)
 
     def add_file(self, f):
-        _cfgFile = DescriptorFile()
-        _cfgFile.name = f
-        _cfgFile.configs = [];
+        file_desc = DescriptorFile(f)
 
         _workbook = xlrd.open_workbook(f)
         worksheets = _workbook.sheets()
         for worksheet in worksheets :
-            self.add_config(worksheet,_cfgFile)
-            self.files.append(_cfgFile)
+            self.add_config(worksheet,file_desc)
+        self.files.append(file_desc)
 
     def is_file_can_add(self, cfg_desc):
         if cfg_desc.nrows <= CONST_INFO_COLS and file_desc.ncols <= 1:
@@ -78,7 +76,7 @@ class CodeGenerateRequest():
         if self.is_file_can_add(config_desc):
             for i in range(CONST_INFO_ROWS,config_desc.nrows):
                     self.add_data(worksheet, i, config_desc)
-
+            print config_desc.name
             file_desc.configs.append(config_desc)
 
     def add_attr(self, _name, _type, col, config_desc):
@@ -124,7 +122,3 @@ class CodeGenerateRequest():
         data = DescriptorData(version, key, contents)
         cfg_desc.attr_datas.append(data)
 
-
-if __name__ == "__main__" :
-    files = ['xls/test.xlsm']
-    req = CodeGenerateRequest(files, '1.1')
