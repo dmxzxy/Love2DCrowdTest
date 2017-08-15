@@ -2,7 +2,6 @@
 import sys
 import os
 from cStringIO import StringIO
-#from descriptor import *
 
 ALL_CONFIG_NAME = "GameConfigs"
 
@@ -25,6 +24,9 @@ class Writer(object):
 
     def getvalue(self):
         return self.io.getvalue()
+
+    def getindent(self):
+        return self.__indent
 
     def __enter__(self):
         self.__indent += '    '
@@ -80,9 +82,10 @@ def is_skip( scheme ) :
     return False
 
 def try_fromat_int( data ) :
-
     try:
         if type(data) == type(list()):
+            for i in range(len(data)):
+                data[i] = int(data[i])
             return data
 
         array_value = eval(data);
@@ -132,6 +135,13 @@ def code_gen_field(key, value):
                 field_context('"%s",\n'%(value))
             elif type(value) == type(u's'):
                 field_context(('"%s",\n'%(value)).encode('utf-8'))
+            elif type(value) == type(list()):
+                field_context(('{\n'))
+                list_fields = []
+                for v in value:
+                    list_fields.append(code_gen_field(None, v))
+                map(field_context, list_fields)
+                field_context('},\n')
         else:
             if type(value) == type(1):
                 field_context('["%s"] = %d,\n'%(key,value))
@@ -165,7 +175,7 @@ def code_gen_datas(data_desc, config_desc):
             _data.append(data);
 
         map(context, _data)
-        context('}\n')
+        context('},\n')
 
     return context.getvalue()
 
@@ -180,7 +190,6 @@ def code_gen_file(file_desc):
             data = config.attr_datas[i]
             _datas.append(code_gen_datas(data, config))
 
-        print(_datas)
         map(context, _datas)
         context('}\nreturn %s\n'%config.name)
         _files[config.name + '.lua'] = context.getvalue()
@@ -208,3 +217,11 @@ def gen_code(req, toPath):
     gen_all_config(gen_path)
 
     print '.........end gen type : '+type_name()+'............'
+
+
+
+if __name__ == "__main__" :
+    from descriptor import *
+    files = ['../xls/test.xlsm']
+    code_gen_requrest = CodeGenerateRequest(files, '1.1')
+    gen_code(code_gen_requrest, './')
