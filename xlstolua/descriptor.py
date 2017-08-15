@@ -10,6 +10,25 @@ CONST_INFO_COLS = 1
 
 CONST_VERSION_COLS = 0
 
+def get_version_num(verStr):
+    sver = verStr.split('.')
+    if len(sver) > 4:
+        print 'error in version str'
+        return 0
+    i = 0
+    version_num = 0
+    t = [100000000, 1000000, 10000, 1];
+    for v in sver:
+        version_num += int(v) * t[i]
+        i += 1
+    return version_num
+
+def cmp_version(src_ver, dst_ver):
+    if get_version_num(src_ver) > get_version_num(dst_ver):
+        return True
+    return False
+
+
 class DescriptorFile:
     def __init__(self,name):
         self.name = name
@@ -34,7 +53,7 @@ class DescriptorConfig:
         self.nrows = nrows
         self.ncols = ncols
         self.attrs = []
-        self.attr_datas = []
+        self.attr_datas = {}
 
 class CodeGenerateRequest():
     files = None
@@ -75,8 +94,16 @@ class CodeGenerateRequest():
 
         if self.is_file_can_add(config_desc):
             for i in range(CONST_INFO_ROWS,config_desc.nrows):
-                    self.add_data(worksheet, i, config_desc)
-            print config_desc.name
+                data_desc = self.add_data(worksheet, i, config_desc)
+                if cmp_version(data_desc.version, self.version):
+                    continue
+
+                if config_desc.attr_datas.has_key(data_desc.key):
+                    if not cmp_version(data_desc.version, config_desc.attr_datas[data_desc.key].version):
+                        continue
+                        
+                config_desc.attr_datas[data_desc.key] = data_desc
+
             file_desc.configs.append(config_desc)
 
     def add_attr(self, _name, _type, col, config_desc):
@@ -133,5 +160,4 @@ class CodeGenerateRequest():
             contents.append(content)
 
         data = DescriptorData(version, key, contents)
-        cfg_desc.attr_datas.append(data)
-
+        return data

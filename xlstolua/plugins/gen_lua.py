@@ -190,9 +190,8 @@ def code_gen_file(file_desc):
         context('local %s = {\n'%config.name)
 
         _datas = [];
-        for i in range(0, len(config.attr_datas)):
-            data = config.attr_datas[i]
-            _datas.append(code_gen_datas(data, config))
+        for (k,v) in config.attr_datas.items():
+            _datas.append(code_gen_datas(v, config))
 
         map(context, _datas)
         context('}\nreturn %s\n'%config.name)
