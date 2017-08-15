@@ -115,8 +115,21 @@ class CodeGenerateRequest():
                 content = worksheet.cell_value(row, attr_desc.cols[0])
             else:
                 content = []
-                for col in attr_desc.cols:
-                    content.append(worksheet.cell_value(row, col))
+                if attr_desc.item_cols > 1:
+                    pass
+                    dis = len(attr_desc.cols);
+                    step = int(attr_desc.item_cols)
+                    col_s = attr_desc.cols[0]
+                    if (divmod(dis,step)[1] == 0):
+                        for i in range(0, dis/step):
+                            item_content = list();
+                            for j in range(0, step):
+                                val = worksheet.cell_value(row, col_s + i * step + j)
+                                item_content.append(val);
+                            content.append(item_content)
+                else:
+                    for col in attr_desc.cols:
+                        content.append(worksheet.cell_value(row, col))
             contents.append(content)
 
         data = DescriptorData(version, key, contents)

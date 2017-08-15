@@ -85,7 +85,10 @@ def try_fromat_int( data ) :
     try:
         if type(data) == type(list()):
             for i in range(len(data)):
-                data[i] = int(data[i])
+                if type(data[i]) == type(list()):
+                    data[i] = try_fromat_int(data[i])
+                else:
+                    data[i] = int(data[i])
             return data
 
         array_value = eval(data);
@@ -126,22 +129,22 @@ def try_format_value( typeStr, nameStr, data ) :
     elif typeStr.lower() == "array":
         return try_format_array(data)
 
-def code_gen_field(key, value):
-    with Writer() as field_context:
+def code_gen_field(key, value, indent=''):
+    with Writer(indent) as field_context:
         if key == None :
-            if type(value) == type(1):
-                field_context('%d,\n'%(value))
+            if type(value) == type(1) or type(value) == type(1.0):
+                field_context('%d,\n'%int(value))
             elif type(value) == type("s"):
                 field_context('"%s",\n'%(value))
             elif type(value) == type(u's'):
                 field_context(('"%s",\n'%(value)).encode('utf-8'))
             elif type(value) == type(list()):
-                field_context(('{\n'))
+                field_context('{\n')
                 list_fields = []
                 for v in value:
-                    list_fields.append(code_gen_field(None, v))
+                    list_fields.append(code_gen_field(None, v, indent))
                 map(field_context, list_fields)
-                field_context('},\n')
+                field_context(indent+'},\n')
         else:
             if type(value) == type(1):
                 field_context('["%s"] = %d,\n'%(key,value))
@@ -153,9 +156,9 @@ def code_gen_field(key, value):
                 field_context(('["%s"] = {\n'%(key)).encode('utf-8'))
                 list_fields = []
                 for v in value:
-                    list_fields.append(code_gen_field(None, v))
+                    list_fields.append(code_gen_field(None, v, indent+field_context.getindent()))
                 map(field_context, list_fields)
-                field_context('},\n')
+                field_context(indent+field_context.getindent()+'},\n')
 
     return field_context.getvalue()
 
@@ -167,8 +170,9 @@ def code_gen_datas(data_desc, config_desc):
         context(('["%s"] = {\n'%key).encode('utf-8'))
         _data = []
         for j in range(0, len(config_desc.attrs)):
-            attr_type = config_desc.attrs[j].type
-            attr_name = config_desc.attrs[j].name
+            attrs = config_desc.attrs[j]
+            attr_type = attrs.type
+            attr_name = attrs.name
             if is_skip(attr_type):
                 continue
             data = code_gen_field(attr_name, try_format_value(attr_type, attr_name, content[j]))
@@ -215,9 +219,7 @@ def gen_code(req, toPath):
         f.close()
 
     gen_all_config(gen_path)
-
     print '.........end gen type : '+type_name()+'............'
-
 
 
 if __name__ == "__main__" :
