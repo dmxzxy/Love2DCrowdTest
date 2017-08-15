@@ -101,7 +101,7 @@ class CodeGenerateRequest():
                 if config_desc.attr_datas.has_key(data_desc.key):
                     if not cmp_version(data_desc.version, config_desc.attr_datas[data_desc.key].version):
                         continue
-                        
+
                 config_desc.attr_datas[data_desc.key] = data_desc
 
             file_desc.configs.append(config_desc)
@@ -143,7 +143,6 @@ class CodeGenerateRequest():
             else:
                 content = []
                 if attr_desc.item_cols > 1:
-                    pass
                     dis = len(attr_desc.cols);
                     step = int(attr_desc.item_cols)
                     col_s = attr_desc.cols[0]
