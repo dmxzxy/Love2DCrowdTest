@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Game";
+}
+
+<div id="gameContainer">
+
+</div>
+
+@section Scripts {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/game.css"/>
+        <script src="~/lib/phaser/index.js"></script>
+        <script src="~/ts/game.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/css/game.css" asp-append-version="true"/>
+        <script src="~/lib/phaser/index.js" asp-append-version="true"></script>
+        <script src="~/ts/game.js" asp-append-version="true"></script>
+    </environment>
+}
