@@ -142,9 +142,9 @@ def code_gen_field(key, value, indent=''):
                 field_context('{\n')
                 list_fields = []
                 for v in value:
-                    list_fields.append(code_gen_field(None, v, indent))
+                    list_fields.append(code_gen_field(None, v, indent+field_context.getindent()))
                 map(field_context, list_fields)
-                field_context(indent+'},\n')
+                field_context(indent+field_context.getindent()+'},\n')
         else:
             if type(value) == type(1):
                 field_context('["%s"] = %d,\n'%(key,value))
@@ -156,7 +156,7 @@ def code_gen_field(key, value, indent=''):
                 field_context(('["%s"] = {\n'%(key)).encode('utf-8'))
                 list_fields = []
                 for v in value:
-                    list_fields.append(code_gen_field(None, v, indent+field_context.getindent()))
+                    list_fields.append(code_gen_field(None, v, field_context.getindent()))
                 map(field_context, list_fields)
                 field_context(field_context.getindent()+'},\n')
 
