@@ -64,6 +64,7 @@ class CodeGenerateRequest():
         self.version = version
         self.files = []
         for f in files:
+            print '--------start gen file ' + f + '\n'
             self.add_file(f)
 
     def add_file(self, f):
@@ -72,6 +73,7 @@ class CodeGenerateRequest():
         _workbook = xlrd.open_workbook(f)
         worksheets = _workbook.sheets()
         for worksheet in worksheets :
+            print '--------start gen sheet ' + worksheet.name + '\n'
             self.add_config(worksheet,file_desc)
         self.files.append(file_desc)
 
@@ -87,6 +89,10 @@ class CodeGenerateRequest():
     def add_config(self, worksheet, file_desc):
         config_desc = DescriptorConfig(worksheet.name, worksheet.nrows, worksheet.ncols)
         searching_end_attr_desc = None;
+        
+        if not worksheet.cell_value(0,0) == '$':
+            return
+
         for i in range(0,config_desc.ncols):
             attr_name = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_NAME_ROW,i)
             attr_type_str = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_TYPE_ROW,i)
