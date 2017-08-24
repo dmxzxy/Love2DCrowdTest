@@ -105,25 +105,19 @@ def code_gen_file(file_desc):
         _files[config.name + '.' + my_suffix()] = context_value
 
 
-def gen_code(req, toPath):
+#-----------------------------------------------------------------------------------------
+def gen_code(request, response, toPath):
     print '.........start gen type : '+type_name()+'..........'
-    gen_path = toPath + my_path()
-    if not os.path.exists( gen_path ) :
-        os.makedirs(gen_path)
+    response.mysuffix = my_suffix()
+    response.mypath = my_path()
 
-    #clean up dir
-    for filename in os.listdir(gen_path) :
-        name, suffix = filename.split( '.' )
-        if  suffix == my_suffix() :
-            os.remove(gen_path+"/"+filename)
-
-    for file_desc in req.files:
+    for file_desc in request.files:
         code_gen_file(file_desc)
 
     for k,v in _files.iteritems():
         print 'gen code [%s] file = %s'%(type_name(), k)
-        f = file(gen_path+'/'+k,"w")
-        f.write(v);
-        f.close()
+        file = response.addFile()
+        file.name = k
+        file.content = v
 
     print '.........end gen type : '+type_name()+'............'

@@ -64,16 +64,15 @@ class CodeGenerateRequest():
         self.version = version
         self.files = []
         for f in files:
-            print '--------start gen file ' + f + '\n'
             self.add_file(f)
 
     def add_file(self, f):
+        print '--------parse xml file ' + f
         file_desc = DescriptorFile(f)
 
         _workbook = xlrd.open_workbook(f)
         worksheets = _workbook.sheets()
         for worksheet in worksheets :
-            print '--------start gen sheet ' + worksheet.name + '\n'
             self.add_config(worksheet,file_desc)
         self.files.append(file_desc)
 
@@ -93,6 +92,7 @@ class CodeGenerateRequest():
         if not worksheet.cell_value(0,0) == '$':
             return
 
+        print '------------parse xml sheet ' + worksheet.name
         for i in range(0,config_desc.ncols):
             attr_name = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_NAME_ROW,i)
             attr_type_str = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_TYPE_ROW,i)
@@ -166,3 +166,39 @@ class CodeGenerateRequest():
 
         data = DescriptorData(version, key, contents)
         return data
+
+class ReturnFile():
+    name = None
+    content = None
+
+class CodeGenerateResponse():
+    topath = None
+    mypath = None
+    mysuffix = None
+    files = None
+    def __init__(self, topath):
+        self.topath = topath
+        self.files = []
+
+    def addFile(self):
+        newfile = ReturnFile();
+        self.files.append(newfile)
+        return newfile
+
+    def saveToFile(self):
+        gen_path = self.topath + self.mypath
+        if not os.path.exists( gen_path ) :
+            os.makedirs(gen_path)
+
+        #clean up dir
+        for filename in os.listdir(gen_path) :
+            name, suffix = filename.split( '.' )
+            if  suffix == self.mysuffix :
+                os.remove(gen_path+"/"+filename)
+
+        for _f in self.files:
+            f = file(gen_path+'/'+_f.name,"w")
+            f.write(_f.content);
+            f.close()
+
+
