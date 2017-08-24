@@ -1,0 +1,22 @@
+{
+    "1": {
+        "battleGroundX": 1600, 
+        "battleGroundY": 600, 
+        "battleGroundZ": 500, 
+        "battleTime": 99, 
+        "cameraCloseMax": 150, 
+        "cameraFarMax": 60, 
+        "cameraRollSpd": 10, 
+        "cameraRollTime": 10, 
+        "cardsDeckCD": 0, 
+        "cardsDeckMax": 10, 
+        "cardsDeckMin": 10, 
+        "handCards": 4, 
+        "id": 1, 
+        "maxCharLimit": 5, 
+        "playCd": 57, 
+        "staminaMax": 10, 
+        "staminaRR": 1, 
+        "triggerCd": 0
+    }
+}

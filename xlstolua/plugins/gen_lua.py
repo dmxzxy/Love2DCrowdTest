@@ -215,6 +215,7 @@ def gen_code(req, toPath):
         code_gen_file(file_desc)
 
     for k,v in _files.iteritems():
+        print 'gen code [%s] file = %s'%(type_name(), k)
         f = file(gen_path+'/'+k,"w")
         f.write(v);
         f.close()

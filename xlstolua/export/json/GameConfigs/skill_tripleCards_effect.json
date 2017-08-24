@@ -1,0 +1,292 @@
+{
+    "1": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            1, 
+            1, 
+            1
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 1, 
+        "param": [
+            0
+        ]
+    }, 
+    "2": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            2, 
+            2, 
+            2
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 2, 
+        "param": [
+            0
+        ]
+    }, 
+    "3": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            3, 
+            3, 
+            3
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 3, 
+        "param": [
+            0
+        ]
+    }, 
+    "4": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            1, 
+            1, 
+            2
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 4, 
+        "param": [
+            0
+        ]
+    }, 
+    "5": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            1, 
+            1, 
+            3
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 5, 
+        "param": [
+            0
+        ]
+    }, 
+    "6": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            2, 
+            2, 
+            1
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 6, 
+        "param": [
+            0
+        ]
+    }, 
+    "7": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            2, 
+            2, 
+            3
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 7, 
+        "param": [
+            0
+        ]
+    }, 
+    "8": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            3, 
+            3, 
+            1
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 8, 
+        "param": [
+            0
+        ]
+    }, 
+    "9": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            3, 
+            3, 
+            2
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 9, 
+        "param": [
+            0
+        ]
+    }, 
+    "10": {
+        "chainBonus": [
+            [
+                1, 
+                1, 
+                200
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ], 
+            [
+                0, 
+                0, 
+                0
+            ]
+        ], 
+        "chainType": [
+            1, 
+            2, 
+            3
+        ], 
+        "chainTypeUnlockCon": 0, 
+        "id": 10, 
+        "param": [
+            0
+        ]
+    }
+}
