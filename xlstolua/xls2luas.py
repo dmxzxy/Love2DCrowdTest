@@ -30,7 +30,6 @@ def main() :
         files.append(v.path)
 
     print "\n\nstart gen .......................\n"
-    code_gen_req = CodeGenerateRequest(files, ver)
     support = []
     for name in plugins.__all__:
         plugin = getattr(plugins, name)
@@ -43,13 +42,16 @@ def main() :
     print 'support export types : ' + str(support) + '\n\n'
 
     for name in plugins.__all__:
+        code_gen_req = CodeGenerateRequest(files, ver)
+        code_gen_response = CodeGenerateResponse(topath)
         plugin = getattr(plugins, name)
         try:
             gen_code = plugin.gen_code
         except AttributeError:
             pass
         else:
-            gen_code(code_gen_req, topath)
+            gen_code(code_gen_req, code_gen_response, topath)
+            code_gen_response.saveToFile()
 
     #write_file_summary(file_sumary,summary_path)
     print "\n\n\n\nDone.........................."
