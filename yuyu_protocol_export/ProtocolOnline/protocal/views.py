@@ -159,13 +159,14 @@ def project_sync_proto(request,project_id):
         modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
         protocals = Protocal.objects.filter(module__in = modules).order_by('-timestamp')
         protocal_types = ProtocalType.objects.all()
-    
+        need_update = sync_proto.testUpdate(cur_project)
         exported_projects = ProjectExport.objects.filter(project = cur_project).order_by('-timestamp')[:10]
         return render(request, 'project_sync_proto.html',{'cur_project':cur_project,
                                                           'modules':modules,
                                                           'protocals':protocals,
                                                           'protocal_types':protocal_types,
                                                           'exported_projects':exported_projects,
+                                                          'need_update':need_update,
                                                       })
     
 

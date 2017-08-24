@@ -12,18 +12,34 @@
           <!-- Text input-->
           <label class="control-label padding_4px" for="input01">同步协议</label>
         </div>
-        
+
         <hr/>
           
 	    <div class="control-group text-center">
 	    	<!-- <span class="col-sm-3"></span> -->
 			
-			<button type="button" class="btn btn-success btn-lg btn_120px" id="do_sync" 
-			data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在同步..">
-			同步
-			</button>
-			
+	        {% if need_update %}
+				<button type="button" class="btn btn-success btn-lg btn_220px" id="do_sync" 
+				data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在同步..">
+				同步
+			    <div class="control-group">
+		          <!-- Text input-->
+		          <label class="control-label padding_4px" for="input01">当前有新的协议可以同步</label>
+		        </div>
+				</button>
+			{% else %}
+				<button type="button" class="btn btn-danger btn-lg btn_220px" id="do_sync" 
+				data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在同步.." disabled="disabled">
+				同步
+			    <div class="control-group">
+		          <!-- Text input-->
+		          <label class="control-label padding_4px" for="input01">当前没有可以同步的协议</label>
+		        </div>
+				</button>
+	        {% endif %}
 	    </div>
+
+        
 		{% csrf_token %} 
 	    </fieldset>
 	  </form>

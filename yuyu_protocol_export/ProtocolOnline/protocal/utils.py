@@ -48,6 +48,7 @@ def cmd_call(cmd):
             raise Exception(stdoutput.encode('utf-8'))
         else:
             raise Exception(erroutput.encode('utf-8'))
+    return (stdoutput,erroutput)
 
 
 def copytree(src, dst, symlinks=False):  

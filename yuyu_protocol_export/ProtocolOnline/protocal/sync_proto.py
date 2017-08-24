@@ -485,6 +485,24 @@ def doSyncModule(context, module_dict):
 GIT_CMD_PATH = 'D:/Program Files/Git/bin/'
 GIT_SSH_CMD = 'set GIT_SSH_COMMAND=ssh -i "D:/Key/id_rsa" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no '
 
+def do_test_git_update(context):
+    proto_sync_path = context.proto_sync_path
+    if not os.path.exists(proto_sync_path):
+        return True
+
+    export_git_foler = os.path.join(proto_sync_path, 'protocol/')
+
+    cmd = 'cd "%s" && D: && %s && "%sgit" fetch origin develop:temp' % (export_git_foler, GIT_SSH_CMD, GIT_CMD_PATH)
+    ret = cmd_call(cmd)
+
+    cmd = 'cd "%s" && D: && %s && "%sgit" diff temp' % (export_git_foler, GIT_SSH_CMD, GIT_CMD_PATH)
+    ret = cmd_call(cmd)
+
+    if len(ret[0]) > 0:
+       return True
+
+    return False
+
 def do_pull_git(context):
     proto_sync_path = context.proto_sync_path
     
@@ -502,7 +520,7 @@ def doSync(project):
     context = cls_context()
     context.namespace = project.namespace
     context.cur_project = project
-    context.proto_sync_path = 'D:/workspace/yuyu/protocol/';
+    context.proto_sync_path = 'D:/workspace/yuyu/program/protocol/';
     bin_path = os.path.dirname(__file__)
     context.bin_path = os.path.join(bin_path, 'export_bin/' )
     #step 1: git download server proto files
@@ -510,11 +528,21 @@ def doSync(project):
     #step 3: for add edit sql
     #step 4: for del edit sql
     #step 4: for update edit sql
-    do_pull_git(context)
+    if do_test_git_update(context):
+        do_pull_git(context)
 
-    parse_proto_files(context)
-    with open(proto_parse_plugin_outputpath+'/'+'parse.json','r') as load_f:
-        proto_parse_dict = json.load(load_f);
-        context.proto_parse_dict = proto_parse_dict;
-        for m in proto_parse_dict['modulelist']:
-            doSyncModule(context, m)
+        parse_proto_files(context)
+        with open(proto_parse_plugin_outputpath+'/'+'parse.json','r') as load_f:
+            proto_parse_dict = json.load(load_f);
+            context.proto_parse_dict = proto_parse_dict;
+            for m in proto_parse_dict['modulelist']:
+                doSyncModule(context, m)
+
+def testUpdate(project):
+    context = cls_context()
+    context.namespace = project.namespace
+    context.cur_project = project
+    context.proto_sync_path = 'D:/workspace/yuyu/program/protocol/';
+    bin_path = os.path.dirname(__file__)
+    context.bin_path = os.path.join(bin_path, 'export_bin/' )
+    return do_test_git_update(context);
