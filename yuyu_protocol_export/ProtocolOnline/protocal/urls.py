@@ -14,6 +14,9 @@ urlpatterns = [
     url(r'^project/downloadcpp/(?P<project_id>[0-9]+)/$', views.project_download_cpp, name='project_download_cpp'),
     url(r'^project/sync/(?P<project_id>[0-9]+)/$', views.project_sync_proto, name='project_sync_proto'),
 
+    url(r'^project/export_config/$', views.project_export_config, name='export_config'),
+    url(r'^project/config_download/$', views.project_config_download, name='config_download'),
+
     url(r'^module/create/(?P<project_id>[0-9]+)$', views.module_create, name='module_create'),
     url(r'^module/detail/(?P<module_id>[0-9]+)$', views.module_detail, name='module_detail'),
 

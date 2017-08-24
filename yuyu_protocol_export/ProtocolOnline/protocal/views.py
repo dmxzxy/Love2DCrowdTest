@@ -17,7 +17,7 @@ from datetime import datetime
 from string import strip
 
 from protocal.models import *
-from protocal import export_utils, utils, sync_proto
+from protocal import export_utils, utils, sync_proto, export_config
 from protocal.utils import try_parse_int
 
 cur_edit_project = None
@@ -1100,3 +1100,43 @@ def module_detail(request,module_id):
                                                   'segment_proto_types':segment_proto_types,
                                                   'relative_protocals':relative_protocals,
                                                   })
+
+
+def project_config_download(request):
+    export_setting = ExporterSetting.objects.first()
+    def file_iterator(file_path, chunk_size=512):
+        with open(file_path,'rb') as f:
+            while True:
+                c = f.read(chunk_size)
+                if c:
+                    yield c
+                else:
+                    break
+    the_file_name = 'config_lua.zip'                
+    the_file_path = export_setting.export_path + '/config'+  '/archive/' + the_file_name
+#     print 'the_file_path:' + the_file_path
+    file_size = os.path.getsize(the_file_path)
+    print 'file size:' + str(file_size)
+    response = StreamingHttpResponse(file_iterator(the_file_path))
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+    response['Content-Length'] = file_size
+    return response
+
+
+def project_export_config(request):
+    if request.method == 'POST': 
+
+        export_setting = ExporterSetting.objects.first()
+
+        try:
+            export_config.do_export(export_setting.export_path)
+        except Exception,e:
+            utils.print_trace()
+            raise e
+        finally:
+            pass
+
+        return HttpResponse("<h1>Export successfully .</h1>")  
+    else:
+        return HttpResponse("<h1>Invalid request.</h1>") 
