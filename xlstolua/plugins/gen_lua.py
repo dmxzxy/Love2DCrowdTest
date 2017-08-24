@@ -5,6 +5,9 @@ from cStringIO import StringIO
 
 ALL_CONFIG_NAME = "GameConfigs"
 
+INDENT = '    '
+INDENT_LEN = len(INDENT)
+
 _files = {}
 
 def type_name():
@@ -29,11 +32,11 @@ class Writer(object):
         return self.__indent
 
     def __enter__(self):
-        self.__indent += '    '
+        self.__indent += INDENT
         return self
 
     def __exit__(self, type, value, trackback):
-        self.__indent = self.__indent[:-4]
+        self.__indent = self.__indent[:-INDENT_LEN]
 
     def __call__(self, data):
         self.io.write(self.__indent)
@@ -99,14 +102,21 @@ def try_fromat_int( data ) :
             a_int_value = int(float(data))
         except:
             return 0
-    return a_int_value
+        return a_int_value
+        
+    return 0
 
 def try_format_string( data ) :
     try:
         array_value = eval(data);
         return array_value;
     except:
-        pass
+        a_str_value = ''
+        try:
+            a_str_value = str(data)
+        except:
+            return a_str_value
+        return a_str_value
 
     return data
 
@@ -129,84 +139,65 @@ def try_format_value( typeStr, nameStr, data ) :
     elif typeStr.lower() == "array":
         return try_format_array(data)
 
-def code_gen_field(key, value, indent=''):
-    with Writer(indent) as field_context:
+def code_gen_field(key, value, context):
+    with context:
         if key == None :
             if type(value) == type(1) or type(value) == type(1.0):
-                field_context('%d,\n'%int(value))
+                context('%d,\n'%int(value))
             elif type(value) == type("s"):
-                field_context('"%s",\n'%(value))
+                context('"%s",\n'%(value))
             elif type(value) == type(u's'):
-                field_context(('"%s",\n'%(value)).encode('utf-8'))
+                context(('"%s",\n'%(value)).encode('utf-8'))
             elif type(value) == type(list()):
-                field_context('{\n')
-                list_fields = []
+                context('{\n')
                 for v in value:
-                    list_fields.append(code_gen_field(None, v, indent+field_context.getindent()))
-                map(field_context, list_fields)
-                field_context(indent+field_context.getindent()+'},\n')
+                    code_gen_field(None, v, context)
+                context('},\n')
         else:
             if type(value) == type(1):
-                field_context('["%s"] = %d,\n'%(key,value))
+                context('["%s"] = %d,\n'%(key,value))
             elif type(value) == type("s"):
-                field_context('["%s"] = "%s",\n'%(key,value))
+                context('["%s"] = "%s",\n'%(key,value))
             elif type(value) == type(u's'):
-                field_context(('["%s"] = "%s",\n'%(key,value)).encode('utf-8'))
+                context(('["%s"] = "%s",\n'%(key,value)).encode('utf-8'))
             elif type(value) == type(list()):
-                field_context(('["%s"] = {\n'%(key)).encode('utf-8'))
-                list_fields = []
+                context(('["%s"] = {\n'%(key)).encode('utf-8'))
                 for v in value:
-                    list_fields.append(code_gen_field(None, v, field_context.getindent()))
-                map(field_context, list_fields)
-                field_context(field_context.getindent()+'},\n')
+                    code_gen_field(None, v, context)
+                context('},\n')
 
-    return field_context.getvalue()
-
-def code_gen_datas(data_desc, config_desc):
-    with Writer() as context:
+def code_gen_datas(data_desc, config_desc, context):
+    with context:
         version = data_desc.version
         key = data_desc.key
         content = data_desc.content
         context(('["%s"] = {\n'%key).encode('utf-8'))
-        _data = []
         for j in range(0, len(config_desc.attrs)):
             attrs = config_desc.attrs[j]
             attr_type = attrs.type
             attr_name = attrs.name
             if is_skip(attr_type):
                 continue
-            data = code_gen_field(attr_name, try_format_value(attr_type, attr_name, content[j]), context.getindent())
-            _data.append(data);
-
-        map(context, _data)
-        context(context.getindent()+'},\n')
-
-    return context.getvalue()
+            code_gen_field(attr_name, try_format_value(attr_type, attr_name, content[j]), context)
+        context('},\n')
 
 def code_gen_config(config_desc):
     context = Writer()
     write_header(context)
     context('local %s = {\n'%config_desc.name)
-    context('    ["items"] = {\n')
-
-    _datas = [];
-    for (k,v) in config_desc.attr_datas.items():
-        _datas.append('    ' + code_gen_datas(v, config_desc))
-
-    map(context, _datas)
-    context('    }\n')
-    context('}\nreturn %s\n'%config_desc.name)
+    with context:
+        context('["items"] = {\n')
+        for (k,v) in config_desc.attr_datas.items():
+            code_gen_datas(v, config_desc, context)
+        context('}\n')
+    context('}\n')
+    context('return %s\n'%config_desc.name)
     return context.getvalue();
 
 
 def code_gen_file(file_desc):
-    export_file_names = {};
     for config in file_desc.configs:
-        context_value = code_gen_config(config)
-        export_file_names[config.name + '.lua'] = context_value
-
-    for (k,v) in export_file_names.items():
-        _files[k] = v
+        _files[config.name + '.lua'] = code_gen_config(config)
 
 def gen_code(req, toPath):
     print '.........start gen type : '+type_name()+'..........'
