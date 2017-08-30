@@ -3,14 +3,26 @@
 
 import os
 import sys
-import xls2lua
 import shutil
 from summary_tools import *
 from descriptor import *
 import plugins
 
-def main() :
 
+ignoreList = [
+    '90.脏字过滤_keywords'
+]
+
+def isInIgnoreList(fname):
+    for i in ignoreList:
+        ifname = i.decode('utf8')
+        fname = fname.decode('gbk')
+        if ifname == fname :
+            return True;
+    return False
+
+
+def main() :
     xlspath = sys.argv[1]
     topath = sys.argv[2]
     ver = sys.argv[3]
@@ -27,6 +39,8 @@ def main() :
     # 遍历xlspath
     files = []
     for k,v in summary_diff["updated"].iteritems():
+        if isInIgnoreList(k):
+            continue
         files.append(v.path)
 
     print "\n\nstart gen .......................\n"

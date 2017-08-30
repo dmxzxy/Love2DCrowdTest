@@ -11,7 +11,7 @@ def type_name():
     return 'lua'
 
 def my_path():
-    return '/lua/Config/GameConfigs'
+    return '/lua/Config/GameConfig'
 
 def my_suffix():
     return 'lua'
@@ -93,10 +93,10 @@ def try_format_string( data ) :
         a_str_value = ''
         try:
             a_str_value = str(data)
-        except:
             return a_str_value
-        return a_str_value
-
+        except:
+            pass
+            
     return data
 
 def try_format_array( data ) :
@@ -176,7 +176,7 @@ def code_gen_config(config_desc):
 
 def code_gen_file(file_desc):
     for config in file_desc.configs:
-        _files[config.name + '.lua'] = code_gen_config(config)
+        _files[config.name] = code_gen_config(config)
 
 
 #-----------------------------------------------------------------------------------------
@@ -205,7 +205,7 @@ def gen_code(request, response, toPath):
         all_lua_name.append(k)
         print 'gen code [%s] file = %s'%(type_name(), k)
         file = response.addFile()
-        file.name = k
+        file.name = k + '.lua'
         file.content = v
 
     file = response.addFile()

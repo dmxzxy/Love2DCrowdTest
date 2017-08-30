@@ -88,7 +88,10 @@ class CodeGenerateRequest():
     def add_config(self, worksheet, file_desc):
         config_desc = DescriptorConfig(worksheet.name, worksheet.nrows, worksheet.ncols)
         searching_end_attr_desc = None;
-        
+
+        if worksheet.nrows <= CONST_INFO_COLS and worksheet.ncols <= 1:
+            return
+            
         if not worksheet.cell_value(0,0) == '$':
             return
 
