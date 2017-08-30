@@ -102,7 +102,6 @@ def code_gen_config(config_desc):
 
 def code_gen_file(file_desc):
     for config in file_desc.configs:
-        print code_gen_config(config)
         context_value = json.dumps(code_gen_config(config), ensure_ascii = False, sort_keys=True, indent=4)
         _files[config.name + '.' + my_suffix()] = context_value.encode('utf-8')
 
