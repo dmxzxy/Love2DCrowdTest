@@ -76,32 +76,27 @@ class CodeGenerateRequest():
             self.add_config(worksheet,file_desc)
         self.files.append(file_desc)
 
-    def is_file_can_add(self, cfg_desc):
-        if cfg_desc.nrows <= CONST_INFO_COLS and file_desc.ncols <= 1:
+    def is_file_can_add(self, worksheet):
+        if worksheet.nrows <= CONST_INFO_COLS and worksheet.ncols <= 1:
             return False
-        if len(cfg_desc.attrs) == 0:
-            return False
-        if not cfg_desc.attrs[0].type == '$':
+        if not worksheet.cell_value(0,0) == '$':
             return False
         return True
 
     def add_config(self, worksheet, file_desc):
+        if not self.is_file_can_add(worksheet):
+            return
+
         config_desc = DescriptorConfig(worksheet.name, worksheet.nrows, worksheet.ncols)
         searching_end_attr_desc = None;
-
-        if worksheet.nrows <= CONST_INFO_COLS and worksheet.ncols <= 1:
-            return
-            
-        if not worksheet.cell_value(0,0) == '$':
-            return
-
+        
         print '------------parse xml sheet ' + worksheet.name
         for i in range(0,config_desc.ncols):
             attr_name = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_NAME_ROW,i)
             attr_type_str = worksheet.cell_value(CONST_SHEET_ATTRIBUTE_TYPE_ROW,i)
             self.add_attr(attr_name, attr_type_str, i, config_desc)
 
-        if self.is_file_can_add(config_desc):
+        if len(config_desc.attrs) > 0:
             for i in range(CONST_INFO_ROWS,config_desc.nrows):
                 data_desc = self.add_data(worksheet, i, config_desc)
                 if cmp_version(data_desc.version, self.version):
