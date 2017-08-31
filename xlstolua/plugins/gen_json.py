@@ -50,8 +50,16 @@ def try_fromat_int( data ) :
 
 def try_format_string( data ) :
     try:
-        array_value = eval(data);
-        return array_value;
+        if not data.find('[') == -1:
+            print '--------------', data
+            array_value = eval(data);
+            return array_value;
+        else:
+            try:
+                a_str_value = str(data)
+                return a_str_value
+            except:
+                pass
     except:
         a_str_value = ''
         try:
@@ -102,7 +110,7 @@ def code_gen_config(config_desc):
 
 def code_gen_file(file_desc):
     for config in file_desc.configs:
-        print code_gen_config(config)
+        print '---------------------------', config.name
         context_value = json.dumps(code_gen_config(config), ensure_ascii = False, sort_keys=True, indent=4)
         _files[config.name + '.' + my_suffix()] = context_value.encode('utf-8')
 

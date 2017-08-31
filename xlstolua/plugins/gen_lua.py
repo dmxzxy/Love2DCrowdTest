@@ -87,8 +87,15 @@ def try_fromat_int( data ) :
 
 def try_format_string( data ) :
     try:
-        array_value = eval(data);
-        return array_value;
+        if not data.find('[') == -1:
+            array_value = eval(data);
+            return array_value;
+        else:
+            try:
+                a_str_value = str(data)
+                return a_str_value
+            except:
+                pass
     except:
         a_str_value = ''
         try:
@@ -96,7 +103,6 @@ def try_format_string( data ) :
             return a_str_value
         except:
             pass
-            
     return data
 
 def try_format_array( data ) :
