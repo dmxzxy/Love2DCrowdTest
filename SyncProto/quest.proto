@@ -1,0 +1,93 @@
+package msg.quest;
+
+import "questtype.proto";
+import "base.proto";
+
+//
+// 命令字定义
+//
+enum MessageQuest
+{
+	GetQuestList_C 			= 0x1500;	// 获取任务列表
+	QuestList_S 			= 0x1501;	// 任务列表回应
+
+	AcceptQuest_S 			= 0x1502;	// 新接领任务
+	QuestProgress_S 		= 0x1503;	// 任务进度
+	SubmitQuest_C 			= 0x1504;	// 提交任务
+	SubmitQuest_S 			= 0x1505;	// 提交任务返回
+	DrawDailyRewards_C		= 0x1506;	// 领取日常任务奖励
+	DrawDailyRewards_S 		= 0x1507;	// 领取日常任务奖励返回
+};
+
+//
+// 错误码定义
+//
+enum ErrorcodeQuest
+{
+	Success 				= 0x000000;	// 成功
+    
+	GetQuestListInvalidType = 0x150001; // 非法操作类型
+
+    QuestIsntDoing          = 0x150401; // 任务未进行
+    QuestIsntComplete       = 0x150402; // 任务没完成
+    QuestConfigError        = 0x150403; // 配置错误
+
+	StageInvalid 			= 0x150601;	// 没有这个阶段奖励
+	HavebeenDrawed			= 0x150602;	// 该阶段的奖励你领过了
+	ScoreNotEnough			= 0x150603;	// 积分不足
+};
+
+// 获取任务列表
+message MessageGetQuestList
+{
+	optional MessageQuest 		id 			= 1 [ default = GetQuestList_C ];
+	optional uint32 			type 		= 2;		// 任务类型(不填代表查询所有任务)
+};
+
+// 任务列表
+message MessageQuestList
+{
+	optional MessageQuest 		id 			= 1 [ default = QuestList_S ];
+	optional uint32 			status 		= 2;		// 活跃度领取状态
+	repeated QuestInfoBase 		questlist 	= 3;		// 任务列表
+};
+
+// 新接领任务
+message MessageAcceptQuest
+{
+	optional MessageQuest 		id 		 	= 1 [ default = AcceptQuest_S ];
+	required QuestInfoBase 		questinfo 	= 2;		// 新接领的任务信息
+};
+
+// 任务进度
+message MessageQuestProgress
+{
+	optional MessageQuest 		id 			= 1 [ default = QuestProgress_S ];
+	required QuestProgress 		progress 	= 2;		// 任务进度
+};
+
+// 提交任务
+message MessageSubmitQuestRequest
+{
+	optional MessageQuest 		id 			= 1 [ default = SubmitQuest_C ];
+	required uint32 			questid 	= 2;		// 任务ID
+};
+message MessageSubmitQuestResponse
+{
+	optional MessageQuest 		id 			= 1 [ default = SubmitQuest_S ];
+	required uint32 			questid 	= 2;		// 任务ID
+	required uint32 			state 		= 3;		// 任务完成状态
+};
+
+// 领取日常任务奖励
+message MessageDrawDailyQuestRewardsRequest
+{
+	optional MessageQuest 		id 		 	= 1 [ default = DrawDailyRewards_C ];
+	required uint32 			stage 		= 2;		// 分段(下标从0开始)
+};
+message MessageDrawDailyQuestRewardsResponse
+{
+	optional MessageQuest 		id 		 	= 1 [ default = DrawDailyRewards_S ];
+	required uint32 			stage 		= 2;		// 分段
+	repeated Resource			rewards 	= 3;		// 奖励
+};

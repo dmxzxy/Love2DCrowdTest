@@ -1,0 +1,270 @@
+package msg.hero;
+
+import "base.proto";
+import "herotype.proto";
+
+//
+// 命令字定义
+//
+enum MessageHero
+{
+	HeroList_C 					= 0x1201;	// 英雄列表请求
+	HeroList_S 					= 0x1202;	// 英雄列表回应
+	Compound_C 					= 0x1203;	// 合成英雄请求
+	Compound_S 					= 0x1204;	// 合成英雄回应
+	NewHero_S 					= 0x1205;	// 获得新伙伴通知
+	DressDeed_C					= 0x1206;	// 穿戴契约请求
+	DressDeed_S 				= 0x1207;	// 穿戴契约回应
+	HeroUpGrade_C 				= 0x1208; 	// 英雄进阶请求
+	HeroUpGrade_S 				= 0x1209; 	// 英雄进阶请求返回
+	ExRuneSuit_C				= 0x120A; 	// 英雄套装替换
+	ExRuneSuit_S 				= 0x120B; 	// 英雄套装替换返回
+	GetRuneSuit_C 				= 0x120C; 	// 获取英雄灵压预套信息
+	GetRuneSuit_S 				= 0x120D; 	// 获取英雄灵压预套返回信息
+	SaveRuneSuit_C 				= 0x120E;	// 保存灵玉预设套装
+	SaveRuneSuit_S 				= 0x120F; 	// 保存灵玉预设套装返回信息
+    LoadRuneSuit_C  			= 0x1210;   // 加载灵玉预设套装
+    LoadRuneSuit_S  			= 0x1211;   // 加载灵玉预设套装
+	HeroStar_C 					= 0x1212;	// 伙伴觉醒请求
+	HeroStar_S 					= 0x1213;	// 伙伴觉醒回应
+	SkillLevelup_C				= 0x1214;	// 技能升级
+	SkillLevelup_S 				= 0x1215;	// 技能升级返回
+	SkillReset_C				= 0x1216;	// 技能重置
+	SkillReset_S 				= 0x1217;	// 技能重置返回
+	ObtainSklPoint_C		 	= 0x1218;	// 获取技能点
+	ObtainSklPoint_S 			= 0x1219;	// 获取技能点返回
+};
+
+//
+// 错误码定义
+//
+enum ErrorcodeHero
+{
+	Success 					= 0x000000;	// 成功
+
+	Compounded 					= 0x120301;	// 英雄已经被招募过
+	InvalidHeroID				= 0x120302;	// 非法的英雄ID
+	DebrisNotEnough				= 0x120303;	// 招募所需的碎片不足
+	HeroNotOpen					= 0x120304;	// 英雄暂未开放
+	InvalidConfifError 			= 0x120305;	// 配置文件错误
+	CoinNotEnough 				= 0x120306;	// 金币不足
+
+	DressDeedInvalidID 			= 0x120601;	// 非法的英雄ID
+	DressDeedHasDid 			= 0x120602;	// 该部位已装备契约
+	DressDeedNotFind 			= 0x120603;	// 无法找到该部位契约
+	DressDeedNotExist 			= 0x120604;	// 该契约不存在
+	DressDeedNotLV 				= 0x120605;	// 使用等级不足
+	DressDeedNotGOt 			= 0x120606;	// 未获得该部位契约
+
+	GradeDressInvalid           = 0x120801; // 进阶装备不足
+    GradeMax                    = 0x120802; // 进阶等级已达最大值
+
+	StarInvalidID 				= 0x121201;	// 非法的英雄ID
+	StarConfigError 			= 0x121202;	// 配置文件错误
+	StarLimit 					= 0x121203; // 觉醒等级已达上限
+	StarItemNot 				= 0x121204;	// 伙伴碎片不足
+	StarGamecoinNot				= 0x121205;	// 金币不足
+};
+
+//
+// 消息定义
+//
+
+// 英雄列表
+message MessageHeroListRequest
+{
+	optional MessageHero 		id 			= 1 [ default = HeroList_C ];
+};
+message MessageHeroListResponse
+{
+	optional MessageHero 		id 			= 1 [ default = HeroList_S ];
+	repeated HeroInfo 			heros 		= 2;	// 伙伴
+};
+
+// 合成英雄
+message MessageCompoundHeroRequest
+{
+	optional MessageHero 		id 		 	= 1 [ default = Compound_C ];
+	required uint32 			baseid 		= 2;	// 需要招募的英雄碎片配置id
+};
+message MessageCompoundHeroResponse
+{
+	optional MessageHero 		id 			= 1 [ default = Compound_S ];
+};
+
+// 获得新的英雄
+message MessageNewHeroNotify
+{
+	message FragHero
+	{
+		required uint32 		id 			= 1;	// 伙伴id
+		required uint32 		star 		= 2;	// 星级
+	};
+	optional MessageHero 		id 			= 1 [ default = NewHero_S ];
+	repeated HeroInfo 			hero 	 	= 2;	// 新的英雄信息
+	repeated FragHero 			fraghero 	= 3;	// 已经碎片化的英雄信息
+};
+
+// 穿戴契约
+message MessageDressDeedRequest
+{
+	optional MessageHero    id          = 1 [ default = DressDeed_C ];
+	required uint64 		heroid      = 2;        // 伙伴流水ID
+	required uint32 		position 	= 3;		// 装备位置(从0开始)
+};
+message MessageDressDeedResponse
+{
+	optional MessageHero    id          = 1 [ default = DressDeed_S ];
+	required uint64 		heroid 		= 2;		// 伙伴流水ID
+	required uint32 		state 		= 3;		// 穿戴状态
+};
+
+// 英雄进阶
+message MessageHeroUpGradeRequest
+{
+	optional MessageHero 		id 			= 1 [ default = HeroUpGrade_C ];
+	optional uint64 			heroid 		= 2; 	// 伙伴流水ID
+};
+
+message MessageHeroUpGradeResponse
+{
+	optional MessageHero 		id 			= 1 [ default = HeroUpGrade_S ];
+    optional uint64             heroid      = 2;    // 伙伴流水ID
+    optional uint32             grade       = 3;    // 进阶数 
+	required uint32 			deedstate 	= 4;	// 契约穿戴状态
+	required uint32 			sklpoint 	= 5;	// 当前技能点
+};
+
+message MessageExRuneSuitRequest
+{
+	optional MessageHero 		id 			= 1 [ default = ExRuneSuit_C ];
+	optional uint64 			heroid 		= 2; 	// 伙伴id
+    
+    message SlotInfo
+    {
+        optional uint32         slotid      = 1;    // 位置id
+        optional uint64         entityid    = 2;    // 需要装备的灵玉
+    };
+    
+    repeated SlotInfo           equips      = 3;    // 需要装备的灵玉 
+};
+
+message MessageExRuneSuitResponse
+{
+	optional MessageHero 		id 			= 1 [ default = ExRuneSuit_S ];
+	optional uint64 			heroid 		= 2;
+};
+
+message MessageGetRuneSuitRequest
+{
+	optional MessageHero 		id 			= 1 [ default = GetRuneSuit_C ];
+	optional uint64 			heroid 		= 2;
+};
+
+message MessageGetRuneSuitResponse
+{
+	optional MessageHero 		id 			= 1 [ default = GetRuneSuit_S ];
+	optional uint64 			heroid 		= 2;
+
+    message SlotInfo
+    {
+        optional uint32         slotid      = 1;    // 位置id
+        optional uint64         entityid    = 2;    // 道具实体id
+        optional uint32         itemid      = 3;    // 道具id
+    };
+    
+    message RuneSuitInfo
+    {
+        optional uint32         id          = 1; // id
+        optional string         name        = 2; // 名称
+        optional uint32         usetimes    = 3; // 使用次数
+        repeated SlotInfo       slots       = 4; // 坑 
+    };
+
+    repeated RuneSuitInfo       suit        = 5; // 套装消息
+};
+
+message MessageSaveRuneSuitRequest
+{
+	optional MessageHero 		id 			= 1 [ default = SaveRuneSuit_C ];
+	optional uint64 			heroid 		= 2;
+    optional uint32             suitid      = 3; // 保存到哪个预设 
+    optional string             name        = 4; // 灵玉名字
+};
+
+message MessageSaveRuneSuitResponse
+{
+	optional MessageHero 		id 			= 1 [ default = SaveRuneSuit_S ];
+	optional uint64 			heroid 		= 2;
+};
+
+message MessageLoadRuneSuitRequest
+{
+    optional MessageHero        id          = 1 [ default = LoadRuneSuit_C ];
+    optional uint64             heroid      = 2;    // 伙伴
+    optional uint32             suitid      = 3;    // 预设套装id
+    optional uint32             type        = 4;    // 1全部加载 2只加载空闲
+};
+
+message MessageLoadRuneSuitResponse
+{
+    optional MessageHero        id          = 1 [ default = LoadRuneSuit_S ];
+    optional uint64             heroid      = 2;    // 伙伴
+    optional uint32             suitid      = 3;    // 预设套装id
+    optional uint32             type        = 4;    // 1全部加载 2只加载空闲
+};
+
+// 伙伴觉醒
+message MessageHeroStarRequest
+{
+    optional MessageHero        id          = 1 [ default = HeroStar_C ];
+    required uint64             heroid      = 2;    // 伙伴
+};
+
+message MessageHeroStarResponse
+{
+    optional MessageHero        id          = 1 [ default = HeroStar_S ];
+    required uint64             heroid      = 2;    // 伙伴
+	required uint32 			star 		= 3;	// 觉醒等级
+};
+
+// 技能升级
+message MessageSkillLevelupRequest
+{
+	optional MessageHero 		id 			= 1 [ default = SkillLevelup_C ];
+	required uint64 			heroid 		= 2;	// 伙伴ID
+	required uint32 			spellid 	= 3;	// 技能ID
+};
+message MessageSkillLevelupResponse
+{
+	optional MessageHero 		id 			= 1 [ default = SkillLevelup_S ];
+	required uint64 			heroid 		= 2;	// 伙伴ID
+	required uint32 			spellid 	= 3;	// 技能ID
+	required uint32 			sklpoint 	= 4;	// 当前技能点
+};
+
+// 技能洗点
+message MessageSkillResetRequest
+{
+	optional MessageHero 		id 			= 1 [ default = SkillReset_C ];
+	required uint64 			heroid 		= 2;	// 伙伴ID
+};
+message MessageSkillResetResponse
+{
+	optional MessageHero 		id 			= 1 [ default = SkillReset_S ];
+	required uint64 			heroid 		= 2;	// 伙伴ID
+	required uint32 			sklpoint 	= 3;	// 当前技能点
+};
+
+// 获取技能点
+message MessageObtainSklptRequest
+{
+	optional MessageHero 		id 			= 1 [ default = ObtainSklPoint_C ];
+	required uint64 			heroid 		= 2; 	// 伙伴ID
+};
+message MessageObtainSklptResponse
+{
+	optional MessageHero 		id 			= 1 [ default = ObtainSklPoint_S ];
+	required uint64 			heroid 		= 2; 	// 伙伴ID
+	required uint32 			sklpoint 	= 3;	// 当前技能点
+};

@@ -16,12 +16,23 @@ message ItemDetailInfo
 	// 装备
 	message EquipData
 	{
-		required uint32 	level 		= 1;					// 强化等级
-		required uint32		heroid		= 3;					// 装备到哪个英雄身上
+		required uint64		heroid		= 1;					// 装备到哪个英雄身上
+		required uint32 	grade 		= 2;					// 品阶
+		required uint32 	potential	= 3;					// 潜力点
+		repeated uint32 	enhances 	= 4;					// 强化属性
 	};
+
+    // 灵玉
+    message RuneData
+    {
+        required uint32     heroid      = 1;                    // 所装备的玩家
+        required uint32     strengthlv  = 2;                    // 灵玉强化等级
+        required uint32     islock      = 3;                    // 灵玉是否上锁
+    };
 
 	required ItemBase 		base		= 1;
 	optional EquipData		equip		= 2;
-	optional int64 			lifetime	= 5;					// 物品生命
+	optional RuneData       rune        = 3;                    // 灵玉信息
+    optional int64 			lifetime	= 5;					// 物品生命
 };
 

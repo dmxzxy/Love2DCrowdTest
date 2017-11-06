@@ -1,0 +1,32 @@
+package msg.mail;
+
+import "base.proto";
+
+enum MailType
+{
+	eMailType_User 						= 1;	// 用户邮件
+	eMailType_System 					= 2;	// 系统邮件
+	eMailType_GameMaster				= 3;	// GM邮件
+};
+
+enum MailStatus
+{
+	eMailStatus_Unread 					= 1;	// 未读
+	eMailStatus_Readed 					= 2;	// 已读
+	eMailStatus_Drawed 					= 3;	// 已领取
+	eMailStatus_Deleted					= 4;	// 删除
+};
+
+message MailDetailInfo
+{
+	required uint64 		mid 		= 1;	// 邮件ID
+	required MailType 		type 		= 2;	// 类型
+	required MailStatus 	status 		= 3;	// 状态
+	optional uint32 		tag 		= 4;	// 标签
+	required uint64 		timestamp 	= 5;	// 邮件时间
+	required uint64 		sender 		= 6;	// 发件者ID
+	required string 		sendername 	= 7;	// 发件者名字
+	required string 		title 		= 8;	// 标题
+	required string 		content 	= 9;	// 内容
+	repeated Resource 		attachment 	= 10;	// 附件
+};

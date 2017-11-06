@@ -1,0 +1,28 @@
+package msg.hero;
+
+enum HeroState
+{
+	eHeroState_Fired 		= 0;	// 解雇状态
+	eHeroState_Hire 		= 1;	// 雇佣状态
+	eHeroState_Fight 		= 2;	// 出站状态
+};
+
+message HeroInfo
+{
+	message Skill
+	{
+		required uint32 	id 			= 1;	// 技能ID
+		required uint32 	level 		= 2;	// 技能等级
+	};
+
+	required uint64 		id 		= 1;	// 英雄实体ID
+	required uint32 		baseid  = 2;	// 英雄配置id
+	required HeroState 		state 	= 3;	// 状态
+	required uint64 		exp 	= 4;	// 经验
+	required uint32 		star 	= 5;	// 觉醒等级
+	required uint32 		grade 	= 6;	// 进阶等级
+	required uint32 		deed 	= 7;	// 契约穿戴状态
+	repeated Skill 		 	skills 	= 8;	// 技能列表
+	required uint32 		sklpt 	= 9;	// 当前总技能点
+	required uint32 		extsklpt= 10;	// 额外获得的技能点
+};

@@ -53,7 +53,7 @@ message CombatGroup
 // 战斗指令
 message BattleCmd
 {
-	required uint32 				heroid 		= 1;	// 伙伴流水id
+	required uint32 				heroid 		= 1;	// 战斗内伙伴流水id
 	required uint32 				action  	= 2;	// 行为
 	required uint32 				actionframe = 3;	// 行为触发帧数
 	repeated int32 					parameters	= 4;	// 行为参数

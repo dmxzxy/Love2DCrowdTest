@@ -1,18 +1,47 @@
 package msg;
 
+// 角色属性定义
+enum RoleProp
+{
+	GAMECOIN 					= 600001; // 金币
+	MONEY 						= 600002;	// 元宝
+	STRENGTH 					= 600003;	// 体力
+	EXP 						= 600004;	// 角色经验
+	HEROEXP					 	= 600005;	// 卡牌经验
+
+};
+
 // 资源信息
 message Resource
 {
 	enum Type
 	{
-		eResourceType_Pack 		= 1;	// 包
-		eResourceType_Props		= 2;	// 属性
-		eResourceType_Item 		= 3;	// 物品
-		eResourceType_Hero 		= 4;	// 英雄
+		NONE 		= 0;	// 非法
+		ITEM 		= 1;	// 物品
+		PACK 		= 2;	// 包
+		HERO 		= 3;	// 英雄
+		PROPS		= 4;	// 属性
 	};
 
 	required Type 		type 	= 1;	// 资源类型
 	required uint32 	object 	= 2;	// 资源对象ID
 	required uint32 	count 	= 3;	// 资源的数量
+	optional int32	 	param1 	= 4; 	// 参数1
+	optional int32 		param2 	= 5; 	// 参数2
+};
+
+enum Showplace
+{
+	eShowplace_None 			= 0;	// 非法位置
+	eShowplace_Center			= 1;	// 中心位置(跑马灯)
+	eShowplace_Alert 			= 2;	// 提示
+	eShowplace_Screen 			= 4;	// 弹幕
+};
+
+enum HostAbortReason
+{
+	eHostAbortReason_None 			= 0;	// 正常
+	eHostAbortReason_BagFull		= 1;	// 背包满
+	eHostAbortReason_LevelInvalid	= 2;	// 关卡非法
 };
 

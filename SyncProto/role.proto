@@ -17,10 +17,24 @@ enum MessageRole
 	EnterGame_C					= 0x1008;	// 选择角色进入游戏
 	RoleDetail_S 				= 0x1009;	// 角色详细信息
 	NotifyList_S 				= 0x100A;	// 通知列表(小红点)
-	UseGiftCode_C 				= 0x100B; 	// 领取礼包码
-	UseGiftCode_S 				= 0x100C; 	// 领取礼包码返回
+	RolePropChange_S 			= 0x100B;	// 角色属性变更
+	RoleExpChange_S 			= 0x100C;	// 经验变化
+	GetOpenSystem_C 			= 0x100D;	// 获取开放的系统
+	GetOpenSystem_S 			= 0x100E;	// 返回开放的系统
 
 	Chat_CS 					= 0x1020;	// 聊天
+
+	UseGiftCode_C 				= 0x1030; 	// 领取礼包码
+	UseGiftCode_S 				= 0x1031; 	// 领取礼包码返回
+
+	GetGachaInfo_C 				= 0x1032;  	// 发送gacha信息
+	GetGachaInfo_S 				= 0x1033; 	// 发送gacha信息返回
+	DoGacha_C 					= 0x1034; 	// 抽取gacha
+	DoGacha_S 					= 0x1035; 	// 抽取gacha返回
+	BuyGachaTicket_C 			= 0x1036; 	// 购买gacha劵
+	BuyGachaTicket_S 			= 0x1037; 	// 购买gacha劵返回
+	ExpandRuneBag_C 			= 0x1038; 	// 扩充灵玉背包
+	ExpandRuneBag_S 			= 0x1039; 	// 扩充灵玉背包返回
 };
 
 //
@@ -34,16 +48,19 @@ enum ErrorcodeRole
 	NotInWhiteList 				= 0x100102;	// 不在白名单中
 	GatewayBusy 				= 0x100103;	// 服务器繁忙
 	VerifyFailed 				= 0x100104;	// 验证失败
+	VerifyRepeated 				= 0x100105;	// 重复验证
 
-	Unverified					= 0x100301;	// 未验证通过的连接
+	Unverified					= 0x100301;	// 未验证通过
 	SystemMaintain				= 0x100302;	// 服务器维护
 	LoginSystemBusy				= 0x100303;	// 服务器繁忙
 	ClientVersionTooOld 		= 0x100304;	// 版本号太旧
+	VerifyInvalidSession 		= 0x100305;	// 非法的连接
 
 	InvalidRolename				= 0x100601;	// 角色名有非法字符
 	DuplicationOfname			= 0x100602;	// 角色名重复
 	NewbornSystemBusy			= 0x100603;	// 创角系统繁忙
 	InvalidZoneID				= 0x100604;	// 非法的区服ID
+	DenyCreateRole				= 0x100605;	// 服务器繁忙, 请到其他服务器创建角色
 
     RoleNotExist                = 0x100801; // 角色ID不存在
     SystemIsBusy                = 0x100802; // 系统繁忙
@@ -52,6 +69,19 @@ enum ErrorcodeRole
 	LoadFromDBFailed 			= 0x100805;	// 从数据库加载失败
 	DBLoading 					= 0x100806;	// 正在数据加载中
 	RoleIsBanned				= 0x100807;	// 玩家被封号
+	AccountAttachedOtherRole 	= 0x100808;	// 同一个账号下的多个角色不能同时登陆
+	AttachInvalidSession 		= 0x100809;	// 非法的连接
+	AttachInnerError 			= 0x10080A;	// 内部错误
+
+    GachaConfInvalid            = 0x103201; // gacha配置不存在
+    GachaFreeTimesDone          = 0x103202; // gacha免费次数已经用完
+    GachaRoleVipInvalid         = 0x103203; // 玩家不是vip无法gacha
+    GachaItemNotEnough          = 0x103204; // 玩家gacha道具不足
+    GachaCDTimeNotOver          = 0x103205; // gacha cd时间未结束
+    GachaBuyTicketConfInvalid   = 0x103206; // 购买gacha奖券配置出错
+    GachaBuyTicketMoneyInvalid  = 0x103207; // 购买抽奖券钻石不足
+    GachaVipConfInvalid         = 0x103208; // gachavip配置出错
+    GachaBuyTicketTooMuch       = 0x103209; // 购买gacha劵太多
 };
 
 //
@@ -97,6 +127,7 @@ message MessageRoleLogout
 		BannedAccount 							= 4;	// 被封号
 		Shutdown 								= 5;	// 正常关服
 		Maintain 								= 6;	// 服务器维护中
+		LoadFaild 								= 7;	// 登陆加载数据失败
 	};
 
 	optional MessageRole 		id 				= 1 [ default = Logout_CS ];
@@ -161,14 +192,67 @@ message MessageRoleDetail
 	// 角色详细信息定义
 	message RoleInfo
 	{
-		required uint64 		roleid 		= 1;	// 角色ID
-		required string 		rolename  	= 2;	// 角色名
-		required uint64 		exp 		= 3;	// 角色经验
+		required uint64 		roleid 			= 1;	// 角色ID
+		required string 		rolename  		= 2;	// 角色名
+		required uint64 		exp 			= 3;	// 角色经验
+		required uint32 		gamecoin		= 4;	// 金币
+		required uint32 		money 			= 5;	// 钻石
+		required uint32 		strength 		= 6;	// 体力
 	};
 
 	optional MessageRole 		id 				= 1 [ default = RoleDetail_S ];
 	required RoleInfo 			role 			= 2;
-}
+};
+
+// 通知列表(小红点)
+message MessageNotifyList
+{
+	message Notify
+	{
+		required uint32 		system			= 1;	// 系统ID
+		required uint32 		status			= 2;	// 状态
+	};
+
+	optional MessageRole 		id 				= 1 [ default = NotifyList_S ];
+	repeated Notify 			notifylist 		= 2;	// 红点列表
+};
+
+// 角色属性变更
+message MessageRolePropChange
+{
+	message Props
+	{
+		required RoleProp 		prop 			= 1;	// 属性
+		required uint32 		value 			= 2;	// 当前值
+	};
+
+	optional MessageRole 		id 				= 1 [ default = RolePropChange_S ];
+	repeated Props 				changelist 		= 2;	// 变化列表
+};
+
+// 经验变化
+message MessageRoleExpChange
+{
+	message RoleExp
+	{
+		required uint64 		heroid 			= 1;	// 伙伴流水ID
+		required uint64 		totalexp 		= 2;	// 经验
+	};
+
+	optional MessageRole 		id 				= 1 [ default = RoleExpChange_S ];
+	repeated RoleExp 			changelist 		= 2;	// 经验变化
+};
+
+message MessageGetOpenSystemRequest
+{
+	optional MessageRole 		id 				= 1 [ default = GetOpenSystem_C ];
+};
+message MessageGetOpenSystemResponse
+{
+	optional MessageRole 		id 				= 1 [ default = GetOpenSystem_S ];
+	required uint32 			method 			= 2;	// 0 - 全部开放的系统列表; 1 - 新开的系统列表
+	repeated uint32 			systemidlist 	= 3 [ packed = true ];
+};
 
 // 聊天
 message MessageRoleChat
@@ -197,11 +281,73 @@ message MessageRoleChat
 
 message MessageUseGiftCodeRequest
 {
-optional MessageRole 			id 				= 1 [default = UseGiftCode_C];
-optional string 				code 			= 2;	// 礼包码
+	optional MessageRole 		id 				= 1 [default = UseGiftCode_C];
+	required string 			code 			= 2;	// 礼包码
 };
 
 message MessageUseGiftCodeResponse
 {
-optional MessageRole 			id 				= 1 [default = UseGiftCode_S];
+	optional MessageRole 		id 				= 1 [default = UseGiftCode_S];
+    optional string             code            = 2; // 使用的code
+    optional uint32             status          = 3; // 返回状态
+    repeated Resource           rewards         = 4; // 发送的奖励 
 };
+
+message MessageGetGachaInfoRequest
+{
+	optional MessageRole  		id 				= 1 [default = GetGachaInfo_C]; 
+};
+
+message MessageGetGachaInfoResponse
+{
+	message GachaInfo
+	{
+		optional uint32 	gachaid = 1;	// gachaid
+		optional uint32 	freetimes = 2; 	// 已使用的免费次数
+		optional uint32 	resettime = 3; 	// 下次刷新时间 resetytpe 1:隔天零点 2:下次重置时间
+	};
+	optional MessageRole 		id 				= 1 [default = GetGachaInfo_S];
+	repeated GachaInfo 			info 			= 2;	
+};
+
+message MessageDoGachaRequest
+{
+	optional MessageRole 		id 				= 1 [default = DoGacha_C];
+	optional uint32 			gachaid 		= 2;
+};
+
+message MessageDoGachaResponse
+{
+	optional MessageRole 		id 				= 1 [default = DoGacha_S];
+	optional uint32 			gachaid 		= 2;	// gacha id
+	optional uint32 			freetimes 		= 3; 	// 免费次数
+	optional uint32 			resettime 		= 4; 	// 
+	repeated Resource 			rewards 		= 5;	// gacha 奖励
+};
+
+message MessageBuyGachaTicketRequest
+{
+	optional MessageRole 		id 				= 1 [default = BuyGachaTicket_C];
+	optional uint32 			itemid 			= 2;
+	optional uint32 			count 			= 3;
+};
+
+message MessageBuyGachaTicketResponse
+{
+	optional MessageRole 		id 				= 1 [default = BuyGachaTicket_S];
+};
+
+message MessageExpandRuneBagRequest
+{
+	optional MessageRole 		id 				= 1 [default = ExpandRuneBag_C];
+    optional uint32             expend          = 2; // 一起扩充的格子数 10 or 100
+};
+
+message MessageExpandRuneBagResponse
+{
+	optional MessageRole 		id 				= 1 [default = ExpandRuneBag_S];
+	optional uint32 			capacity 		= 2; // 灵玉背包当前格子
+}
+
+
+

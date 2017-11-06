@@ -9,7 +9,9 @@ enum MessageUtils
 {
 	Errorcode_S							= 0x0101;		// 错误码
 	Ping_CS								= 0x0102;		// 心跳包
-	Version_S 							= 0x0103;		// 版本号
+	Version_C 							= 0x0103;		// 获取版本号
+	Version_S 							= 0x0104;		// 返回版本号
+	Bulletin_S 							= 0x0105;		// 公告
 };
 
 //
@@ -39,11 +41,26 @@ message MessageUtilsPing
 	required uint64 				timestamp 	= 2;	// 服务器当前时间
 };
 
-// 版本号
+// 获取版本号
+message MessageGetVersion
+{
+	optional MessageUtils 			id 		 	= 1 [ default = Version_C ];
+};
+// 返回版本号
 message MessageVersionNotify
 {
 	optional MessageUtils 			id 			= 1 [ default = Version_S ];
 	required string 				version 	= 2;	// 静态版本号
 	required uint32 				method 		= 3;	// 是否强制0-非强制; 1-强制
 	required string 				opversion 	= 4;	// 运营活动版本号
+};
+
+// 公告
+message MessageBulletinNotify
+{
+	optional MessageUtils 			id 		 	= 1 [ default = Bulletin_S ];
+	required int32 					priority 	= 2;	// 优先级
+	required int32 					cycletimes 	= 3;	// 轮播次数
+	required int32 					showplace 	= 4;	// 显示位置(详见base.proto Showplace)
+	required string 				msgcontent 	= 5;	// 消息内容
 };

@@ -11,6 +11,8 @@ enum MessageBattle
 	BattleReportCmd_C 					= 0x2005;		// 上报操作指令
 	BattleSyncCmdNotify_S				= 0x2006;		// 同步操作指令
 	BattleStop_C 						= 0x2007;		// 战斗结束
+	BattleResult_S						= 0x2008;		// 同步客户端战斗结果
+	BattleWatch_C 						= 0x2009;		// 观战
 };
 
 //
@@ -19,7 +21,6 @@ enum MessageBattle
 enum ErrorcodeRole
 {
 	Success 							= 0x000000;	// 成功
-	
 	HasInMatchPool 						= 0x200100;	// 已经在匹配队列
 };
 
@@ -63,15 +64,34 @@ message MessageReportCmdRequest
 // 同步战斗命令
 message MessageSyncCmdNotify
 {
+	message Cmd
+	{
+		required uint32 			frame 		= 1;	// 帧数
+		repeated BattleCmd 			cmds 		= 2;	// 帧内的指令集
+	};
+
 	optional MessageBattle          id          = 1 [ default = BattleSyncCmdNotify_S ];
-	required uint32 				frame 		= 2;	// 第几帧
-	repeated BattleCmd 				cmds		= 3;	// 指令集	
+	repeated Cmd 					cmds 		= 2;	// 所有帧指令
 };
 
 // 战斗结束
 message MessageStopRequest
 {
 	optional MessageBattle          id          = 1 [ default = BattleStop_C ];
-	required uint32 				result 		= 2;	// 战斗结果1:胜2负3平局
+	required uint32 				result 		= 2;	// 战斗结果1:攻方赢2守方赢3平局
+};
+
+// 战斗结果
+message MessageBattleResultNotify
+{
+	optional MessageBattle          id          = 1 [ default = BattleResult_S ];
+	required uint32 				result 		= 2;	// 战斗结果:0:平局，1:获胜，2：失败
+}
+
+// 观战
+message MessageWatchRequest
+{
+	optional MessageBattle          id          = 1 [ default = BattleWatch_C ];
+	required uint64 				combatid 	= 2;	// 副本id
 };
 

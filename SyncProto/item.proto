@@ -10,7 +10,33 @@ enum MessageItem
 {
 	ItemDetailInfos_C		    			= 0x1301;		// 请求全部物品信息
 	ItemDetailInfos_S		    			= 0x1302;		// 物品详细信息
-	ItemChangeList_S	    				= 0x1304;		// 物品信息变更
+	ItemChangeList_S	    				= 0x1303;		// 物品信息变更
+	ItemUse_C 								= 0x1304;		// 物品使用请求
+	ItemUse_S 								= 0x1305;		// 物品使用回应
+	ItemSell_C 								= 0x1306;		// 物品出售请求
+	ItemSell_S 								= 0x1307;		// 物品出售回应
+	DeedCompound_C 							= 0x1308;		// 契约合成请求
+	DeedCompound_S 							= 0x1309;		// 契约合成回应
+	RuneLock_C 								= 0x130a; 		// 灵玉锁定
+	RuneLock_S 								= 0x130b;		// 灵玉锁定返回
+	RuneDec_C 								= 0x130c; 		// 灵玉分解
+	RuneDec_S 								= 0x130d; 		// 灵玉分解返回
+	RuneStren_C 							= 0x130e;		// 灵玉强化
+	RuneStren_S 							= 0x130f; 		// 灵玉强化返回
+	RuneEquip_C 							= 0x1310;		// 灵玉装备
+	RuneEquip_S 							= 0x1311;		// 灵玉装备
+	RuneUnEquip_C 							= 0x1312;		// 灵玉装备
+	RuneUnEquip_S 							= 0x1313;		// 灵玉装备
+	EquipCompound_C							= 0x1314;		// 装备合成
+	EquipCompound_S 						= 0x1315;		// 装备合成返回
+	EquipUpgrade_C 							= 0x1316;		// 装备进阶
+	EquipUpgrade_S 							= 0x1317;		// 装备进阶返回
+	EquipEnhance_C 							= 0x1318;		// 装备强化
+	EquipEnhance_S 							= 0x1319;		// 装备强化返回
+	EquipReset_C 							= 0x131a;		// 装备洗点
+	EquipReset_S 							= 0x131b;		// 装备洗点返回
+	EquipUncompound_C						= 0x131c;		// 装备分解
+	EquipUncompound_S 						= 0x131d;		// 装备分解返回
 };
 
 //
@@ -19,6 +45,60 @@ enum MessageItem
 enum ErrorcodeItem
 {
 	Success                  				= 0x000000;		// 成功
+
+	ItemUseOffShelf							= 0x130400;		// 物品已经下架
+	ItemUseNoHero 							= 0x130401;		// 伙伴还未招募
+	ItemUseExpMax 							= 0x130402;		// 伙伴经验已达上限
+	ItemUseInvalidID 						= 0x130403;		// 非法物品ID
+	ItemUseLevelLimit 						= 0x130404;		// 等级不足，无法使用
+
+	DeedCompoundInvalidID 					= 0x130801;		// 无效的契约ID
+	DeedCompoundCoinNot  					= 0x130802;		// 金币不足
+	DeedCompoundItemNot 					= 0x130803;		// 材料不足
+
+    EquipCompoundInvalidEntityID            = 0x131401;     // 非法的碎片ID
+    EquipCompoundFragConfigError            = 0x131402;     // 找不到碎片配置
+    EquipCompoundNotFragment                = 0x131403;     // 该道具无法合成装备
+    EquipCompoundFragConfigParamError       = 0x131404;     // 碎片配置参数出错
+    EquipCompoundFragmentNotEnough          = 0x131405;     // 所需的碎片不足
+    EquipCompoundGamecoinNotEnough          = 0x131406;     // 所需的金币不足
+    EquipCompoundEquipConfigError           = 0x131407;     // 装备的配置出错
+    EquipCompoundBagIsFull                  = 0x131408;     // 背包空间不足
+    EquipCompoundNotEquip                   = 0x131409;     // 无法合成指定的装备
+    EquipCompoundEquipConfigParamError      = 0x13140A;     // 装备配置参数出错
+    EquipCompoundHeroIsNotExist             = 0x13140B;     // 你还没有拥有该伙伴
+    EquipCompoundHeroIsDressed              = 0x13140C;     // 该伙伴已经拥有本件装备了
+    EquipCompoundInnerError                 = 0x13140D;     // 装备合成失败，快找GM吧
+    EquipUpgradeInvalidEntityID             = 0x131601;     // 非法的装备ID
+    EquipUpgradeNotEquip                    = 0x131602;     // 不是合法的一件装备
+    EquipUpgradeMustBeDressed               = 0x131603;     // 该装备必须先穿到伙伴身上
+    EquipUpgradeFullGrade                   = 0x131604;     // 装备已经满阶不需要再进阶了
+    EquipUpgradeConfigError                 = 0x131605;     // 装备配置非法
+    EquipUpgradeGradeConfigError            = 0x131606;     // 找不到进阶所需的消耗
+    EquipUpgradeHeroLevelTooLow             = 0x131607;     // 伙伴等级不足
+    EquipUpgradeGamecoinNotEnough           = 0x131608;     // 所需金币不足
+    EquipUpgradeStuffNotEnough              = 0x131609;     // 进阶所需材料不足
+    EquipEnhanceInvalidEntityID             = 0x131801;     // 非法的装备ID
+    EquipEnhanceNotEquip                    = 0x131802;     // 不是一件合法的装备
+    EquipEnhanceSlotIsInvalid               = 0x131803;     // 你强化的属性非法
+    EquipEnhanceMustBeDressed               = 0x131804;     // 该装备必须先穿到伙伴身上
+    EquipEnhanceLevelLimitError             = 0x131805;     // 没有找到强化等级限制
+    EquipEnhanceFullLevel                   = 0x131806;     // 强化满级
+    EquipEnhanceCostError                   = 0x131807;     // 没有找到强化所有消耗的配置
+    EquipEnhancePotentialNotEnough          = 0x131808;     // 潜力点不足
+    EquipEnhanceGamecoinNotEnough           = 0x131809;     // 所需金币不足
+    EquipResetInvalidEntityID               = 0x131A01;     // 非法的装备ID
+    EquipResetNotEquip                      = 0x131A02;     // 不是合法的一件装备
+    EquipResetMustBeDressed                 = 0x131A03;     // 该装备必须先穿到伙伴身上
+    EquipResetItemNotEnough                 = 0x131A04;     // 洗点所需的道具不足
+    EquipUncompoundInvalidEntityID          = 0x131C01;     // 非法的装备ID
+    EquipUncompoundNotEquip                 = 0x131C02;     // 不是合法的一件装备
+    EquipUncompoundHasBeenDressed           = 0x131C03;     // 不能分解已经穿戴的装备
+    EquipUncompoundEquipConfigError         = 0x131C04;     // 找不到装备的配置信息
+    EquipUncompoundFragmentConfigError      = 0x131C05;     // 找不到碎片的配置信息
+    EquipUncompoundNotFragment              = 0x131C06;     // 找到的配置不是碎片
+    EquipUncompoundFragmentParamConfigError = 0x131C07;     // 碎片参数出错
+    EquipUncompoundBagIsFull                = 0x131C08;     // 背包已经满了
 }
 
 // 所有物品的详细信息
@@ -48,4 +128,186 @@ message MessageBagChangeList
 	repeated Change			modifylist	= 4;					// 改变列表
 };
 
+// 物品使用
+message MessageItemUseRequest
+{
+	optional MessageItem 	id 			= 1 [ default = ItemUse_C ];
+	required uint64 		entityid 	= 2;					// 物品流水ID
+	required uint32 		count 		= 3 [ default = 1 ];	// 物品需要使用的数量
+	optional string         params      = 4;                    // 参数
+}
+message MessageItemUseResponse
+{
+	optional MessageItem 	id 			= 1 [ default = ItemUse_S ];
+	required uint32 		baseid 		= 2;					// 物品配置id
+	required uint32 		count 		= 3;					// 物品使用掉的数量
+	required uint32 		result 		= 4;					// 使用结果
+	repeated Resource       rewards		= 5;					// 获取到的物品 
+}
 
+// 物品出售
+message MessageItemSellRequest
+{
+	message  ItemUnit
+	{
+		required uint64     entityid    = 1;                    // 物品实体id
+		required uint32     count       = 2;                    // 数量
+	};
+
+	optional MessageItem    id          = 1 [ default = ItemSell_C ];
+	repeated ItemUnit       items       = 2;                    // 物品出售列表
+};
+message MessageItemSellResponse
+{
+	optional MessageItem    id          = 1 [ default = ItemSell_S ];
+	required uint32         price       = 2;                    // 价格
+};
+
+// 契约合成
+message MessageDeedCompoundRequest
+{
+	optional MessageItem    id          = 1 [ default = DeedCompound_C ];
+	required uint32 		baseid      = 2;                    // 需要合成的契约ID
+	required uint32 		count 		= 3;					// 需要合成的契约个数
+};
+message MessageDeedCompoundResponse
+{
+	optional MessageItem    id          = 1 [ default = DeedCompound_S ];
+	required uint32 		baseid 		= 2;					// 获得后的契约ID
+	required uint32 		count 		= 3;					// 本次合成获得的契约个数
+};
+
+// 灵玉锁定
+message MessageRuneLockRequest
+{
+	optional MessageItem 	id 			= 1 [ default = RuneLock_C ];
+	optional uint64 		entityid 	= 2;
+};
+
+message MessageRuneLockResponse
+{
+	optional MessageItem 	id 			= 1 [ default = RuneLock_S ];
+	optional uint64 		entityid 	= 2;
+    optional uint32         status      = 3; // 0未锁 1锁住
+};
+
+message MessageRuneDecRequest
+{
+	optional MessageItem 	id 			= 1 [ default = RuneDec_C ];
+	repeated uint64 		entityid 	= 2;
+};
+
+message MessageRuneDecResponse
+{
+	optional MessageItem 	id 			= 1 [ default = RuneDec_S ];
+	optional uint64 		runestone 	= 2;    // 分解获得的灵石
+};
+
+message MessageRuneStrenRequest
+{
+	optional MessageItem 	id 			= 1 [ default = RuneStren_C ];
+	optional uint64 		entityid 	= 2;    // 道具唯一id
+};
+
+message MessageRuneStrenResponse
+{
+	optional MessageItem 	id 			= 1 [ default = RuneStren_S ];
+    optional uint64         entityid    = 2;    // 道具唯一id 
+    optional uint32         strengthlv  = 3;    // 强化等级
+};
+
+message MessageRuneEquipRequest
+{
+	optional MessageItem 	id 			= 1 [ default = RuneEquip_C ];
+	optional uint64 		entityid 	= 2; // 灵玉实体id
+    optional uint64         heroid      = 3; // 伙伴id
+}
+
+message MessageRuneEquipResponse
+{
+	optional MessageItem 	id 			= 1 [ default = RuneEquip_S ];
+	optional uint64 		entityid 	= 2; // 灵玉实体id
+    optional uint64         heroid      = 3; // 伙伴id
+}
+
+message MessageRuneUnEquipRequest
+{
+	optional MessageItem 	id 			= 1 [ default = RuneUnEquip_C ];
+	optional uint64 		entityid 	= 2;
+}
+
+message MessageRuneUnEquipResponse
+{
+	optional MessageItem 	id 			= 1 [ default = RuneUnEquip_S ];
+	optional uint64 		entityid 	= 2;
+}
+
+// 装备合成
+message MessageEquipCompoundRequest
+{
+	optional MessageItem 	id 			= 1 [ default = EquipCompound_C ];
+	required uint64 		fragid 		= 2;	//  碎片唯一ID
+};
+message MessageEquipCompoundResponse
+{
+	optional MessageItem 	id 			= 1 [ default = EquipCompound_S ];
+	required uint64 		fragid 		= 2;	// 碎片ID
+	required uint64 		equipid 	= 3;	// 合成的装备ID
+	required uint64 		heroid 		= 4;	// 合成的装备穿戴到哪个伙伴身上了
+};
+
+// 装备进阶
+message MessageEquipUpgradeRequest
+{
+	optional MessageItem 	id 			= 1 [ default = EquipUpgrade_C ];
+	required uint64 		equipid 	= 2;	// 装备唯一ID
+};
+message MessageEquipUpgradeResponse
+{
+	optional MessageItem 	id 			= 1 [ default = EquipUpgrade_S ];
+	required uint64 		equipid 	= 2;	// 装备唯一ID
+	required uint32 		grade 		= 3;	// 品阶
+	required uint32 		potential 	= 4;	// 当前专属点
+};
+
+// 装备强化
+message MessageEquipEnhanceRequest
+{
+	optional MessageItem 	id 			= 1 [ default = EquipEnhance_C ];
+	required uint64 		equipid 	= 2;	// 装备唯一ID
+	required uint32 		slot 		= 3;	// 强化哪条属性, 从1开始
+};
+message MessageEquipEnhanceResponse
+{
+	optional MessageItem 	id 			= 1 [ default = EquipEnhance_S ];
+	required uint64 		equipid 	= 2;	// 装备唯一ID
+	required uint32 		slot 		= 3;	// 强化哪条属性, 从1开始
+	required uint32 		potential 	= 4;	// 当前专属点
+};
+
+// 装备洗点
+message MessageEquipResetRequest
+{
+	optional MessageItem 	id 		 	= 1 [ default = EquipReset_C ];
+	required uint64 		equipid 	= 2;	// 装备唯一ID
+};
+message MessageEquipResetResponse
+{
+	optional MessageItem 	id 		 	= 1 [ default = EquipReset_S ];
+	required uint64 		equipid 	= 2;	// 装备唯一ID
+	required uint32 		potential 	= 3;	// 当前专属点
+};
+
+// 装备分解
+message MessageEquipUncompoundRequest
+{
+	optional MessageItem 	id 			= 1 [ default = EquipUncompound_C ];
+	required uint64 		equipid 	= 2;	// 装备唯一ID
+};
+message MessageEquipUncompoundResponse
+{
+	optional MessageItem 	id 			= 1 [ default = EquipUncompound_S ];
+	required uint64 		equipid 	= 2;	// 装备唯一ID
+	required uint32 		fragbaseid	= 3;	// 碎片基础ID
+	required uint32 		fragnumber	= 4;	// 碎片个数
+};

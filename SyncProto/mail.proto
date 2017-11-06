@@ -1,0 +1,98 @@
+package msg.mail;
+
+import "mailtype.proto";
+
+//
+// 命令字定义
+//
+enum MessageMail
+{
+	GetInBox_C 								= 0x1701;	// 获取收件箱
+	GetInBox_S 								= 0x1702;	// 收件箱返回
+	NewMail_S 								= 0x1703;	// 新邮件通知
+	ReadMail_C 								= 0x1704;	// 阅读邮件
+	ReadMail_S 								= 0x1705;	// 阅读邮件结果
+	GotAttachment_C							= 0x1706;	// 领取附件
+	GotAttachment_S 						= 0x1707;	// 领取附件结果
+	RemoveMail_C 							= 0x1708;	// 删除邮件
+	RemoveMail_S 							= 0x1709;	// 删除邮件结果
+};
+
+//
+// 错误码定义
+//
+enum ErrorcodeMail
+{
+	Success 								= 0x000000;	// 成功
+	ReadMailIDInvalid 						= 0x170401;	// 亲！找不到你说的那封邮件
+	ReadMailStatusInvalid					= 0x170402; // 这是封奇怪的邮件,我也没办法处理
+	DrawMailStatusInvalid					= 0x170601;	// 该邮件已经领取过了
+	DrawMailBagIsFull 						= 0x170602;	// 背包已经满了
+	RemoveMailIDInvalid 					= 0x170801;	// 亲！找不到你要删除的这封邮件
+};
+
+// 获取收件箱
+message MessageGetInBoxRequest
+{
+	optional MessageMail 		id 			= 1 [ default = GetInBox_C ];
+	required uint32 			index 		= 2;	//
+	required uint32 			count 		= 3;	//
+};
+message MessageGetInBoxResponse
+{
+	optional MessageMail 		id 			= 1 [ default = GetInBox_S ];
+	required uint32 			index 		= 2;	//
+	required uint32 			count 		= 3;	//
+	repeated MailDetailInfo 	mailbox 	= 4;	// 收件箱
+};
+
+// 新邮件通知
+message MessageNewMailNotify
+{
+	optional MessageMail 		id 			= 1 [ default = NewMail_S ];
+	required uint64 			mailid 		= 2;	// 邮件ID
+	required MailDetailInfo 	newmail 	= 3;	// 邮件内容
+};
+
+// 阅读邮件
+message MessageReadMailRequest
+{
+	optional MessageMail 		id 			= 1 [ default = ReadMail_C ];
+	required uint64 			mailid 		= 2;	// 邮件ID
+};
+message MessageReadMailResponse
+{
+	optional MessageMail 		id 			= 1 [ default = ReadMail_S ];
+	required uint64 			mailid 		= 2;	// 邮件ID
+	optional MailStatus			status 		= 3;	// 邮件状态
+};
+
+// 领取附件
+message MessageGotAttachmentRequest
+{
+	optional MessageMail 		id 			= 1 [ default = GotAttachment_C ];
+	repeated uint64 			mailids		= 2 [ packed = true ];
+};
+message MessageGotAttachmentResponse
+{
+	message MailUnit
+	{
+		required uint64 		mailid 		= 1;
+		required MailStatus 	status 		= 2;
+	};
+
+	optional MessageMail 		id 			= 1 [ default = GotAttachment_S ];
+	repeated MailUnit 			statuslist 	= 2;	// 状态列表
+};
+
+// 删除邮件
+message MessageRemoveMailRequest
+{
+	optional MessageMail 		id 			= 1 [ default = RemoveMail_C ];
+	repeated uint64 			mailids 	= 2 [ packed = true ];
+};
+message MessageRemoveMailResponse
+{
+	optional MessageMail 		id 			= 1 [ default = RemoveMail_S ];
+	repeated uint64 			mailids 	= 2 [ packed = true ];
+};

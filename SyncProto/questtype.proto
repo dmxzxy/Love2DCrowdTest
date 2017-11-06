@@ -1,0 +1,16 @@
+package msg.quest;
+
+message QuestInfoBase
+{
+	required uint32 		type 		= 1;	// 任务类型
+	required uint32 		questid 	= 2;	// 任务ID
+	required uint64 		timestamp 	= 3;	// 接领任务的时间
+	required uint32 		counter 	= 4;	// 任务计数
+	required uint32 		state 		= 5;	// 任务完成状态
+};
+
+message QuestProgress
+{
+	required uint32 		questid 	= 1;	// 任务ID
+	required uint32 		counter 	= 2;	// 任务计数
+};

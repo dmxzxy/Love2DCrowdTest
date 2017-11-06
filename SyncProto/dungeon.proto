@@ -1,0 +1,173 @@
+package msg.dungeon;
+
+import "base.proto";
+
+//
+// 命令字定义
+//
+enum MessageDungeon
+{
+	ChapterList_C 			= 0x1401;	// 获取章节列表
+	ChapterList_S 			= 0x1402;	// 章节列表返回
+	Chapter_C 				= 0x1403;	// 获取章节信息
+	Chapter_S 				= 0x1404;	// 章节信息返回
+	DrawStar_C 				= 0x1405;	// 领取章节满星奖励
+	DrawStar_S 				= 0x1406;	// 满星奖励返回
+	Hosting_C 				= 0x1407;	// 挂机请求
+	Hosting_S 				= 0x1408;	// 挂机返回
+	BuyTimes_C				= 0x1409;	// 购买关卡次数
+	BuyTimes_S 				= 0x140A;	// 购买关卡次数返回
+	DrawPrestige_C 			= 0x140B;	// 领取章节声望奖励请求
+	DrawPrestige_S 			= 0x140C;	// 领取章节声望奖励回应
+    NotifyInfo_S 			= 0x140D;	// 通知关卡变更信息	
+};
+
+//
+// 错误码定义
+//
+enum ErrorcodeDungeon
+{
+	InvalidChapterID 		= 0x140301;	// 章节ID非法
+
+	InvalidChapterID1 		= 0x140501;	// 章节ID非法
+	StarRewardHasGot 		= 0x140502;	// 章节全星奖励已经领取
+	StarNotEnough 			= 0x140503;	// 章节未达满星
+
+	InvalidTimes 			= 0x140701;	// 非法扫荡次数
+	InvalidDungeonID1 		= 0x140702;	// 关卡ID非法
+	DungeonNotRush 			= 0x140703;	// 该关卡不允许扫荡
+	DungeonNotPerfectly     = 0x140704;	// 关卡未满星通关
+	DungeonNotTimes 		= 0x140705;	// 关卡次数不足
+	DungeonNotStrength		= 0x140706;	// 行动力不足
+	DungeonNotMoney 		= 0x140707;	// 钻石不足
+
+	InvalidDungeonID 		= 0x140901;	// 关卡ID非法
+	BuyTimesLimit 			= 0x140902;	// 购买次数已达上限
+	ConfigError1 			= 0x140903;	// 配置文件错误
+	MoneyNotEnough 			= 0x140904;	// 钻石不足
+	
+	InvalidChapterID2 		= 0x140B01;	// 章节ID非法
+	PrestigeRewardHasGot 	= 0x140B02;	// 章节声望奖励已经领取
+	PrestigeNotEnough 		= 0x140B03;	// 声望不足
+	ConfigError 			= 0x140B04;	// 配置错误
+};
+
+// 获取通关的章节列表
+message MessageGetChapterListRequest
+{
+	optional MessageDungeon	id		= 1 [ default = ChapterList_C ];
+};
+
+// 章节列表
+message MessageGetChapterListResponse
+{
+	message Chapter
+	{
+		required uint32 	id 			= 1;			// 章节id
+		required uint32 	star 		= 2;			// 章节星星数
+		required uint32 	gotstar 	= 3;			// 全星奖励领取状态
+		required uint32 	prestige 	= 4;			// 章节声望
+		required uint32 	gotprestige = 5;			// 章节声望奖励领取状态
+	}
+	optional MessageDungeon	id			= 1 [ default = ChapterList_S ];
+	repeated Chapter  		lists		= 2;			// 章节列表
+};
+
+// 获取章节信息
+message MessageGetChapterRequest
+{
+	optional MessageDungeon	id		= 1 [ default = Chapter_C ];
+	required uint32			cid		= 2;			// 章节id
+};
+
+// 章节信息返回
+message MessageGetChapterResponse
+{
+	message DungeonInfo
+	{
+		required uint32		dungeonid	= 1;		// 关卡ID
+		required uint32		grade		= 2;		// 评级
+		required uint32 	times 		= 3;		// 当天通关次数
+		required uint32 	buytimes 	= 4;		// 购买次数
+	};
+
+	optional MessageDungeon	id			= 1 [ default = Chapter_S ];
+	required uint32		 	cid			= 2;		// 章节ID
+	repeated DungeonInfo	dungeonlist	= 3;		// 关卡信息
+	required uint32 		gotreward	= 4;		// 是否领取过章节通关奖励
+	required uint32 		prestige 	= 5;		// 章节声望
+	required uint32 		gotprestige = 6;		// 是否领取过章节声望奖励
+};
+
+// 领取满星奖励
+message MessageDrawStarRequest
+{
+	optional MessageDungeon id 			= 1 [ default = DrawStar_C ];
+	required uint32 		cid 		= 2;		// 章节ID
+};
+message MessageDrawStarResponse
+{
+	optional MessageDungeon id 			= 1 [ default = DrawStar_S ];
+	required uint32 		cid 		= 2;		// 章节ID
+	required uint32 		gotreward	= 3;		// 领取状态
+	repeated Resource 		rewards 	= 4;		// 奖励
+};
+
+// 挂机
+message MessageHostingRequest
+{
+	optional MessageDungeon	id			= 1 [ default = Hosting_C ];
+	required uint32			dungeonid	= 2;		// 关卡ID
+	optional uint32 		times 		= 3;		// 挂机次数
+};
+message MessageHostingResponse
+{
+	message RoundRewards
+	{
+		required uint32 	round 			= 1;		// 轮次数
+		repeated Resource 	rewards 		= 2;		// 固定奖励
+		repeated Resource 	rushrewards 	= 3;		// 挂机奖励
+		repeated Resource 	randomrewards	= 4;		// 随机奖励
+	};
+
+	optional MessageDungeon id 			= 1 [ default = Hosting_S ];
+	required uint32 		dungeonid 	= 2;		// 关卡ID
+	repeated RoundRewards 	rewards 	= 3;		// 奖励
+};
+
+// 购买次数
+message MessageBuyTimesRequest
+{
+	optional MessageDungeon id 			= 1 [ default = BuyTimes_C ];
+	required uint32 		dungeonid 	= 2;		// 关卡ID
+};
+message MessageBuyTimesResponse
+{
+	optional MessageDungeon id 		 	= 1 [ default = BuyTimes_S ];
+	required uint32 		dungeonid 	= 2;		// 关卡ID
+	required uint32 		buytimes	= 3;		// 购买次数
+};
+
+// 领取声望奖励
+message MessageDrawPrestigeRequest
+{
+	optional MessageDungeon id 			= 1 [ default = DrawPrestige_C ];
+	required uint32 		cid 		= 2;		// 章节ID
+};
+message MessageDrawPrestigeResponse
+{
+	optional MessageDungeon id 			= 1 [ default = DrawPrestige_S ];
+	required uint32 		cid 		= 2;		// 章节ID
+	required uint32 		gotreward	= 3;		// 领取状态
+	repeated Resource 		rewards 	= 4;		// 奖励
+};
+
+// 变更关卡信息
+message MessageNotifyInfo
+{
+	optional MessageDungeon id 			= 1 [ default = NotifyInfo_S ];
+	required uint32 		cid 		= 2;		// 章节id
+	required uint32 		dungeonid   = 3;		// 关卡id
+	required uint32 		times 		= 4;		// 关卡通关次数
+	required uint32 		prestige 	= 5;		// 章节声望
+};
