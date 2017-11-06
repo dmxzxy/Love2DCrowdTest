@@ -57,6 +57,7 @@
 					<button id="export_project" class="btn btn-primary btn-large btn-block">导出项目</button>
                     <button id="sync_proto" class="btn btn-primary btn-large btn-block">同步协议</button>
                     <button id="export_config" class="btn btn-primary btn-large btn-block">导表工具（临时）</button>
+                    <button id="config_download" class="btn btn-primary btn-large btn-block">配置表下载（临时）</button>
 					<button id="admin_system" class="btn btn-danger btn-large btn-block">系统管理</button>
                 </li>
                 
@@ -104,6 +105,11 @@
                 location.replace("{% url 'project_sync_proto' cur_project.id %}");
                 return false;
             });
+            $("#config_download").click(function(e) {
+                e.preventDefault();
+                location.replace("{% url 'config_download' %}");
+                return false;
+            });
             $("#export_config").click(function(e) {
                 e.preventDefault();
                 
@@ -122,7 +128,7 @@
                             message:"导出成功",
                             type: BootstrapDialog.TYPE_SUCCESS,
                             callback: function(result) {
-                                location.replace("{% url 'config_download' %}");
+                                location.reload();
                             }
                         });
                         

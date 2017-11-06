@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^project/downloadproto/(?P<project_id>[0-9]+)/$', views.project_download_proto, name='project_download_proto'),
     url(r'^project/downloadcpp/(?P<project_id>[0-9]+)/$', views.project_download_cpp, name='project_download_cpp'),
     url(r'^project/sync/(?P<project_id>[0-9]+)/$', views.project_sync_proto, name='project_sync_proto'),
+    url(r'^project/forcesync/(?P<project_id>[0-9]+)/$', views.project_force_sync_proto, name='project_force_sync_proto'),
 
     url(r'^project/export_config/$', views.project_export_config, name='export_config'),
     url(r'^project/config_download/$', views.project_config_download, name='config_download'),

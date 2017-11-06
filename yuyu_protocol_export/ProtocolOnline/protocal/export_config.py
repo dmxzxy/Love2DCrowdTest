@@ -3,14 +3,15 @@ import traceback, sys
 from protocal.utils import cmd_call
 import zipfile
 
-TOOL_PATH = "E:/workspace/Love2DCrowdTest/xlstolua"
-XLS_PATH = "E:/workspace/Love2DCrowdTest/xlstolua/xls/yh_170931_dev(M1)"
-EXPORT_PATH = "E:/workspace/Love2DCrowdTest/xlstolua/export"
+TOOL_PATH = "D:/workspace/yuyu/program/Tools/ConfigExport"
+XLS_PATH = "D:/workspace/yuyu/data/yh_170931_dev(M1)"
 VERSION = "1.0"
 
 def do_export(ex_path):
-    print ex_path
     the_export_path = ex_path + '/config'
+
+    cmd = 'svn update "%s"'%(XLS_PATH)
+    cmd_call(cmd)
 
     if not os.path.exists(the_export_path):
         os.mkdir(the_export_path) 
@@ -19,7 +20,7 @@ def do_export(ex_path):
     if not os.path.exists(zip_archive_path):
         os.mkdir(zip_archive_path) 
 
-    cmd = 'cd "%s" && E: && xls2luas.py %s %s %s'%(TOOL_PATH,XLS_PATH,the_export_path,VERSION)
+    cmd = 'cd "%s" && D: && python xls2luas.py %s %s %s'%(TOOL_PATH,XLS_PATH,the_export_path,VERSION)
     cmd_call(cmd)
 
     file_zip = zipfile.ZipFile(zip_archive_path+'config_lua.zip','w',zipfile.ZIP_DEFLATED) 

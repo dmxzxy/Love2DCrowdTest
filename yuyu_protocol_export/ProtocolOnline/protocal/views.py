@@ -119,6 +119,7 @@ def project_detail(request,project_id):
     enums = Enum.objects.filter(Q(module__in = _modules)).order_by('-timestamp')
     customtypes = CustomType.objects.filter(Q(module__in = _modules)).order_by('-timestamp')
     protocal_types = ProtocalType.objects.all()
+    protocals = protocals.order_by('protocal_id')
     return render(request, 'project_detail.html', { 'cur_project':cur_project,
     												'modules':modules,
     												'protocals':protocals,
@@ -171,6 +172,49 @@ def project_sync_proto(request,project_id):
     
 
 
+def project_force_sync_proto(request,project_id):
+    cur_project = get_object_or_404(Project, pk=project_id)
+    if request.method == 'POST': 
+
+        cur_project.is_exporting = True
+        cur_project.save(update_fields=['is_exporting'])
+
+        sugget_version = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        project_export = ProjectExport(project = cur_project,
+                                       version = sugget_version,
+                                       status = 1,
+                                       )
+        project_export.save()
+
+        try:
+            sync_proto.doForceSync(cur_project)
+            project_export.status = 2
+            project_export.save(update_fields=['status'])
+        except Exception,e:
+            project_export.status = 3
+            project_export.save(update_fields=['status'])
+            utils.print_trace()
+            raise e
+        finally:
+            cur_project.is_exporting = False
+            cur_project.save(update_fields=['is_exporting'])
+
+        return HttpResponse("<h1>Export successfully .</h1>")  
+    else:
+        modules = Module.objects.filter(project = cur_project).order_by('-timestamp')
+        protocals = Protocal.objects.filter(module__in = modules).order_by('-timestamp')
+        protocal_types = ProtocalType.objects.all()
+        need_update = sync_proto.testUpdate(cur_project)
+        exported_projects = ProjectExport.objects.filter(project = cur_project).order_by('-timestamp')[:10]
+        return render(request, 'project_sync_proto.html',{'cur_project':cur_project,
+                                                          'modules':modules,
+                                                          'protocals':protocals,
+                                                          'protocal_types':protocal_types,
+                                                          'exported_projects':exported_projects,
+                                                          'need_update':need_update,
+                                                      })
+
+    
 def project_export(request,project_id):
     cur_project = get_object_or_404(Project, pk=project_id)
     if request.method == 'POST': 
@@ -1089,6 +1133,7 @@ def module_detail(request,module_id):
     segment_proto_types = SegmentProtoType.objects.all()
     relative_protocals = Protocal.objects.filter(module = cur_module)
 
+    protocals = protocals.order_by('protocal_id')
     return render(request, 'project_detail.html',{'cur_project':cur_project,
                                                   'cur_module':cur_module,
                                                   'modules':modules,
